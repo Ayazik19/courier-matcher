@@ -1,0 +1,31 @@
+.page-line-footer_sign-in-registration{
+    width: 425px;
+    display: block;
+    margin: 0 auto;
+}
+.footer-nav_sign-in-registration{
+    display: block;
+    float: left;
+    margin-top: 20px;
+}
+.form-select-language_sign-in-registration{
+    text-indent: 0px; /* Сдвиг текста на 10px вправо */
+    border: white;
+    height: 40px;
+    width: 175px;
+    color: rgb(46, 46, 46);}
+.footer-form-copyright_sign-in-registration{
+    margin-top: 10px;
+    margin-left: 2.5px;
+    color: rgb(46, 46, 46);
+}
+.text-terms-cooperation_sign-in-registration a{
+    font-size: 14.8px;
+    text-decoration: none;
+    color: rgb(46, 46, 46);
+}
+.text-coopyright_sign-in-registration{
+    margin-left: 52.5px;
+    font-size: 14.8px;
+    color: rgb(46, 46, 46);
+}

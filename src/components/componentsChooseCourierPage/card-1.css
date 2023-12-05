@@ -1,0 +1,71 @@
+.card-1 {
+    position: relative;
+    background-color: lime;
+    width: 450px;
+    height: 600px;
+    color: black;
+    margin: 50px auto auto 100px;
+    perspective: 1000px;
+    transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg) scale(0.9, 0.9);
+    border: solid #e6e6e6;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3); /* Adjusted box shadow */
+    transition: 0.4s ease-in-out transform, 0.4s ease-in-out box-shadow; /* Added box-shadow transition */
+}
+.card-inner-1 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.card-1:hover .card-inner-1 {
+    transform: rotateY(180deg);
+}
+
+.card-1:hover {
+    transform: translate3d(0px, 0px, -250px);
+    box-shadow: 0 50px 80px -20px rgba(32, 195, 187, 0.5);
+}
+.card-front-1,
+.card-back-1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-back-1 {
+    background: linear-gradient(to right, yellow, orange);
+    box-shadow: 0 5px 20px #d26d33;
+    transform: rotateY(180deg);
+}
+.card-back-1 img{
+    border: solid black;
+}
+.card-front-1 {
+    background: linear-gradient(to right, #1abc9c, #3498db);
+}
+
+.card-front-1 img {
+    width: 300px;
+    height: 300px;
+    padding-top: 50px;
+    margin-top: 18px;
+}
+.card-front-1 h1{
+    padding-top: 10px;
+}
+.card-back-1-awards-description{
+    color: black;
+}
+
+.card-back-1-button1-more-description{
+    color: black;
+    background-color: white;
+    border-radius: 20px;
+    height: 25px;
+    box-shadow: 0px 50px 80px -10px black;
+}

@@ -1,0 +1,87 @@
+.home-page-acc-header-right-icon-acc{
+    width: 100px;
+    margin-left: -20px;
+    display: inline-block;
+    align-items: center;
+}
+.account-icon{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-left: 21.5px;
+}
+.button-acc-link{
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-left: 0px;
+}
+
+.link-user-acc{
+    margin-left: 0px;
+}
+.name-user-acc{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: black;
+    font-weight: 500;
+}
+
+.button-home-page-heaeder-log-out-acc{
+    display: block;
+    height: 30px;
+    width: 100px;
+    background-color:  white;
+    border: solid 1px gray;
+    border-radius: 6px;
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+
+
+
+.button-home-page-header-button-registration-acc{
+    margin-top: 5px;
+    margin-left: -10px;
+    height: 30px;
+    width: 80px;
+    background-color: black;
+    border-color: black;
+    border-radius: 6px;
+}
+
+.link-register-header-home-page {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 5px auto auto 5px;
+}
+
+.button-home-page-header-button-sign-in-acc{
+    margin-top: 5px;
+    height: 30px;
+    width: 80px;
+    background-color:  white;
+    border: solid 1px gray;
+    border-radius: 6px;
+    margin-left: 30px;
+}
+
+.link-sign-in-header-home-page{
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 5px auto auto 10px;
+}

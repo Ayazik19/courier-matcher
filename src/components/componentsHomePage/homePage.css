@@ -1,0 +1,367 @@
+/* .home-page{
+    border: 1.5px solid rgb(156, 156, 156);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+} */
+
+
+
+.main-text{
+    text-decoration: none;
+    color: white;
+}
+
+.link-span_style-black{
+    text-decoration: none;
+    color: black;
+}
+
+.page-line-content{
+    background-color: none;
+    width: 1050px;
+    margin-left: 165px;
+    margin-right: 219px;
+}
+.main-img-container{
+    background-image: url('./homePagePhoto.jpg');
+    width: 100%;
+    height: 500px;
+    margin-top: 12.5px;
+}
+
+.main-content-text{
+    display: grid;
+    color: white;
+}
+
+
+.span-main-text-1{
+    color: white;
+    font-size: 50px;
+    padding-top: 75px;
+    padding-left: 75px;
+}
+
+.span-text-2{
+    color: white;
+    font-size: 20px;
+    padding-left: 80px;
+    padding-top: 55px;
+    padding-bottom: 70px;
+}
+
+button.button-main-content {
+    width: 250px;
+    margin-left: 80px;
+    height: 40px;
+    background-color: yellow;
+    border-color: yellow;
+    border-radius: 4px;
+}
+
+button.button-content {
+    margin-left: 450px;
+    margin-top: 60px;
+    width: 300px;
+    height: 45px;
+    background-color: yellow;
+    border-color: yellow;
+    border-radius: 4px;
+}
+
+.link-to-choose-courier-main-content{
+    display: block;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 10px auto auto 90px;
+}
+.link-to-choose-courier-content-1{
+    display: block;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 10px auto auto 115px;
+}
+
+
+
+
+.description-text{
+    display: block;
+    margin-bottom: 40px;
+}
+.advantages-couriers{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-column-gap: 15px;
+    margin-top: 30px;
+    margin-left: 72.5px;
+}
+.cards-1{
+    height: 350px;
+    /* margin-left: 72.5px; */
+    border-radius: 8px;
+    width: 100%;
+    background-color: rgb(203, 201, 201);
+}
+
+.photo{
+    padding-top: 0px;
+    margin-top: 0px;
+    height: 350px;
+    /* margin-left: 20px; */
+    width: 100%;
+    border-radius: 8px;
+}
+
+.cards-2{
+    height: 350px;
+    width: 100%;
+    /* margin-left: 20px; */
+    border-radius: 8px;
+    background-color: rgb(203, 201, 201);
+} 
+
+.span-large-text-content-castom{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.text-container-1{
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.text-container-2{
+    margin-bottom: 20px;
+}
+.text-container-3{
+    margin-bottom: 25px;
+}
+
+.text-container-1,
+.text-container-2,
+.text-container-3{
+    margin-left: 11px;
+}
+
+
+
+
+
+
+.content-1-advantages-couriers,
+.content-2-user-reviews,
+.content-3-service-choose-instructions-couriers{
+    margin-left: 10px;
+    margin-top: 100px;
+}
+
+.content-name-advantages-couriers,
+.content-name-user-reviews,
+.content-name-service-choose-instructions-couriers{
+    margin-left: 73px;
+}
+
+
+
+.users-reviews-cards{
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;    
+    grid-column-gap: 15px;
+    margin-left: 72.5px;
+}
+
+.users-reviews-cards-1,
+.users-reviews-cards-2,
+.users-reviews-cards-3{
+    height: 560px;
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid rgb(207, 207, 207);
+}
+
+
+.photo-user-reviews{
+    width: 100%;
+    height: 45%;
+    border-radius: 0px;
+}
+
+.photo-user-reviews-1,
+.photo-user-reviews-2,
+.photo-user-reviews-3{
+    width: 100%;
+    height: 250px;
+    border-radius: 0px;
+}
+
+
+.text-container{
+    margin-left: 20px;
+}
+
+.span-large-text-content-castom_left{
+    display: inline-block;
+    margin-top: 25px;
+    margin-bottom: 12.5px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.span-large-text-content-cards-castom_bald-400{
+    display: block;
+    margin-top: 35px;
+    margin-bottom: 12.5px;
+    margin-left: 25px;
+    font-size: 24px;
+    font-weight: 500;
+}
+.span-large-text-content-cards-style_opacity{
+    display: block;
+    margin-top: 20px;
+    font-size: 24px;
+    margin-left: 30px;
+    opacity: 0.5;
+}
+
+.span-weight{
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.instruction-choose-courier-cards{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 22.5px;
+    margin-left: 72.5px;
+}
+
+.cards-instruction-1,
+.cards-instruction-2,
+.cards-instruction-3,
+.cards-instruction-4{
+    background-color: rgb(255, 225, 0);
+    height: 210px;
+    border-radius: 16px;
+    border-color: rgb(255, 204, 0);
+}
+
+
+
+.button-instruction-couriers {
+    margin-left: 420px;
+    margin-top: 60px;
+    width: 300px;
+    height: 45px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    border-radius: 4px;
+}
+
+
+.link-to-choose-courier_style-white{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 10px auto auto 115px;   
+}
+
+.photo-instruction-cards-1,
+.photo-instruction-cards-2{
+    position: absolute;
+    margin-left: 290px;
+    margin-top: -140px;
+    width: 172.5px;
+    border-radius: 0px;
+}
+
+
+.photo-instruction-cards-3{
+    position: absolute;
+    margin-left: 295px;
+    margin-top: -100px;
+    width: 172.5px;
+    border-radius: 0px;
+}
+
+.photo-instruction-cards-4{
+    position: absolute;
+    margin-left: 307.5px;
+    margin-top: -120px;
+    width: 172.5px;
+    border-radius: 0px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+footer{
+    width: 100%;
+    height: 425px;
+    background-color: rgb(56, 56, 56);
+    color: white;
+    margin-top: 200px;
+}
+.expalanations-copyrights-text{
+    width: 65.7%;
+    margin-left: 17.2%;
+}
+.expalanation-text{
+    font-size: 16px;
+    padding-top: 80px;
+}
+.span-explanation-2{
+    display: block;
+    margin-top: 10px;
+}
+
+.span-copyright-1{
+    display: block;
+    margin-top: 10px;
+    float: left;
+    font-size: 16px;
+}
+.span-copyright-2{
+    display: block;
+    margin-right: 1px;
+    float: right;
+}
+
+
+.link-span_style-black{
+    color: black;
+    text-decoration: none;
+}
+
+

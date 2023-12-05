@@ -1,0 +1,13 @@
+.button1-increment{
+    margin-right: 7.50px;
+    border-color: black;
+    box-shadow: 2px 2px 6px 2px black;
+    background-color: green;
+    color: white;
+}
+.button2-decrement{
+    border-color: black;
+    box-shadow: 2px 2px 6px 2px black;
+    background-color: red;
+    color: white;
+}

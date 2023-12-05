@@ -1,0 +1,100 @@
+.form-text-question-input-1,
+.form-text-question-input-2,
+.form-text-question-input-3{
+    margin-left: 23px;
+    /* margin-bottom: 20px; */
+    font-size: 14px;
+}
+
+.form-input-1{
+    margin-bottom: 10px;
+}
+
+.form-input-2,
+.form-input-3{
+    margin-top: 15px;
+}
+.input-1,
+.input-2{
+    margin: 0px 10px 26.5px 20px;
+    margin-top: 2.5px;
+    color:black;
+    height: 30px;
+    width: 295px;
+    border-color: black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.input-3-day{
+    margin: 0px 10px 0px 20px;
+    margin-top: 2.5px;
+    color:black;
+    height: 30px;
+    width: 143px;
+    border-color: black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.input-4-time{
+    margin-top: 2.5px;
+    color:black;
+    height: 32px;
+    width: 143px;
+    border-color: black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.parent-container {
+    padding-left: 23px;
+}
+.helper-text{
+    display: inline;
+    font-size: 12px;
+    margin-right: 40px;
+    color: red;
+}
+
+
+.form-button-reset{
+    margin-top: 45px;
+    margin-bottom: 10px;
+}
+
+button{
+    margin-left: 110px;
+    height: 24px;
+    white-space: nowrap;
+    width: 105px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border-color: black;
+}
+
+/* #button-reset{
+    margin-left: 110px;
+    height: 25px;
+    width: 105px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border-color: black;
+}
+
+button[type="submit"]{
+    margin-left: 110px;
+    height: 25px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border-color: black;
+} */
+
+
+
+

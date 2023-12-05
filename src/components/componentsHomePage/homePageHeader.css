@@ -1,0 +1,106 @@
+header {
+    display: flex;
+    align-items: center;
+    margin-left: 0px;
+}
+.navbar{
+    display: flex;
+    /* justify-content: space-between; */
+    margin-left: 175px;
+    margin-right: 130px;
+}
+.nav-links{
+    display: flex;
+    /* justify-content: space-between; */
+}
+.name-site {
+    display: block;
+    margin-left: 250px;
+}
+.page-line-header{
+    align-items: center;
+}
+/* .name-site a{
+    display: absolute;
+    margin-left: 0px
+} */
+.span-home-page-header a{
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-link-1 {
+    color: black;
+    text-decoration: none;
+    margin-left: 0px;
+}
+  
+.navbar-link-2 {
+    color: black;
+    text-decoration: none;
+    margin-left: 35px;
+}
+.navbar-link-3 {
+    color: black;
+    text-decoration: none;
+    margin-left: 35px;
+}
+.navbar-link-4{
+    color: black;
+    text-decoration: none;
+    margin-left: 35px;
+}
+
+
+.navbar-link-1_color-gray {
+    color: gray;
+    text-decoration: none;
+    margin-left: 0px;
+}
+  
+.navbar-link-2_color-gray {
+    color: gray;
+    text-decoration: none;
+    margin-left: 35px;
+}
+.navbar-link-3_color-gray {
+    color: gray;
+    text-decoration: none;
+    margin-left: 35px;
+}
+.navbar-link-4_color-gray{
+    color: gray;
+    text-decoration: none;
+    margin-left: 35px;
+}
+
+
+.search-input-categories{
+    display: inline-flex;
+}
+.sticky {
+    position: fixed;
+    background-color: white;
+    margin-top: 0px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    height: 80px;
+}
+
+.sticky-header-underline{
+    position: fixed;
+    height: 80px;
+    border: 1.5px solid rgb(156, 156, 156);
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}

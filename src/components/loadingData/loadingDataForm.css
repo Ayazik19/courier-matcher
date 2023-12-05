@@ -1,0 +1,28 @@
+.loading-submit-data-user{
+    position: absolute;
+    border-radius: 16px;
+    margin-left: 0px;
+}
+
+.bar {
+    width: 425px;
+    height: 4px;
+    border-radius: 16px;
+    background-color:  orange;
+}
+.load .bar {
+    animation: loadingJ 1s linear infinite alternate;
+}
+@keyframes loadingJ {
+    0%,
+    100% {
+      /* transform: translate(0, 0); */
+      background-color: yellow;
+    }
+  
+    50% {
+      transform: translate(180px, 0);
+      background-color: black;
+      width: 25px;
+    }
+  }

@@ -1,0 +1,12 @@
+.form-users-wishes{
+    width: 350px;
+    height: 490px;
+    margin: 15px 0px 30px 550px;
+    border-radius: 15px;
+    box-shadow: 0px 50px 80px -20px black;
+    background: linear-gradient(to top, yellow, orange);
+    color: black;
+}
+.form-main-title{
+    padding: 30px 0 20px 23px;
+}

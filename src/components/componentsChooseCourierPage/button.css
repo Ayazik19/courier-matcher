@@ -1,0 +1,9 @@
+.user{
+    text-align: center;
+}
+button{
+    color: black;
+    background-color: white;
+    box-shadow: 1px 1px 4px 4px black;
+    margin-left: 10px;
+}

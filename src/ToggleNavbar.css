@@ -1,0 +1,21 @@
+
+
+
+menu.open {
+    max-height: 200px; /* высота меню при открытии */
+    width: 150px;
+    transition: max-height 0.3s ease; /* Добавлено свойство перехода */
+    background-color: gray;
+    color: black;
+}
+
+/* Добавлено свойство позиции и z-index */
+.menu {
+    position: absolute;
+    z-index: 1;
+    background-color: gray;
+    margin-left: 1000px;
+    list-style-type: none;
+    width: 95px;
+    padding-right: 10px;
+}
