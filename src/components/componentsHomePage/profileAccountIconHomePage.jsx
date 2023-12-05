@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hook/useauth.js';
 import { useDispatch } from "react-redux";
 import { removeUser } from "../store/slices/userSlice.js";
-import CheckAccountPhotoProfile from './CheckAccountPhotoProfile.jsx';
+import CheckAccountPhotoProfile from './checkAccountPhotoProfile.jsx';
 import "./profileAccountIconHomePage.css";
 
 export default function ProfileAccountIconHomePage() {

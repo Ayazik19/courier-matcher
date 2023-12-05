@@ -105,10 +105,9 @@ export default function SignInUserOnlyPassPage(){
                     const userData = userDocSnapshot.data();
                     const cookieValueInFirebase = userData.cookie;
                     const displayName = userData.displayName;
-                    const token = await user.getIdToken(); // Получаем токен доступа
+                    const token = await user.getIdToken();
                     
                     if (cookie === false) {
-                        // setShowCheckBoxCookies(true);
                         try {
                             await updateDoc(doc(db, "users", user.email), {
                                 cookie: isCheckedCheckBoxCookies,
@@ -131,9 +130,7 @@ export default function SignInUserOnlyPassPage(){
                             }));
                             setLoadingData(false);
                             navigate('/');
-                            console.log("Cookie field updated successfully");
                         } catch (error) {
-                            console.log("Error updating cookie field:", error);
                         }
                     }
                     else if (cookieValueInFirebase === true) {
@@ -221,7 +218,7 @@ export default function SignInUserOnlyPassPage(){
                             I don't remember the password
                         </Link>
                     </span>
-                    <div className={isSetCookieInFirebaseTrue ? 'text-form-error-pass-resest-user-data_cookie-value-false' : 'text-form-error-pass-resest-user-data_cookie-value-'}>
+                    <div className={isSetCookieInFirebaseTrue ? 'text-form-error-pass-resest-user-data_cookie-value-false' : 'text-form-error-pass-resest-user-data_cookie-value-true'}>
                         {isErrorUserData ? <p>Incorrect password. Try again.</p> : null}                     
                     </div>
                 </div>

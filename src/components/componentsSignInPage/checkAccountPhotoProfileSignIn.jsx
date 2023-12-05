@@ -5,9 +5,6 @@ import photoUserDefault from '../componentsUserAccPage/photoUserDefaultAcc.jpg';
 
 export default function CheckAccountPhotoProfileSignIn(){
     const { photoAcc } = useAuth();
-    
-
-    
 
     return photoAcc ? (
         <div>

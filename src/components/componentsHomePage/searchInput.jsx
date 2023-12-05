@@ -22,7 +22,6 @@ export default function SearchInput(){
                     list="search-input-list"
                     />
                     <datalist id = "search-input-list">
-                        {/* <option value={"Us couriers"}></option> */}
                         <option>
                             <a href="#advantages">Advantages</a>
                         </option>

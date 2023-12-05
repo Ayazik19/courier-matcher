@@ -5,9 +5,6 @@ import './checkAccountPhotoProfile.css';
 
 export default function CheckAccountPhotoProfile(){
     const { photoAcc } = useAuth();
-    
-
-    
 
     return photoAcc ? (
         <div>

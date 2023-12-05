@@ -76,15 +76,14 @@ export default function RegistrationPage() {
             const token = await user.getIdToken(); 
             const usersCollection = collection(db, 'users');
             const newUser = {
-                email: user.email, // Используется сгенерированный идентификатор пользователя в качестве имени документа
+                email: user.email,
                 id: user.uid, 
                 displayName: inputRegistrationLogin,
                 token: token,
             };
             
-            const userDocRef = doc(usersCollection, user.email); // Используется идентификатор пользователя в качестве имени документа
+            const userDocRef = doc(usersCollection, user.email); 
             await setDoc(userDocRef, newUser);
-            const docSnapshot = await getDoc(userDocRef);
 
             dispatch(setUser({
                 email: user.email,
