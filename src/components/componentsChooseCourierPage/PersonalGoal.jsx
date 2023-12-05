@@ -1,4 +1,4 @@
-import Item from './itemPersonalGoal.js';
+import Item from './itemPersonalGoal.jsx';
 
 export default function PackingList(props){
     return(

@@ -8,12 +8,11 @@ import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { firebaseConfig } from '../firebase';
 import { collection, getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import RegistrationPageButtonBack from './registrationPageButtonBack';
+import RegistrationPageButtonBack from './registrationPageButtonBack.jsx';
 import logoSite from '../componentsHomePage/logoSite.png';
 import LoadingDataForm from '../loadingData/loadingDataForm';
-import FooterForm from '../componentsRegistrationPage/FooterForm.js'
+import FooterForm from '../componentsRegistrationPage/FooterForm.jsx'
 import { useAuth } from '../hook/useauth';
-import { setCookieAcceptUser } from '../store/slices/userSlice.js';
 
 
 const app = initializeApp(firebaseConfig); 

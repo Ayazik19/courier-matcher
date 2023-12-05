@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import "./homePage.css";
 import img from './homePagePhotoContent.jpeg';
-import HomePageHeader from './homePageHeader.js';
+import HomePageHeader from './homePageHeader.jsx';
 import imgContentCardOne from './homePagePhotoContentCardsOne.png';
 import imgContentCardTwo from './homePagePhotoContentCardsTwo.png';
 import imgContentCardThree from './homePagePhotoContentCardsThree.png';

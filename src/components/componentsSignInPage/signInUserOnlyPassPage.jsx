@@ -17,7 +17,7 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebase.js';
 import LoadingDataForm from '../loadingData/loadingDataForm';
 import logoSite from '../componentsHomePage/logoSite.png';
-import FooterForm from '../componentsRegistrationPage/FooterForm.js'
+import FooterForm from '../componentsRegistrationPage/FooterForm.jsx'
 import { inputEmailPasswordReset } from '../componentsSignInPasswordRecoveryPage/signInPasswordRecoveryPage.jsx';
 import './signInUserOnlyPassPage.css';
 import CheckAccountPhotoProfileSignIn from './checkAccountPhotoProfileSignIn.jsx';

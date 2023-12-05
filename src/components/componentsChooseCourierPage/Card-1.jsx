@@ -2,7 +2,7 @@ import {MyImg} from '../../MyImg';
 import AwardsItems from './AwardsList';
 import {courierYandex} from '../../ArrayWithNameCourier/dateCouriers';
 import './card-1.css';
-import ButtonDescription from './ButtonMoreDescription';
+import ButtonDescription from './ButtonMoreDescription.jsx';
 
 export default function Card1(){
     return(
