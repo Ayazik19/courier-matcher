@@ -12,7 +12,6 @@ import RegistrationPageButtonBack from './registrationPageButtonBack.jsx';
 import logoSite from '../componentsHomePage/logoSite.png';
 import LoadingDataForm from '../loadingData/loadingDataForm';
 import FooterForm from '../componentsRegistrationPage/FooterForm.jsx'
-import { useAuth } from '../hook/useauth';
 
 
 const app = initializeApp(firebaseConfig); 
@@ -20,91 +19,85 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export default function RegistrationPage() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [isLoadingData, setLoadingData] = useState(false);
+    const [isLoadingData, setLoadingData] = useState(false);
 
-  const { register, formState: { errors, isSubmitted }, handleSubmit } = useForm({ mode: 'onSubmit' });
+    const { register, formState: { errors, isSubmitted }, handleSubmit } = useForm({ mode: 'onSubmit' });
 
-  const [ isErrorInputOne, setErrorInputOne ] = useState (false);
-  const [ isErrorInputTwo, setErrorInputTwo ] = useState (false);
-  const [ isErrorInputThree, setErrorInputThree ] = useState (false);
+    const [ isErrorInputOne, setErrorInputOne ] = useState (false);
+    const [ isErrorInputTwo, setErrorInputTwo ] = useState (false);
+    const [ isErrorInputThree, setErrorInputThree ] = useState (false);
 
-  const [ isAccountAlreadyRegistered, setIsAccountAlreadyRegistered] = useState(false);
+    const [ isAccountAlreadyRegistered, setIsAccountAlreadyRegistered] = useState(false);
 
-  const [isErrorAlreadyRegistredAndValidationInputThree, setIsErrorAlreadyRegistredAndValidationInputThree] = useState(false);
-
-  const { cookieAccept } = useAuth();
+    const [isErrorAlreadyRegistredAndValidationInputThree, setIsErrorAlreadyRegistredAndValidationInputThree] = useState(false);
 
 
 
-  useEffect(() => {
-    if (!isSubmitted) {
-        return;
-      }
+
+    useEffect(() => {
+        if (!isSubmitted) {
+            return;
+        }
 
 
-    if(errors.inputRegistrationLogin) {
-        setErrorInputOne(true);
-    } else if(!errors.inputRegistrationLogin){
-        setErrorInputOne(false);
-    }
+        if(errors.inputRegistrationLogin) {
+            setErrorInputOne(true);
+        } else if(!errors.inputRegistrationLogin){
+            setErrorInputOne(false);
+        }
 
-    if(errors.inputRegistrationEmail) {
-        setErrorInputTwo(true);
-    } else if(!errors.inputRegistrationEmail){
-        setErrorInputTwo(false);
-    } 
+        if(errors.inputRegistrationEmail) {
+            setErrorInputTwo(true);
+        } else if(!errors.inputRegistrationEmail){
+            setErrorInputTwo(false);
+        } 
 
-    if(errors.inputRegistrationPass) {
-        setErrorInputThree(true);
-    } else if(!errors.inputRegistrationPass){
-        setErrorInputThree(false);
-    }
-  },[errors, isSubmitted]);
+        if(errors.inputRegistrationPass) {
+            setErrorInputThree(true);
+        } else if(!errors.inputRegistrationPass){
+            setErrorInputThree(false);
+        }
+    },[errors, isSubmitted]);
 
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const handleRegister = async (data) => {
-    const { inputRegistrationLogin, inputRegistrationEmail, inputRegistrationPass } = data;
-    setLoadingData(true);
-    try {
-            const { user } = await createUserWithEmailAndPassword(auth, inputRegistrationEmail, inputRegistrationPass);
-            await updateProfile(auth.currentUser, { displayName: inputRegistrationLogin });
+    const handleRegister = async (data) => {
+        const { inputRegistrationLogin, inputRegistrationEmail, inputRegistrationPass } = data;
+        setLoadingData(true);
+        try {
+                const { user } = await createUserWithEmailAndPassword(auth, inputRegistrationEmail, inputRegistrationPass);
+                await updateProfile(auth.currentUser, { displayName: inputRegistrationLogin });
 
-            const token = await user.getIdToken(); 
-            const usersCollection = collection(db, 'users');
-            const newUser = {
-                email: user.email,
-                id: user.uid, 
-                displayName: inputRegistrationLogin,
-                token: token,
-            };
-            
-            const userDocRef = doc(usersCollection, user.email); 
-            await setDoc(userDocRef, newUser);
+                const token = await user.getIdToken(); 
+                const usersCollection = collection(db, 'users');
+                const newUser = {
+                    email: user.email,
+                    id: user.uid, 
+                    displayName: inputRegistrationLogin,
+                    token: token,
+                };
+                
+                const userDocRef = doc(usersCollection, user.email); 
+                await setDoc(userDocRef, newUser);
 
-            dispatch(setUser({
-                email: user.email,
-                id: user.uid,
-                token: token,
-                displayName: inputRegistrationLogin,
-                cookie: cookieAccept,
-            }));
+                dispatch(setUser({
+                    email: user.email,
+                    id: user.uid,
+                    token: token,
+                    displayName: inputRegistrationLogin,
+                }));
+                setLoadingData(false);
+                navigate("/");
+        }
+        catch (err) {
             setLoadingData(false);
-            navigate("/");
+            setIsAccountAlreadyRegistered(true);
+            setIsErrorAlreadyRegistredAndValidationInputThree(true);
+        }
     }
-    catch (err) {
-        setLoadingData(false);
-        setIsAccountAlreadyRegistered(true);
-        setIsErrorAlreadyRegistredAndValidationInputThree(true);
-    }
-  }
-
-        
-    
-
 
     return (
             <div className='page-registration'>

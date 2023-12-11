@@ -3,14 +3,13 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from '../firebase';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { setCookieAcceptUser, setUser } from '../store/slices/userSlice.js';
+import { setUser } from '../store/slices/userSlice.js';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import './signInPasswordRecoveryPage.css';
 import logoSite from '../componentsHomePage/logoSite.png';
 import RegistrationPageButtonBack from '../componentsRegistrationPage/registrationPageButtonBack';
 import LoadingData from '../loadingData/loadingDataForm';
-import { useAuth } from '../hook/useauth';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -36,29 +35,13 @@ export default function SignInPasswordRecoveryPage() {
         await sendPasswordResetEmail(auth, inputEmailPasswordReset);
         const userData = userDocSnapshot.data();
         const displayName = userData.displayName;
-        const cookieValueInFirebase = userData.cookie;
         const token = await auth.currentUser.getIdToken();
 
-        let cookieValueInFirebaseOperationCheck;
-
-        if(cookieValueInFirebase === undefined){
-          cookieValueInFirebaseOperationCheck = false;
-          dispatch(setUser({
-              token: token,
-              email: inputEmailPasswordReset,
-              displayName: displayName,
-              cookie: cookieValueInFirebaseOperationCheck,
-          }));
-  
-        }
-        else if(cookieValueInFirebase === true || cookieValueInFirebase === false){
-          dispatch(setUser({
-            token: token,
-            email: inputEmailPasswordReset,
-            displayName: displayName,
-            cookie: cookieValueInFirebase,
-          }));
-        }
+        dispatch(setUser({
+          token: token,
+          email: inputEmailPasswordReset,
+          displayName: displayName,
+        }));
         setLoadingData(false);
         setIsErrorUserData(false);
         setisEmailLinkHaveBeenSending(true);

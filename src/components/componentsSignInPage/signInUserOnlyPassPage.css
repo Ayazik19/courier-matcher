@@ -34,12 +34,12 @@ span{
     border-radius: 0px;
 }
 .form-sign-in-only-pass-page{
-    margin: 125px auto 0px;
+    margin: 150px auto 0px;
     display: block;
     background-color: white;
     border: solid 1px gray;
     border-top: 4px solid rgb(97, 97, 97);
-    height: 500px;
+    height: 480px;
     width: 425px;
     border-radius: 16px;
 }
@@ -74,7 +74,7 @@ span{
     color: black;
     font-weight: 600;
     margin-top: 6.5px;
-    margin-left: 10px;
+    margin-left: 0px;
 }
 
 .text-acc-user-sign-in_long-count-email{
@@ -151,22 +151,15 @@ span{
     text-decoration: none;
 }
 .forgot-pass_helper-text-input a{
-
     text-decoration: none;
 }
-.text-form-error-pass-resest-user-data_cookie-value-true{
-    margin-top: -30px;
-    position: absolute;
-    color: red;
-    width: 85%;
-    font-size: 14.5px;
-}
 .text-form-error-pass-resest-user-data_cookie-value-false{
-    margin-top: -58px;
+    margin-top: -31px;
     position: absolute;
     color: red;
     width: 85%;
     font-size: 14.5px;
+    overflow-x: hidden
 }
 
 .button-sign-in{

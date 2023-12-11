@@ -20,7 +20,6 @@ const userSlice = createSlice({
             state.password = action.payload.password;
             state.email = action.payload.email;
             state.photoAcc = action.payload.photoAcc;
-            state.cookie = action.payload.cookie;
         },
         removeUser(state) {
             state.token = null;

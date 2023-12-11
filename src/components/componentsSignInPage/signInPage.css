@@ -22,12 +22,12 @@ span{
     border-radius: 0px;
 }
 .form-sign-in-page{
-    margin: 85px auto 0px;
+    margin: 110px auto 0px;
     display: block;
     background-color: white;
     border: solid 1px gray;
     border-top: 4px solid rgb(97, 97, 97);
-    height: 525px;
+    height: 515px;
     width: 425px;
     border-radius: 16px;
 }
@@ -102,7 +102,7 @@ span{
 }
 .helper-text-inputs-sign-in-2{
     color: red;
-    
+    overflow-x: hidden;
 }
 .forgot-pass_helper-text-input{
     display: block;
@@ -118,8 +118,9 @@ span{
     text-decoration: none;
 }
 .text-form-error-sign-in-user-data{
-    margin-top: -59px;
+    margin-top: -31px;
     position: absolute;
+    overflow-x: hidden;
     color: red;
     width: 85%;
     font-size: 14.5px;

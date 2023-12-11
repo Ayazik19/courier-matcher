@@ -1,4 +1,3 @@
-import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -6,10 +5,7 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { setUser } from '../store/slices/userSlice.js';
-import { setCookieAcceptUser } from '../store/slices/userSlice.js';
-import { selectCookieAcceptance } from '../store/slices/userSlice.js';
+import { setUser, removeUser } from '../store/slices/userSlice.js';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -26,45 +22,31 @@ import { useAuth } from '../hook/useauth.js';
 const app = initializeApp(firebaseConfig); 
 const db = getFirestore(app);
 
+export let userEmails = [];
 
 export default function SignInUserOnlyPassPage(){
     const navigate = useNavigate();
 
-    const { cookie } = useAuth();
-
     const [isBackRegister, setIsBackRegister] = useState(false);
-    const [isChooseAccPage, setIsChooseAccPage] = useState(false);
 
-    const handleChooseAccPage = () =>{
-        setIsChooseAccPage(true);
-        navigate('/SignIn-registration-choose-acc-user');
+    const handleChooseAccPage = () => {
+        dispatch(removeUser());
+        navigate('/SignIn-Registration');
     }
 
     const handleBackRegister = () => {
         setIsBackRegister(true);
     }
 
-    const [cookies, setCookie] = useCookies(['userEmail']);
-    const [isSetCookieInFirebaseTrue, setIsCookieInFirebaseTrue] = useState(false);
-    const [isShowCheckBoxCookies, setShowCheckBoxCookies] = useState(false);
-    const [isCheckedCheckBoxCookies, setIsCheckedCheckBoxCookies] = useState(false);
-    
-    
-    const handleCheckboxChange = async (event) => {
-        setIsCheckedCheckBoxCookies(event.target.checked);
-    };
-
-
-    
-    const [ isLoadingData, setLoadingData] = useState(false);
+    const [isLoadingData, setLoadingData] = useState(false);
 
     const { register, handleSubmit} = useForm({mode:'onChange'});
 
-    const [ isErrorUserData, setIsErrorUserData ] = useState(false);
+    const [isErrorUserData, setIsErrorUserData] = useState(false);
 
     const { email, displayName } = useAuth();
 
-    const [ isShiftDisplayName, setIsShiftDisplayName] = useState(false);
+    const [isShiftDisplayName, setIsShiftDisplayName] = useState(false);
 
     useEffect(() => {
         const countEmail = email;
@@ -77,11 +59,6 @@ export default function SignInUserOnlyPassPage(){
             setIsShiftDisplayName(false);
         }
 
-        if (cookie === false) {
-            setShowCheckBoxCookies(true);
-        } else if (cookie === true) {
-            setShowCheckBoxCookies(false);
-        }
     },[]);
 
 
@@ -96,56 +73,24 @@ export default function SignInUserOnlyPassPage(){
             const userCredential = await signInWithEmailAndPassword(auth, inputEmailPasswordReset, inputPassSignIn);
             const user = userCredential.user;
 
-    
             if (user && user.email) {
                 const userDocRef = doc(db, "users", user.email);
                 const userDocSnapshot = await getDoc(userDocRef);
 
                 if (userDocSnapshot.exists()) {
                     const userData = userDocSnapshot.data();
-                    const cookieValueInFirebase = userData.cookie;
                     const displayName = userData.displayName;
                     const token = await user.getIdToken();
                     
-                    if (cookie === false) {
-                        try {
-                            await updateDoc(doc(db, "users", user.email), {
-                                cookie: isCheckedCheckBoxCookies,
-                            });
-                            auth.onAuthStateChanged((user) => {
-                                if (user) {
-                                    const expirationDateCookies = new Date("2023-12-31T23:59:59");
-                                    let userEmails = cookies.emailUser ? cookies.emailUser : [];
-                                    userEmails.push(user.email);
-                                    setCookie('emailUser', userEmails, { path: '/', expires: expirationDateCookies });
-                                    console.log(userEmails);
-                                }
-                            });
-                            dispatch(setUser({
-                                email: user.email,
-                                id: user.uid,
-                                token: token,
-                                displayName: displayName,
-                                cookie: isCheckedCheckBoxCookies,
-                            }));
-                            setLoadingData(false);
-                            navigate('/');
-                        } catch (error) {
-                        }
-                    }
-                    else if (cookieValueInFirebase === true) {
-                        setIsCookieInFirebaseTrue(true);
                         dispatch(setUser({
                             email: user.email,
                             id: user.uid,
                             token: token,
                             displayName: displayName,
-                            cookie: cookieValueInFirebase,
                         }));
                         setLoadingData(false);
                         navigate('/');
                     }
-                }
             } 
         } catch (err) {
             setLoadingData(false);
@@ -163,7 +108,7 @@ export default function SignInUserOnlyPassPage(){
                 <div className='header-form'>
                     <img src = {logoSite} className='form-sign-in-logo-site'/>
                 </div>
-                <div className={isSetCookieInFirebaseTrue ? 'form-user-name-acc-sign-in_cookie-value-false' : 'form-user-name-acc-sign-in_cookie-value-true'}>
+                <div className='form-user-name-acc-sign-in_cookie-value-false'>
                     <span className='span-large-text-name-acc-sign-in'>
                         {displayName}
                     </span>       
@@ -201,16 +146,6 @@ export default function SignInUserOnlyPassPage(){
                         type="password"
                         className={isErrorUserData ? 'signIn-input-error-2' : 'signIn-input-2'}
                     />
-                    {isShowCheckBoxCookies ? 
-                        <label className='input-remeber-user'>
-                            <input 
-                                className='password-reset-input-remember-user-acc_checkbox'
-                                type="checkbox"
-                                onChange={handleCheckboxChange}
-                            />
-                            Remeber me
-                        </label>
-                    : null } 
                 
                     
                     <span className='forgot-pass_helper-text-input'>
@@ -218,7 +153,7 @@ export default function SignInUserOnlyPassPage(){
                             I don't remember the password
                         </Link>
                     </span>
-                    <div className={isSetCookieInFirebaseTrue ? 'text-form-error-pass-resest-user-data_cookie-value-false' : 'text-form-error-pass-resest-user-data_cookie-value-true'}>
+                    <div className='text-form-error-pass-resest-user-data_cookie-value-false'>
                         {isErrorUserData ? <p>Incorrect password. Try again.</p> : null}                     
                     </div>
                 </div>

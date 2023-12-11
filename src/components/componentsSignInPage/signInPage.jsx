@@ -1,8 +1,7 @@
-import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
@@ -21,7 +20,8 @@ import { useAuth } from '../hook/useauth.js';
 
 
 const app = initializeApp(firebaseConfig); 
-const db = getFirestore(app); // Используйте `getFirestore` вместо `admin.firestore()`
+const db = getFirestore(app);
+
 
 export default function SignInPage() {
     const [ isLoadingData, setLoadingData] = useState(false);
@@ -32,13 +32,6 @@ export default function SignInPage() {
         setIsBackRegister(true);
     }
 
-    const [cookies, setCookie] = useCookies(['userEmail']);
-    const [isCheckedCheckBoxCookies, setIsCheckedCheckBoxCookies] = useState(false);
-
-    const handleCheckBoxChanged = (event) => {
-        setIsCheckedCheckBoxCookies(event.target.checked);
-    }
-    
     const { isAuth, email } = useAuth();
     const { register, handleSubmit} = useForm({mode:'onChange'});
     const dispatch = useDispatch();
@@ -61,47 +54,16 @@ export default function SignInPage() {
                 if (userDocSnapshot.exists()) {
                     const userData = userDocSnapshot.data();
                     const displayName = userData.displayName;
-                    const cookieValueInFirebase = userData.cookie;
                     const token = await user.getIdToken();
-    
-                    if (cookieValueInFirebase === undefined || cookieValueInFirebase === false) {    
-                        try {
-                            await updateDoc(doc(db, "users", user.email), {
-                                cookie: isCheckedCheckBoxCookies,
-                            });
-                            auth.onAuthStateChanged((user) => {
-                                if (user) {
-                                    const expirationDateCookies = new Date("2023-12-31T23:59:59");
-                                    let userEmails = cookies.emailUser ? cookies.emailUser : [];
-                                    userEmails.push(user.email);
-                                    setCookie('emailUser', userEmails, { path: '/', expires: expirationDateCookies });
-                                    console.log(userEmails);
-                                }
-                            });
-                            dispatch(setUser({
-                                email: user.email,
-                                id: user.uid,
-                                token: token,
-                                displayName: displayName,
-                                cookie: isCheckedCheckBoxCookies,
-                            }));
-                            setLoadingData(false);
-                            navigate('/');
-                        } catch (error) {
-                        }
-                    }
-                    else if (cookieValueInFirebase === true) {
                         dispatch(setUser({
                             email: user.email,
                             id: user.uid,
                             token: token,
                             displayName: displayName,
-                            cookie: cookieValueInFirebase,
                         }));
                         setLoadingData(false);
                         navigate('/');
                     }
-                }
             }
         } catch (error) {
             setLoadingData(false);
@@ -158,14 +120,6 @@ export default function SignInPage() {
                             type="password"
                             className={isErrorUserData ? 'signIn-input-error-2' : 'signIn-input-2'}
                         />
-                        <label className='input-remeber-user'>
-                            <input 
-                                className='sign-in-input-remember-user-acc_checkbox'
-                                type="checkbox"
-                                onChange={handleCheckBoxChanged}
-                            />
-                            Remeber me
-                        </label>
                         <span className='forgot-pass_helper-text-input'>
                             <Link to = '/sign-In-password-recovery'>
                                 I don't remember the password
