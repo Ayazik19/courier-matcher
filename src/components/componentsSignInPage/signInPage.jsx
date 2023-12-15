@@ -5,7 +5,7 @@ import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
-import { setUser } from '../store/slices/userSlice.js';
+import { setUser, setUserPhotoProfile } from '../store/slices/userSlice.js';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -32,7 +32,7 @@ export default function SignInPage() {
         setIsBackRegister(true);
     }
 
-    const { isAuth, email } = useAuth();
+    const { isAuth } = useAuth();
     const { register, handleSubmit} = useForm({mode:'onChange'});
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -54,13 +54,16 @@ export default function SignInPage() {
                 if (userDocSnapshot.exists()) {
                     const userData = userDocSnapshot.data();
                     const displayName = userData.displayName;
+                    const photoAcc = userData.photoAcc;
                     const token = await user.getIdToken();
+                    
                         dispatch(setUser({
                             email: user.email,
                             id: user.uid,
                             token: token,
                             displayName: displayName,
                         }));
+                        dispatch(setUserPhotoProfile({photoAcc: photoAcc}));
                         setLoadingData(false);
                         navigate('/');
                     }

@@ -11,9 +11,9 @@ header {
 .nav-links{
     display: flex;
 }
-.name-site {
+.name-site-user-acc-page {
     display: block;
-    margin-left: 250px;
+    margin-left: 162px;
 }
 .page-line-header{
     align-items: center;
@@ -24,61 +24,36 @@ header {
     font-size: 24px;
     font-weight: bold;
 }
-.home-page-logo-site{
+.form-user-acc-setings-logo-site{
     display: block;
     margin-top: 0px;
-    margin-left: -12.5px;
+    margin-left: 77px;
     width: 75px;
     height: 75px;
     border-radius: 0px;
 }
-
-.navbar-link-1 {
+.navbar-link-user-acc-setings-page-1 {
     color: black;
     text-decoration: none;
     margin-left: -120px;
 }
   
-.navbar-link-2 {
+.navbar-link-user-acc-setings-page-2 {
     color: black;
     text-decoration: none;
     margin-left: 35px;
 }
-.navbar-link-3 {
+.navbar-link-user-acc-setings-page-3 {
     color: black;
     text-decoration: none;
     margin-left: 35px;
 }
-.navbar-link-4{
+.navbar-link-user-acc-setings-page-4{
     color: black;
     text-decoration: none;
     margin-left: 35px;
-    margin-right: -100px;
 }
 
-
-.navbar-link-1_color-gray {
-    color: gray;
-    text-decoration: none;
-    margin-left: -120px;
-}
-  
-.navbar-link-2_color-gray {
-    color: gray;
-    text-decoration: none;
-    margin-left: 35px;
-}
-.navbar-link-3_color-gray {
-    color: gray;
-    text-decoration: none;
-    margin-left: 35px;
-}
-.navbar-link-4_color-gray{
-    color: gray;
-    text-decoration: none;
-    margin-left: 35px;
-    margin-right: -100px;
-}
 
 .sticky {
     position: fixed;

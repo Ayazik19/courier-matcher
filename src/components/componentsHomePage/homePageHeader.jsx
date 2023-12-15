@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import ProfileAccountIconHomePage from "./profileAccountIconHomePage";
+import logoSite from './logoSite.png';
+import ChoosenCouriersIcon from './choosenCouriersIcon.jsx';
 import './homePageHeader.css';
 
 export default function HomePageHeader() {
@@ -96,7 +98,7 @@ export default function HomePageHeader() {
             <div className='page-line-header'>
                 <div className="name-site">
                     <span className='span-home-page-header'>
-                        <a href = "#" className='span-home-page-header'>Coorchik.com</a>
+                    <img src = {logoSite} className='home-page-logo-site'/>
                     </span>
                 </div>
             </div>
@@ -108,13 +110,15 @@ export default function HomePageHeader() {
                     <a className={`${isContentExplanation ? 'navbar-link-4_color-gray' : 'navbar-link-4'}`} href='#footer'>Explenation</a>
                 </div>
             </div>
+            <ProfileAccountIconHomePage />
+            <ChoosenCouriersIcon />
         </header>
     ) : (
         <header className={`${isFixStateOne ? 'sticky' : ''}`}>
             <div className='page-line-header'>
                 <div className="name-site">
                     <span className='span-home-page-header'>
-                        <a href = "#">Coorchik.com</a>
+                    <img src = {logoSite} className='home-page-logo-site'/>
                     </span>
                 </div>
             </div>
@@ -126,6 +130,7 @@ export default function HomePageHeader() {
                 </div>
             </div>
             <ProfileAccountIconHomePage />
+            <ChoosenCouriersIcon />
         </header>
     ); 
 }

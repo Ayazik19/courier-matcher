@@ -7,6 +7,10 @@ const initialState = {
     password: null,
     email: null,
     photoAcc: null,
+    dateBirth: null,
+    phoneNumber: null,
+    locationUser: null,
+    gender: null
 };
 
 const userSlice = createSlice({
@@ -19,7 +23,13 @@ const userSlice = createSlice({
             state.displayName = action.payload.displayName;
             state.password = action.payload.password;
             state.email = action.payload.email;
+        },
+        setUserPhotoProfile(state, action) {
             state.photoAcc = action.payload.photoAcc;
+            state.dateBirth = action.payload.dateBirth;
+            state.gender = action.payload.gender;
+            state.locationUser = action.payload.locationUser;
+            state.phoneNumber = action.payload.phoneNumber;
         },
         removeUser(state) {
             state.token = null;
@@ -33,6 +43,6 @@ const userSlice = createSlice({
 });
 
 
-export const {setUser, removeUser} = userSlice.actions;
+export const {setUser, setUserPhotoProfile, removeUser} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,0 +1,178 @@
+/* .ll{
+    display: inline-flex;
+} */
+.redirect-pages{
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 255.5px;
+}
+.span-redirect-page_home-1{
+    font-size: 15px;
+    color: black
+}
+.span-redirect-page-2{
+    font-size: 15px;
+    margin-left: 5px;
+    color: black;
+    text-decoration: none;
+}
+.page-line-left-content-asside_asside-and-name-site{
+    position: absolute;
+    margin-left: 250px;
+    width: 300px;
+    margin-top: 50px;
+}
+.asside-nav-description-in-main-page{
+    display: block;
+    float: left;
+    margin-top: 30px;
+}
+.asside-nav-description-in-main-page_fix-state{
+    position: fixed;
+    margin-left: 0px;
+    width: 100%;
+    z-index: 999;
+    height: 80px;
+}
+.span-large-text{
+    display: block;
+    float: left;
+    font-size: 42px;
+    color: black;
+    font-weight: bold;   
+}
+.nav-discription{
+    width: 300px;
+    height: 250px;
+    background-color: rgb(79, 78, 78);   
+}
+.spans-description-line{
+    width: 100%;
+    margin-left: 0%;
+}
+.span-description-1{
+    display: block;
+    height: 58.5px;
+}
+.span-description-2,
+.span-description-3,
+.span-description-4{
+    display: block;
+    height: 58.5px;
+}
+.span-text-description-1,
+.span-text-description-2,
+.span-text-description-3,
+.span-text-description-4{
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 20px;
+    text-decoration: none;
+    width: 100%;
+    color: white;
+    font-size: 24px;
+}
+.span-text-description-1_margin-left,
+.span-text-description-2_margin-left,
+.span-text-description-3_margin-left,
+.span-text-description-4_margin-left{
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 20px;
+    text-decoration: none;
+    width: 100%;
+    color: white;
+    font-size: 24px;
+}
+.ponter-descriptions{
+    position: absolute;
+    margin-left: 0px;
+    background-color: rgb(234, 152, 0);
+    width: 6px;
+    height: 58.5px;
+}
+
+
+.main-content-user-acc-setings-page{
+    margin-left: 650px;
+    margin-top: 150.5px;
+    width: 719px;
+}
+
+.span-name-discription-large-text{
+    display: block;
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
+}
+.my-information-content-attributes-discription,
+.account-content-attributes-discription{
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.attribute-name-1,
+.attribute-name-2,
+.attribute-name-3,
+.attribute-name-4{
+    display: block;
+    font-size: 16px;
+    color: gray;
+    margin-bottom: 5px;
+}
+.attribute-discription-2,
+.attribute-discription-3,
+.attribute-discription-4{
+    margin-top: 20px;
+}
+.add-button{
+    font-size: 21.5px;
+    text-decoration: underline;
+}
+.change-button{
+    display: inline-block;
+    font-size: 21.5px;
+    margin-left: 10px;
+    text-decoration: underline;
+}
+.span-name-user,
+.span-date-birth-user,
+.span-gender-user,
+.span-location-user,
+.span-password-user,
+.span-phone-number-user,
+.span-email-user{
+    font-size: 20px;
+}
+
+.attribute-name-selected-couriers_false{
+    display: block;
+    font-size: 16px;
+    color: gray;
+    margin-top: 30px;   
+}
+.button-redirect-choose-courier{
+    display: block;
+    width: 150px;
+    height: 35px;
+    color: black;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-left: 0px;
+    background-color: white;
+    border-color: black;
+    margin-bottom: 30px;
+}
+.button-redirect-choose-courier:hover{
+    display: block;
+    width: 150px;
+    height: 35px;
+    color: white;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-left: 0px;
+    background-color: black;
+    border-color: black;
+    margin-bottom: 30px;
+}

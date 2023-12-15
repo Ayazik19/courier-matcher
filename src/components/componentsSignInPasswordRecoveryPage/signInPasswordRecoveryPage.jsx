@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from '../firebase';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { setUser } from '../store/slices/userSlice.js';
+import { setUser, setUserPhotoProfile } from '../store/slices/userSlice.js';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import './signInPasswordRecoveryPage.css';
@@ -34,6 +34,7 @@ export default function SignInPasswordRecoveryPage() {
       if (userDocSnapshot.exists()) {
         await sendPasswordResetEmail(auth, inputEmailPasswordReset);
         const userData = userDocSnapshot.data();
+        const photoAcc = userData.photoAcc;
         const displayName = userData.displayName;
         const token = await auth.currentUser.getIdToken();
 
@@ -42,6 +43,7 @@ export default function SignInPasswordRecoveryPage() {
           email: inputEmailPasswordReset,
           displayName: displayName,
         }));
+        dispatch(setUserPhotoProfile({photoAcc: photoAcc}));
         setLoadingData(false);
         setIsErrorUserData(false);
         setisEmailLinkHaveBeenSending(true);

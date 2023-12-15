@@ -1,16 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import  hideUserAccInfo from './hideUserAccInfo.png';
+import  hideUserAccInfo from '../componentsHomePage/hideUserAccInfo.png';
 import { removeUser } from "../store/slices/userSlice.js";
 import { useAuth } from '../hook/useauth.js';
-import CheckAccountPhotoProfile from './checkAccountPhotoProfileHomePage.jsx';
-import addCourierHomePage from './addCourierHomePage.png'
-import logOutAccUserHomePage from './logOutAccUserHomePage.png';
-import CheckAccountPhotoProfileInfoAcc from './CheckAccountPhotoProfileInfoAcc.jsx';
-import "./profileAccountIconHomePage.css";
+import CheckAccountPhotoProfile from '../componentsHomePage/checkAccountPhotoProfileHomePage.jsx';
+import addCourierHomePage from '../componentsHomePage/addCourierHomePage.png'
+import logOutAccUserHomePage from '../componentsHomePage/logOutAccUserHomePage.png';
+import CheckAccountPhotoProfileInfoAcc from '../componentsHomePage/CheckAccountPhotoProfileInfoAcc.jsx';
+import './ProfileAccountIconUserAccSetingsPage.css';
 
-export default function ProfileAccountIconHomePage() {
+export default function ProfileAccountIconUserAccSetingsPage() {
     const { isAuth, displayName, email } = useAuth();
 
     const navigate = useNavigate();
@@ -47,13 +47,13 @@ export default function ProfileAccountIconHomePage() {
 return isAuth ? (
     <>
         <div className="home-page-acc-header-right-icon-acc" onClick={handleShowInfoAccount}>
-                <div className= 'account-icon'>
+                <div className= 'account-icon-user-acc-setings-page'>
                     <CheckAccountPhotoProfile />
                 </div>
         </div>
         {isShowInfoAccont ? 
             <div className='nav-info-acc-user'>
-                <div className='nav-acc-user'>
+                <div className='nav-acc-user-acc-setings-page'>
                     <div className='header-nav-acc-user'>
                         <span className='text-email-user'>
                             {email}

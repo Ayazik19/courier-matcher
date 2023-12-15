@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/slices/userSlice";
+import { setUser, setUserPhotoProfile } from "../store/slices/userSlice";
 import './registrationPage.css';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -89,6 +89,7 @@ export default function RegistrationPage() {
                     token: token,
                     displayName: inputRegistrationLogin,
                 }));
+                dispatch(setUserPhotoProfile({}));
                 setLoadingData(false);
                 navigate("/");
         }
@@ -110,7 +111,7 @@ export default function RegistrationPage() {
                         <img src = {logoSite} className='form-registration-logo-site'/>
                     </div>
                     <div className='text-form'>
-                        <span className='span-large-text'>
+                        <span className='span-large-text-register-page'>
                             Enter your own data 
                         </span>
                         <br className='br-form-medium-span' />

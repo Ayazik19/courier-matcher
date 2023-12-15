@@ -4,7 +4,7 @@
     display: inline-block;
     align-items: center;
 }
-.account-icon{
+.account-icon-user-acc-setings-page{
     display: inline-block;
     width: 40px;
     height: 40px;
@@ -91,14 +91,14 @@
 
 
 .nav-info-acc-user{
-    margin-top: 10px;
+    margin-top: 100px;
 }
 
-.nav-acc-user{
+.nav-acc-user-acc-setings-page{
     position: absolute;
     width: 300px;
     margin-top: 40px;
-    margin-left: 20.5px;
+    margin-left: 18.5px;
     height: 330px;
     border-radius: 0px;
     border: 1px solid rgb(167, 167, 167);

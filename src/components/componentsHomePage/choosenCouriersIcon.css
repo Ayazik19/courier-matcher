@@ -1,0 +1,47 @@
+.choosen-couriers-icon{
+    margin-left: 130px;
+}
+.choosen-couriers-icon-img{
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 0px;
+    margin-top: 5px;
+}
+.show-choosen-couriers{
+    position: absolute;
+    width: 350px;
+    margin-top: 18px;
+    margin-left: -165px;
+    height: 200px;
+    border-radius: 0px;
+    border: 1px solid rgb(167, 167, 167);
+    background-color: rgb(167, 167, 167);
+}
+.attribute-name-selected-home-page-couriers_false{
+    display: block;
+    margin-top: 60px;
+    text-align: center;
+    color: black;
+    font-size: 18px;
+}
+.button-redirect-choose-courier-home-page{
+    display: block;
+    margin: 0 auto;
+    background-color: white;
+    color: black;
+    border-color: black;
+    width: 150px;
+    height: 30px;
+    margin-top: 27.5px;
+}
+.button-redirect-choose-courier-home-page:hover{
+    display: block;
+    margin: 0 auto;
+    background-color: black;
+    color: white;
+    border-color: black;
+    width: 150px;
+    height: 30px;
+    margin-top: 27.5px;
+}
