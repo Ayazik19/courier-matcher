@@ -1,0 +1,146 @@
+.text-warning-deleting-acc-1{
+    margin-top: 30px;
+    color: gray;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.text-warning-deleting-acc-2{
+    margin-top: 30px;
+    color: gray;
+    width: 100%;
+}
+.button-delete-acc{
+    width: 170px;
+    height: 40px;
+    margin-left: 0px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.button-delete-acc:hover{
+    width: 170px;
+    height: 40px;
+    margin-left: 0px;
+    font-weight: 600;
+    background-color: red;
+    border-color: red;
+    color: white;
+    font-size: 16px;
+}
+.button-sign-in-acc_desc-4{
+    width: 170px;
+    height: 40px;
+    margin-left: 0px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.button-sign-in-acc_desc-4:hover{
+    width: 170px;
+    height: 40px;
+    margin-left: 0px;
+    font-weight: 600;
+    background-color: black;
+    border-color: black;
+    color: white;
+    font-size: 16px;
+}
+
+.text-check-acc{
+    margin-top: 10px;
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+.form-delete-user-acc{
+    width: 80%;
+    margin-left: 10%;
+}
+.loading-data-form-delete-acc_margin-top{
+    margin-top: 30px;
+}
+.input-check-pass-delete-user-acc-1{
+    width: 100%;
+    margin-top: 16px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid gray;
+}
+.input-check-pass-delete-user-acc-1_input-validate{
+    width: 100%;
+    margin-top: 16px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid red;
+}
+.input-check-pass-delete-user-acc-1_input-validate::placeholder{
+    color: red;
+}
+.input-check-pass-delete-user-acc-2{
+    width: 100%;
+    margin-top: 25px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid gray;
+}
+.input-check-pass-delete-user-acc-2_input-validate{
+    width: 100%;
+    margin-top: 25px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid red;
+}
+.input-check-pass-delete-user-acc-2_input-validate::placeholder{
+    color: red;
+}
+
+.text-input-pass-check_validate-errors-1{
+    position: absolute;
+    margin-top: -10px;
+    color: red;
+    font-size: 13px;
+}
+.text-input-pass-check_validate-errors-2{
+    color: red;
+    position: absolute;
+    margin-top: -10px;
+    font-size: 13px;
+}
+.text-input-pass-check_validate-errors-2_margin-top{
+    color: red;
+    position: absolute;
+    margin-top: 3.5px;
+    font-size: 13px;
+}
+.text-input-pass-dont-match{
+    color: red;
+    position: absolute;
+    margin-top: 0px;
+    font-size: 13px;
+}
+.text-incorrect-pass-user-acc{
+    color: red;
+    position: absolute;
+    margin-top: 0px;
+    font-size: 13px;
+}
+.form-button-delete-acc{
+    margin-left: 0px;
+    margin-top: 40px;
+    height: 40px;
+    width: 325.6px;
+    font-weight: 600;
+    font-size: 16px;
+    border-color: black;
+    border-radius: 8px;
+}
+.form-button-delete-acc:hover{
+    margin-left: 0px;
+    margin-top: 40px;
+    height: 40px;
+    width: 325.6px;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    background-color: red;
+    border-color: red;
+    border-radius: 8px;
+}

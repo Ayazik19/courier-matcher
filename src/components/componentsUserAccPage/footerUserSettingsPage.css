@@ -1,0 +1,103 @@
+.footer-user-acc-setings{
+    width: 100%;
+    height: 350px;
+    background-color: rgb(56, 56, 56);
+}
+.footer-page-line{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+    width: 72%;
+    margin-left: 17%;
+    align-items: center;
+}
+.footer-nav_left{
+    vertical-align: baseline;
+}
+.list-pages{
+    list-style: none;
+    text-align: start;
+}
+.list-pages a{
+    color: white;
+    text-decoration: none;
+}
+.list-pages-2,
+.list-pages-3,
+.list-pages-4{
+    margin-top: 22.5px;
+}
+
+.footer-logo_center{
+    text-align: center;
+    flex-grow: 100;
+}
+.footer-logo{
+    width: 70px;
+    height: 70px;
+    margin-top: -40.5px;
+    border-radius: 0px;
+}
+.insturction-error-site{
+    position: absolute;
+    display: block;
+    text-align: center;
+    margin-left: 198.5px;
+    font-size: 12px;
+    margin-top: 0px;
+}
+.footer-nav_right{
+    margin-left: 0px;
+    text-align: left;
+    flex-grow: 1;
+}
+.footer-copyright_right{
+    list-style: none;
+    text-align: left;
+}
+.footer-copyright_right a{
+    color: white;
+    text-decoration: none;
+}
+.soc-sup-icons{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 21px;
+    margin-top: 10px;
+}
+.soc-2{
+    margin-left: 40px;
+}
+.soc-1,
+.soc-2{
+    cursor: pointer;
+}
+.img-icon-telegram,
+.img-icon-vkontakte{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 0px;
+}
+.img-icon-telegram{
+    margin-top: 0px;
+    margin-left: -21px;
+}
+.img-icon-vkontakte{
+    margin-top: 0px;
+    margin-left: -21px;
+}
+.text-soc{
+    margin-top: -5px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+.footer-list-text-copyright_right-3,
+.footer-list-text-copyright_right-4,
+.footer-list-text-copyright_right-5{
+    margin-top: 22.5px;
+    font-size: 12px;
+    width: 260px;
+    text-align: left;
+}

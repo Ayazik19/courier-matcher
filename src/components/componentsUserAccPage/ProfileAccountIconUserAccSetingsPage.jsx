@@ -38,7 +38,6 @@ export default function ProfileAccountIconUserAccSetingsPage() {
     }
     const hadbleRediractionSignInPage = () => {
         dispatch(removeUser());
-        navigate('/SignIn-Registration');
     }
     const hadbleRediractionChooseCourierPage = () => {
         navigate('/ChooseCourier');

@@ -22,10 +22,20 @@
     width: 300px;
     margin-top: 50px;
 }
-.asside-nav-description-in-main-page{
+.asside-nav-description-in-main-page_state-1{
     display: block;
     float: left;
     margin-top: 30px;
+}
+.asside-nav-description-in-main-page_state-2{
+    display: block;
+    float: left;
+    margin-top: 950px;
+}
+.asside-nav-description-in-main-page_state-3{
+    display: block;
+    float: left;
+    margin-top: 875px;
 }
 .asside-nav-description-in-main-page_fix-state{
     position: fixed;
@@ -33,6 +43,7 @@
     width: 100%;
     z-index: 999;
     height: 80px;
+    width: 300px;
 }
 .span-large-text{
     display: block;
@@ -43,7 +54,7 @@
 }
 .nav-discription{
     width: 300px;
-    height: 250px;
+    height: 234px;
     background-color: rgb(79, 78, 78);   
 }
 .spans-description-line{
@@ -68,6 +79,7 @@
     margin-top: 15px;
     margin-left: 20px;
     text-decoration: none;
+    width: 300px;
     width: 100%;
     color: white;
     font-size: 24px;
@@ -95,8 +107,8 @@
 
 .main-content-user-acc-setings-page{
     margin-left: 650px;
-    margin-top: 150.5px;
-    width: 719px;
+    margin-top: 135.5px;
+    width: 580px;
 }
 
 .span-name-discription-large-text{
@@ -129,11 +141,14 @@
 .add-button{
     font-size: 21.5px;
     text-decoration: underline;
+    color: black;
+    cursor: pointer;
 }
 .change-button{
     display: inline-block;
     font-size: 21.5px;
-    margin-left: 10px;
+    margin-left: 15px;
+    cursor: pointer;
     text-decoration: underline;
 }
 .span-name-user,
@@ -154,25 +169,158 @@
 }
 .button-redirect-choose-courier{
     display: block;
-    width: 150px;
-    height: 35px;
+    width: 170px;
+    height: 40px;
+    font-size: 16px;
     color: black;
     font-weight: 600;
     margin-top: 30px;
     margin-left: 0px;
     background-color: white;
     border-color: black;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 .button-redirect-choose-courier:hover{
     display: block;
-    width: 150px;
-    height: 35px;
+    width: 170px;
+    height: 40px;
     color: white;
     font-weight: 600;
     margin-top: 30px;
     margin-left: 0px;
     background-color: black;
     border-color: black;
+    margin-bottom: 40px;
+}
+.text-warning-deleting-acc-1{
+    margin-top: 30px;
+    color: gray;
+    width: 100%;
     margin-bottom: 30px;
 }
+.button-delete-acc{
+    width: 170px;
+    height: 40px;
+    margin-left: 0px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.button-delete-acc:hover{
+    width: 170px;
+    height: 40px;
+    margin-left: 0px;
+    font-weight: 600;
+    background-color: red;
+    border-color: red;
+    color: white;
+    font-size: 16px;
+}
+.text-warning-deleting-acc-2{
+    margin-top: 30px;
+    color: gray;
+    width: 100%;
+}
+.footer-user-acc-setings{
+    width: 100%;
+    height: 350px;
+    background-color: rgb(56, 56, 56);
+}
+.footer-page-line{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+    width: 72%;
+    margin-left: 17%;
+    align-items: center;
+}
+.footer-nav_left{
+    vertical-align: baseline;
+}
+.list-pages{
+    list-style: none;
+    text-align: start;
+}
+.list-pages a{
+    color: white;
+    text-decoration: none;
+}
+.list-pages-2,
+.list-pages-3,
+.list-pages-4{
+    margin-top: 22.5px;
+}
+
+.footer-logo_center{
+    text-align: center;
+    flex-grow: 100;
+}
+.footer-logo{
+    width: 70px;
+    height: 70px;
+    margin-top: -40.5px;
+    border-radius: 0px;
+}
+.insturction-error-site{
+    position: absolute;
+    display: block;
+    text-align: center;
+    margin-left: 197.5px;
+    font-size: 12px;
+    margin-top: 0px;
+}
+.footer-nav_right{
+    margin-left: 0px;
+    text-align: left;
+    flex-grow: 1;
+}
+.footer-copyright_right{
+    list-style: none;
+    text-align: left;
+}
+.footer-copyright_right a{
+    color: white;
+    text-decoration: none;
+}
+.soc-sup-icons{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 21px;
+    margin-top: 10px;
+}
+.soc-2{
+    margin-left: 40px;
+}
+.soc-1,
+.soc-2{
+    cursor: pointer;
+}
+.img-icon-telegram,
+.img-icon-vkontakte{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 0px;
+}
+.img-icon-telegram{
+    margin-top: 0px;
+    margin-left: -21px;
+}
+.img-icon-vkontakte{
+    margin-top: 0px;
+    margin-left: -21px;
+}
+.text-soc{
+    margin-top: -5px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+.footer-list-text-copyright_right-3,
+.footer-list-text-copyright_right-4,
+.footer-list-text-copyright_right-5{
+    margin-top: 22.5px;
+    font-size: 12px;
+    width: 260px;
+    text-align: left;
+}
+

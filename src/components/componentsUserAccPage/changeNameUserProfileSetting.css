@@ -1,0 +1,74 @@
+.form-change-name-user{
+    width: 80%;
+    margin-left: 10%;
+}
+.text-change-name{
+    margin-top: 10px;
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+}
+.input-change-name-user{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-change-name-user_error-input{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: black;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-change-name-user_error-input::placeholder{
+    color: red;
+}
+.input-change-name-user:focus{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-change-name-user_errors{
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    margin-top: -44px;
+}
+.button-change-result-name-user{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 19.5px;
+}
+.button-change-result-name-user:hover{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 19.5px;
+}

@@ -1,0 +1,118 @@
+.form-change-location-user,
+.form-add-location-user{
+    width: 80%;
+    margin-left: 10%;
+}
+.text-add-location,
+.text-change-location{
+    margin-top: 0px;
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+}
+.input-add-location-town-user,
+.input-change-location-town-user{
+    display: block;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-location-town-user_error-input,
+.input-change-location-town-user_error-input{
+    display: block;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: red;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-location-town-user_error-input::placeholder,
+.input-change-location-town-user_error-input::placeholder {
+  color: red;
+}
+.input-add-location-street-user,
+.input-change-location-street-user{
+    display: block;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-location-street-user_error-input,
+.input-change-location-street-user_error-input{
+    display: block;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-location-street-user_error-input::placeholder,
+.input-change-location-street-user_error-input::placeholder {
+  color: red;
+}
+.select-input-add-locaiton-town-user_errors{
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    margin-top: -40px;
+}
+.select-input-add-locaiton-street-user_errors{
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    margin-top: -25px;
+}
+.button-add-result-location-user,
+.button-change-result-location-user{
+    width: 326px;
+    height: 34px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 18.5px;
+}
+.button-add-result-location-user:hover{
+    width: 326px;
+    height: 34px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 18.5px;
+}
+.button-change-result-location-user:hover{
+    width: 326px;
+    height: 34px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 18.5px;
+}

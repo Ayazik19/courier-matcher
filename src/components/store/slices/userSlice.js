@@ -9,7 +9,8 @@ const initialState = {
     photoAcc: null,
     dateBirth: null,
     phoneNumber: null,
-    locationUser: null,
+    townLocation: null,
+    streetLocation: null,
     gender: null
 };
 
@@ -24,11 +25,12 @@ const userSlice = createSlice({
             state.password = action.payload.password;
             state.email = action.payload.email;
         },
-        setUserPhotoProfile(state, action) {
+        setUserProfile(state, action) {
             state.photoAcc = action.payload.photoAcc;
             state.dateBirth = action.payload.dateBirth;
             state.gender = action.payload.gender;
-            state.locationUser = action.payload.locationUser;
+            state.townLocation = action.payload.townLocation;
+            state.streetLocation = action.payload.streetLocation;
             state.phoneNumber = action.payload.phoneNumber;
         },
         removeUser(state) {
@@ -38,11 +40,16 @@ const userSlice = createSlice({
             state.password = null;
             state.email = null;
             state.photoAcc = null;
+            state.dateBirth = null;
+            state.phoneNumber = null;
+            state.gender = null;
+            state.streetLocation = null;
+            state.townLocation = null;
         },
     },
 });
 
 
-export const {setUser, setUserPhotoProfile, removeUser} = userSlice.actions;
+export const {setUser, setUserProfile, removeUser} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,0 +1,100 @@
+.form-add-date-birth-user,
+.form-change-date-birth-user{
+    width: 80%;
+    margin-left: 10%;
+}
+.text-add-date-birth,
+.text-change-date-birth{
+    margin-top: 10px;
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+}
+.input-add-date-birth-user,
+.input-change-date-birth-user{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-date-birth-user_error-input,
+.input-change-date-birth-user_error-input{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: gray;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-date-birth-user:focus{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-change-date-birth-user:focus{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-date-birth-user_errors,
+.input-change-date-birth-user_errors{
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    margin-top: -44px;
+}
+.button-add-result-date-birth-user,
+.button-change-result-date-birth-user{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 19.5px;
+}
+.button-add-result-date-birth-user:hover{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 19.5px;
+}
+.button-change-result-date-birth-user:hover{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 19.5px;
+}

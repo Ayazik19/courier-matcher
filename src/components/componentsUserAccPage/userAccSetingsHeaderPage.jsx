@@ -12,7 +12,7 @@ export default function UserAccSetingsHeaderPage(){
         const handleScrollStateOne = () => {
             const scrollStateOneLimitOffsetY = window.scrollY;
 
-            if (scrollStateOneLimitOffsetY >= 45 && 1000 >= scrollStateOneLimitOffsetY) {
+            if (scrollStateOneLimitOffsetY >= 45 && 1500 >= scrollStateOneLimitOffsetY) {
                 setIsFixStateOne(true);
             } else {
                 setIsFixStateOne(false);
@@ -37,7 +37,7 @@ export default function UserAccSetingsHeaderPage(){
             <div className='page-line-header'>
                 <div className="name-site-user-acc-page">
                     <span className='span-user-acc-setings-page-header'>
-                    <img src = {logoSite} className='form-user-acc-setings-logo-site'/>
+                        <img src = {logoSite} className='form-user-acc-setings-logo-site'/>
                     </span>
                 </div>
             </div>

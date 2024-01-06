@@ -1,0 +1,105 @@
+.form-add-phone-number-user,
+.form-change-phone-number-user{
+    width: 80%;
+    margin-left: 10%;
+}
+.text-add-phone-number,
+.text-change-phone-number{
+    margin-top: 10px;
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+.input-add-phone-number-user,
+.input-change-phone-number-user{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-phone-number-user_error,
+.input-change-phone-number-user_error{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    color: black;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-phone-number-user_error::placeholder,
+.input-change-phone-number-user_error::placeholder{
+    color: red;
+}
+.input-add-phone-number-user:focus{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-change-phone-number-user:focus{
+    display: block;
+    width: 100%;
+    height: 51.6px;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    color: gray;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+}
+.input-add-phone-number-user_errors,
+.input-change-phone-number-user_errors{
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    width: 300px;
+    margin-top: -60px;
+}
+.button-add-result-phone-number-user,
+.button-change-result-phone-number-user{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 19.5px;
+}
+.button-add-result-phone-number-user:hover{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 19.5px;
+}
+.button-change-result-phone-number-user:hover{
+    width: 326px;
+    height: 51.6px;
+    margin-left: 0px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 19.5px;
+}

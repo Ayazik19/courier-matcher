@@ -1,0 +1,80 @@
+.form-confirmation-account-deletion{
+    margin-top: 0px;
+    width: 80%;
+    margin-left: 10%;
+}
+.form-text-warning-delete-account{
+    margin-left: 0px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.input-checkbox-acc-user-deletion-agreement{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: 0px; 
+}
+.input-checkbox-text-warning{
+    position: absolute;
+    margin-top: -2px;
+    margin-left: 30px;
+    font-size: 14px;
+}
+.header-form-delete-acc-step-2{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 80%;
+    margin-left: 10%;
+}
+.form-back-button-delete-acc-arrow_left{
+    color: black;
+    font-size: 20px;
+    margin-top: 17.5px;
+    cursor: pointer;
+}
+.input-checkbox-acc-user-deletion-agreement_error-chekbox{
+    appearance: none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: 0px;
+    outline: none;
+    border: 2px solid red; 
+    border-radius: 4px;    
+    transition: all 0.3s;
+}
+.input-user-agreement-delete-acc_error-chekbox-text{
+    position: absolute;
+    color: red;
+    font-size: 13px;
+    margin-left: 30px;
+    margin-top: 34px;
+}
+.form-button-delete-acc-step-2{
+    margin-left: 0px;
+    margin-top: 60px;
+    height: 40px;
+    width: 325.6px;
+    font-weight: 600;
+    font-size: 16px;
+    border-color: black;
+    border-radius: 8px;
+}
+.text-check-acc-step-2{
+    font-size: 22px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+.form-button-delete-acc-step-2:hover{
+    margin-left: 0px;
+    margin-top: 60px;
+    height: 40px;
+    width: 325.6px;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    background-color: red;
+    border-color: red;
+    border-radius: 8px;
+}
