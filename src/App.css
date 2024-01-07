@@ -1,11 +1,178 @@
 body {
-  font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
-
 code {
-  font-family: 'Montserrat', monospace;
+    font-family: 'Montserrat', monospace;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+button {
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+input {
+    font-family: 'Montserrat', sans-serif;
+}
+textarea{
+    font-family: 'Montserrat', sans-serif;
 }
 
-button{
-  font-family: 'Montserrat', sans-serif;
+.fp-show-container-change-or-add-attribute{
+    position: fixed;
+    z-index: 2147483649;
+    cursor:default;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(28,31,36,.75);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+.fp-show-container-inform-errors-in-site,
+.fp-show-container-inform-errors-in-site_step-2{
+    position: fixed;
+    z-index: 2147483649;
+    cursor:default;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(28,31,36,.75);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+.fp-cont-add-gender,
+.fp-cont-add-date-birth,
+.fp-cont-add-location,
+.fp-cont-add-phone-number,
+.fp-cont-add-phone-number{
+    width: 400px;
+    height: 280px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-change-gender,
+.fp-cont-change-date-birth,
+.fp-cont-change-location,
+.fp-cont-change-name,
+.fp-cont-change-phone-number{
+    width: 400px;
+    height: 280px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+.fp-cont-delete-user-step-1,
+.fp-cont-delete-user-step-2{
+    width: 400px;
+    height: 340px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+.fp-cont-show-inform-errors_size-cont-XS{
+    width: 400px;
+    height: 300px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-show-inform-errors_size-cont-S{
+    width: 400px;
+    height: 320px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-show-inform-errors_size-cont-M{
+    width: 400px;
+    height: 340px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-show-inform-errors_size-cont-L{
+    width: 400px;
+    height: 360px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-show-inform-errors_size-cont-XL{
+    width: 400px;
+    height: 380px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-show-inform-errors_size-cont-XXL{
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+.fp-cont-show-inform-errors_size-cont-XXXL{
+    width: 400px;
+    height: 420px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+.fp-cont-show-inform-errors_step-2{
+    width: 450px;
+    height: 190px;
+    background-color: white;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.hide-adding-cont-changing,
+.hide-cont-hide-inform-errors,
+.hide-cont-delete-acc-step-1{
+    margin-top: 12px;
+    margin-left: 370px;
+    margin-bottom: 0px;
+}
+.hide-cont-delete-acc-step-2{
+    margin-top: 12px;
+    margin-left: 310px;
+    margin-bottom: 0px;
+}
+.img-hide-cont-changing,
+.img-hide-cont-inform-errors,
+.img-hide-cont-delete-acc{
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 0%;
 }
