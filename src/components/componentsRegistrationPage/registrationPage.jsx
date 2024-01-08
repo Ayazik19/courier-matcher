@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
-import { setUser, setUserPhotoProfile } from "../store/slices/userSlice";
+import { setUser, setUserInformErrors, setUserProfile } from "../store/slices/userSlice";
 import './registrationPage.css';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { firebaseConfig } from '../firebase';
-import { collection, getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { collection, getFirestore, doc, setDoc } from "firebase/firestore";
 import RegistrationPageButtonBack from './registrationPageButtonBack.jsx';
 import logoSite from '../componentsHomePage/logoSite.png';
 import LoadingDataForm from '../loadingData/loadingDataForm';
 import FooterForm from '../componentsRegistrationPage/FooterForm.jsx'
+import {useHookMouseFunctionalityErrorsContext} from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
 
 
 const app = initializeApp(firebaseConfig); 
@@ -24,6 +25,8 @@ export default function RegistrationPage() {
     const [isLoadingData, setLoadingData] = useState(false);
 
     const { register, formState: { errors, isSubmitted }, handleSubmit } = useForm({ mode: 'onSubmit' });
+    const { setSelectedElement } = useHookMouseFunctionalityErrorsContext();
+
 
     const [ isErrorInputOne, setErrorInputOne ] = useState (false);
     const [ isErrorInputTwo, setErrorInputTwo ] = useState (false);
@@ -89,7 +92,9 @@ export default function RegistrationPage() {
                     token: token,
                     displayName: inputRegistrationLogin,
                 }));
-                dispatch(setUserPhotoProfile({}));
+                dispatch(setUserProfile({}));
+                dispatch(setUserInformErrors({}));
+                setSelectedElement(false);
                 setLoadingData(false);
                 navigate("/");
         }
@@ -131,7 +136,7 @@ export default function RegistrationPage() {
                                     required: "Filid must be filled in",
                                     maxLength: {
                                         value: 10,
-                                        message: "Login contains no more than 15"
+                                        message: "Login contains no more than 10"
                                     }
                                 })}
                                 className={isErrorInputOne ?  'registration-input-error-1_bcolor-red': 'registration-input-1'}
@@ -188,7 +193,7 @@ export default function RegistrationPage() {
                         type='submit'
                         style={{
                             marginTop: '60px',
-                            height: '30px',
+                            height: '33.6px',
                             color: 'white',
                             backgroundColor: 'black',
                             width: '81%',
