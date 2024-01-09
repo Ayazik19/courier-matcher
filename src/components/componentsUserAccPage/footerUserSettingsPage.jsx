@@ -30,7 +30,7 @@ export default function FooterUserSettingsPage(){
                         <span className='insturction-error-site'>
                             Did you find a problem on the site?
                             <br></br>
-                            Select this element and hold down the alt key
+                            Select this element and hold down the ctrl + m
                         </span>
                     </div>
                     <div className='footer-nav_right'>

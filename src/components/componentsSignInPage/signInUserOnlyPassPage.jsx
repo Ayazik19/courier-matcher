@@ -17,7 +17,7 @@ import FooterForm from '../componentsRegistrationPage/FooterForm.jsx'
 import { inputEmailPasswordReset } from '../componentsSignInPasswordRecoveryPage/signInPasswordRecoveryPage.jsx';
 import './signInUserOnlyPassPage.css';
 import CheckAccountPhotoProfileSignIn from './checkAccountPhotoProfileSignIn.jsx';
-import { useAuth } from '../hook/useauth.js';
+import { useAuth } from '../globalHooks/useauth.js';
 import { useHookMouseFunctionalityErrorsContext } from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
 import { useHookSignInPagesContext } from './useHookSignInPages.js';
 
@@ -72,7 +72,6 @@ export default function SignInUserOnlyPassPage() {
     const handleSignIn = async (data) => {
         const auth = getAuth();
         const { inputPassSignIn } = data;
-
         setLoadingData(true);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, inputEmailPasswordReset, inputPassSignIn);
@@ -107,29 +106,29 @@ export default function SignInUserOnlyPassPage() {
                         streetLocation: streetLocation
                     }))
 
-                    // if (idInformErrors !== undefined) {
-                    //     for (let i = 0; i < idInformErrors.length; i++) {
-                    //       const id = idInformErrors[i];
+                    if (idInformErrors !== undefined) {
+                        for (let i = 0; i < idInformErrors.length; i++) {
+                          const id = idInformErrors[i];
                       
-                    //       const idInformErrorDocRef = doc(db, 'informErrors', id);
-                    //       const idInformErrorDocSnapshot = await getDoc(idInformErrorDocRef);
+                          const idInformErrorDocRef = doc(db, 'informErrors', id);
+                          const idInformErrorDocSnapshot = await getDoc(idInformErrorDocRef);
                       
-                    //       if (idInformErrorDocSnapshot.exists()) {
-                    //         const dataIdInformError = idInformErrorDocSnapshot.data();
-                    //         const isFixed = dataIdInformError.isFixed;
-                    //         const textFeedBackUser = dataIdInformError.textFeedBackUser;
+                          if (idInformErrorDocSnapshot.exists()) {
+                            const dataIdInformError = idInformErrorDocSnapshot.data();
+                            const isFixed = dataIdInformError.isFixed;
+                            const textFeedBackUser = dataIdInformError.textFeedBackUser;
                       
-                    //         dispatch(setUserInformErrors({
-                    //           type: 'ADD_INFORM_ERROR',
-                    //           payload: {
-                    //             idInformErrors: id,
-                    //             isFixed: isFixed,
-                    //             textFeedBackUser: textFeedBackUser,
-                    //           }
-                    //         }));
-                    //       }
-                    //     }
-                    //   }
+                            dispatch(setUserInformErrors({
+                              type: 'ADD_INFORM_ERROR',
+                              payload: {
+                                idInformErrors: id,
+                                isFixed: isFixed,
+                                textFeedBackUser: textFeedBackUser,
+                              }
+                            }));
+                          }
+                        }
+                      }
                     setSelectedElement(false);
                     setLoadingData(false);
                     navigate('/');
@@ -138,6 +137,7 @@ export default function SignInUserOnlyPassPage() {
         } catch (err) {
             setLoadingData(false);
             setIsErrorUserData(true);
+            console.log(err);
         }
     }
 

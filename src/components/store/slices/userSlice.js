@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
     id: null,
     token: null,
@@ -11,7 +12,9 @@ const initialState = {
     phoneNumber: null,
     townLocation: null,
     streetLocation: null,
-    gender: null
+    gender: null,
+    errorsInformation: [],
+    updatedErrorsInformation: []
 };
 
 const userSlice = createSlice({
@@ -33,6 +36,31 @@ const userSlice = createSlice({
             state.streetLocation = action.payload.streetLocation;
             state.phoneNumber = action.payload.phoneNumber;
         },
+        setUserInformErrors(state, action) {
+            switch(action.payload.type){
+                case 'ADD_INFORM_ERROR':
+                    return{
+                        ...state,
+                        errorsInformation: [
+                            ...state.errorsInformation, action.payload
+                        ]
+                    };
+                case 'REMOVE_ID_INFORM_ERROR':
+                    const updatedErrorsInformation = state.errorsInformation.filter(item => item.idInformErrors !== action.payload.idInformErrors);
+                    return{
+                        ...state,
+                        errorsInformation: updatedErrorsInformation
+                    };
+                case 'REMOVE_ALL_INFORM_ERRORS':
+                    return {
+                        ...state,
+                        errorsInformation: [],
+                        updatedErrorsInformation: []
+                    };
+                default:
+                    return state;
+            }   
+        },
         removeUser(state) {
             state.token = null;
             state.id = null;
@@ -49,7 +77,8 @@ const userSlice = createSlice({
     },
 });
 
+    
 
-export const {setUser, setUserProfile, removeUser} = userSlice.actions;
+export const {setUser, setUserProfile, setUserInformErrors, removeUser} = userSlice.actions;
 
 export default userSlice.reducer;

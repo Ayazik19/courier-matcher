@@ -15,7 +15,7 @@ import LoadingDataForm from '../loadingData/loadingDataForm';
 import logoSite from '../componentsHomePage/logoSite.png';
 import FooterForm from '../componentsRegistrationPage/FooterForm.jsx'
 import SignInUserOnlyPassPage from './signInUserOnlyPassPage.jsx';
-import { useAuth } from '../hook/useauth.js';
+import { useAuth } from '../globalHooks/useauth';
 import { useHookMouseFunctionalityErrorsContext } from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
 import { useHookSignInPagesContext } from './useHookSignInPages.js';
 
@@ -80,30 +80,29 @@ export default function SignInPage() {
                         streetLocation: streetLocation
                     }));
                     
-                    //Develop code
-                    // if (idInformErrors !== undefined) {
-                    //     for (let i = 0; i < idInformErrors.length; i++) {
-                    //         const id = idInformErrors[i];
+                    if (idInformErrors !== undefined) {
+                        for (let i = 0; i < idInformErrors.length; i++) {
+                            const id = idInformErrors[i];
                         
-                    //         const idInformErrorDocRef = doc(db, 'informErrors', id);
-                    //         const idInformErrorDocSnapshot = await getDoc(idInformErrorDocRef);
+                            const idInformErrorDocRef = doc(db, 'informErrors', id);
+                            const idInformErrorDocSnapshot = await getDoc(idInformErrorDocRef);
                         
-                    //         if (idInformErrorDocSnapshot.exists()) {
-                    //             const dataIdInformError = idInformErrorDocSnapshot.data();
-                    //             const isFixed = dataIdInformError.isFixed;
-                    //             const textFeedBackUser = dataIdInformError.textFeedBackUser;
+                            if (idInformErrorDocSnapshot.exists()) {
+                                const dataIdInformError = idInformErrorDocSnapshot.data();
+                                const isFixed = dataIdInformError.isFixed;
+                                const textFeedBackUser = dataIdInformError.textFeedBackUser;
                         
-                    //             dispatch(setUserInformErrors({
-                    //                 type: 'ADD_INFORM_ERROR',
-                    //                 payload: {
-                    //                 idInformErrors: id,
-                    //                 isFixed: isFixed,
-                    //                 textFeedBackUser: textFeedBackUser
-                    //                 }
-                    //             }));
-                    //         }
-                    //     }
-                    // }
+                                dispatch(setUserInformErrors({
+                                    type: 'ADD_INFORM_ERROR',
+                                    payload: {
+                                        idInformErrors: id,
+                                        isFixed: isFixed,
+                                        textFeedBackUser: textFeedBackUser
+                                    }
+                                }));
+                            }
+                        }
+                    }
                 }
             }
             setIsRedirectSignInOnlyPassPage(false);
