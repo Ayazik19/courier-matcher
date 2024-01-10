@@ -6,8 +6,8 @@
 }
 .account-icon{
     display: inline-block;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: 1px solid black;
     margin-left: 375px;
@@ -98,11 +98,13 @@
     position: absolute;
     width: 300px;
     margin-top: 40px;
-    margin-left: 20.5px;
+    margin-left: 15px;
     height: 330px;
     border-radius: 0px;
     border: 1px solid rgb(167, 167, 167);
     background-color: rgb(167, 167, 167);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .header-nav-acc-user{

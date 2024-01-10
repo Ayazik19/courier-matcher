@@ -4,8 +4,12 @@ import ProfileAccountIconUserAccSetingsPage from "./ProfileAccountIconUserAccSet
 import logoSite from '../componentsHomePage/logoSite.png';
 import ChoosenCouriersIcon from '../componentsHomePage/choosenCouriersIcon';
 import './userAccSetingsHeaderPage.css';
+import NotificationFunctionality from '../componentsHomePage/notificationFunctionality'; 
+import { useHookHeaderIconsEmergenceContext } from '../globalHooks/hookHeaderNavIconsEmergence';
 
 export default function UserAccSetingsHeaderPage(){
+    const {setHideContUserAcc} = useHookHeaderIconsEmergenceContext();
+
     const [isFixStateOne, setIsFixStateOne] = useState(false);
 
     useEffect(() => {
@@ -26,12 +30,6 @@ export default function UserAccSetingsHeaderPage(){
         };
     }, []);
 
-
-
-
-
-    
-
     return (
         <header className={`${isFixStateOne ? 'sticky' : ''}`}>
             <div className='page-line-header'>
@@ -43,12 +41,13 @@ export default function UserAccSetingsHeaderPage(){
             </div>
             <div className="navbar">
                 <div className='nav-links'>
-                    <Link className="navbar-link-user-acc-setings-page-1" to='/#'>About</Link>
-                    <Link className="navbar-link-user-acc-setings-page-2" to='/ChooseCourier'>Choose</Link>
-                    <Link className="navbar-link-user-acc-setings-page-3" to='/Terms-Cooperation'>Terms cooperation</Link>
+                    <Link className="navbar-link-user-acc-setings-page-1" to='/#' onClick={() => {setHideContUserAcc(true)}}>About</Link>
+                    <Link className="navbar-link-user-acc-setings-page-2" to='/ChooseCourier' onClick={() => {setHideContUserAcc(true)}}>Choose</Link>
+                    <Link className="navbar-link-user-acc-setings-page-3" to='/Terms-Cooperation' onClick={() => {setHideContUserAcc(true)}}>Terms cooperation</Link>
                 </div>
             </div>
             <ProfileAccountIconUserAccSetingsPage />
+            <NotificationFunctionality />
             <ChoosenCouriersIcon />
         </header>
     ); 

@@ -1,47 +1,74 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import  hideUserAccInfo from '../componentsHomePage/hideUserAccInfo.png';
-import { removeUser } from "../store/slices/userSlice.js";
-import { useAuth } from '../hook/useauth.js';
+import { removeUser, setUserInformErrors } from "../store/slices/userSlice.js";
+import { useAuth } from '../globalHooks/useauth.js';
 import CheckAccountPhotoProfile from '../componentsHomePage/checkAccountPhotoProfileHomePage.jsx';
 import addCourierHomePage from '../componentsHomePage/addCourierHomePage.png'
 import logOutAccUserHomePage from '../componentsHomePage/logOutAccUserHomePage.png';
 import CheckAccountPhotoProfileInfoAcc from '../componentsHomePage/CheckAccountPhotoProfileInfoAcc.jsx';
 import './ProfileAccountIconUserAccSetingsPage.css';
+import { useHookHeaderIconsEmergenceContext } from '../globalHooks/hookHeaderNavIconsEmergence';
+import { useHookMouseFunctionalityErrorsContext } from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors';
 
 export default function ProfileAccountIconUserAccSetingsPage() {
-    const { isAuth, displayName, email } = useAuth();
+    const { 
+        isAuth, 
+        displayName, 
+        email 
+    } = useAuth();
+
+    const {
+        hideIconAddCourier, 
+        hideContIconUserAcc, 
+        hideNotificationIcon, 
+        setHideContUserAcc,
+        setHideIconAddCourier
+    } = useHookHeaderIconsEmergenceContext();
+    const {isSelectedElement} = useHookMouseFunctionalityErrorsContext();
 
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
-    const [isShowInfoAccont, setShowInfoAccont] = useState(false);
     const [eventClickTracking, setEventClickTracking] = useState(1);
 
     const handleShowInfoAccount = () => {
+        setHideContUserAcc(false);
         setEventClickTracking(eventClickTracking + 1);
-        if(eventClickTracking % 2 == 0){
-            setShowInfoAccont(false);
-        }
-        else{
-            setShowInfoAccont(true);
+        if(!hideContIconUserAcc){
+            if(eventClickTracking % 2 == 0){
+                setHideContUserAcc(true);
+            }
+            else{
+                setHideContUserAcc(false);
+            }
         }
     }
 
     const handleHideInfoAccount = () => {
-        setShowInfoAccont(false);
+        setHideContUserAcc(true);
     }
     const handleRediractionToSettingsAcc = () => {
         navigate('/User-account');
     }
     const hadbleRediractionSignInPage = () => {
         dispatch(removeUser());
+        dispatch(setUserInformErrors({
+            type: 'REMOVE_ALL_INFORM_ERRORS',
+            payload: {}
+        }))
     }
     const hadbleRediractionChooseCourierPage = () => {
         navigate('/ChooseCourier');
     }
+
+    useEffect(() => {
+        if(!hideIconAddCourier || !hideNotificationIcon || isSelectedElement) {
+            setHideContUserAcc(true);
+        }
+    },[hideIconAddCourier, hideNotificationIcon, isSelectedElement]);
 
 return isAuth ? (
     <>
@@ -50,7 +77,7 @@ return isAuth ? (
                     <CheckAccountPhotoProfile />
                 </div>
         </div>
-        {isShowInfoAccont ? 
+        {!hideContIconUserAcc ? 
             <div className='nav-info-acc-user'>
                 <div className='nav-acc-user-acc-setings-page'>
                     <div className='header-nav-acc-user'>

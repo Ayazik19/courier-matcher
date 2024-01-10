@@ -6,17 +6,19 @@
     width: 35px;
     height: 35px;
     border-radius: 0px;
-    margin-top: 5px;
+    margin-top: 2.5px;
 }
 .show-choosen-couriers{
     position: absolute;
     width: 350px;
-    margin-top: 18px;
+    margin-top: 19px;
     margin-left: -165px;
     height: 200px;
     border-radius: 0px;
     border: 1px solid rgb(167, 167, 167);
     background-color: rgb(167, 167, 167);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 .attribute-name-selected-home-page-couriers_false{
     display: block;
