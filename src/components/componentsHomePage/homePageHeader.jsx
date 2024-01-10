@@ -4,8 +4,12 @@ import ProfileAccountIconHomePage from "./profileAccountIconHomePage";
 import logoSite from './logoSite.png';
 import ChoosenCouriersIcon from './choosenCouriersIcon.jsx';
 import './homePageHeader.css';
+import { useHookHeaderIconsEmergenceContext } from '../globalHooks/hookHeaderNavIconsEmergence';
+import NotificationFunctionality from './notificationFunctionality.jsx';
 
 export default function HomePageHeader() {
+    const {setHideContUserAcc} = useHookHeaderIconsEmergenceContext();
+
     const [isFixStateOne, setIsFixStateOne] = useState(false);
     const [isFixStateTwo, setIsFixStateTwo] = useState(false);
 
@@ -98,19 +102,20 @@ export default function HomePageHeader() {
             <div className='page-line-header'>
                 <div className="name-site">
                     <span className='span-home-page-header'>
-                    <img src = {logoSite} className='home-page-logo-site'/>
+                        <img src = {logoSite} className='home-page-logo-site'/>
                     </span>
                 </div>
             </div>
             <div className="navbar">
                 <div className='nav-links'>
-                    <a className={`${isContentAdvantages ?  'navbar-link-1_color-gray': 'navbar-link-1'}`} href='#title-1'>Advantages</a>
-                    <a className={`${isContentReviews ? 'navbar-link-2_color-gray' : 'navbar-link-2'}`} href='#title-2'>Reviews</a>
-                    <a className={`${isContentInstruction ? 'navbar-link-3_color-gray' : 'navbar-link-3'}`} href='#title-3'>Instruction</a>                   
-                    <a className={`${isContentExplanation ? 'navbar-link-4_color-gray' : 'navbar-link-4'}`} href='#footer'>Explenation</a>
+                    <a className={`${isContentAdvantages ?  'navbar-link-1_color-gray': 'navbar-link-1-desc-show_true'}`} href='#title-1'>Advantages</a>
+                    <a className={`${isContentReviews ? 'navbar-link-2_color-gray' : 'navbar-link-2-desc-show_true'}`} href='#title-2'>Reviews</a>
+                    <a className={`${isContentInstruction ? 'navbar-link-3_color-gray' : 'navbar-link-3-desc-show_true'}`} href='#title-3'>Instruction</a>                   
+                    <a className={`${isContentExplanation ? 'navbar-link-4_color-gray' : 'navbar-link-4-desc-show_true'}`} href='#footer'>Explenation</a>
                 </div>
             </div>
             <ProfileAccountIconHomePage />
+            <NotificationFunctionality />
             <ChoosenCouriersIcon />
         </header>
     ) : (
@@ -124,12 +129,13 @@ export default function HomePageHeader() {
             </div>
             <div className="navbar">
                 <div className='nav-links'>
-                    <Link className="navbar-link-1" to='/#'>About</Link>
-                    <Link className="navbar-link-2" to='/ChooseCourier'>Choose</Link>
-                    <Link className="navbar-link-3" to='/Terms-Cooperation'>Terms cooperation</Link>
+                    <Link className="navbar-link-1-desc-show_false" to='/#'>About</Link>
+                    <Link className="navbar-link-2-desc-show_false" to='/ChooseCourier' onClick={() => {setHideContUserAcc(true)}}>Choose</Link>
+                    <Link className="navbar-link-3-desc-show_false" to='/Terms-Cooperation' onClick={() => {setHideContUserAcc(true)}}>Terms cooperation</Link>
                 </div>
             </div>
             <ProfileAccountIconHomePage />
+            <NotificationFunctionality />
             <ChoosenCouriersIcon />
         </header>
     ); 

@@ -33,23 +33,40 @@ header {
     border-radius: 0px;
 }
 
-.navbar-link-1 {
+.navbar-link-1-desc-show_false {
+    color: black;
+    text-decoration: none;
+    margin-left: -97.5px;
+}
+  
+.navbar-link-2-desc-show_false {
+    color: black;
+    text-decoration: none;
+    margin-left: 35px;
+}
+.navbar-link-3-desc-show_false {
+    color: black;
+    text-decoration: none;
+    margin-left: 35px;
+}
+
+.navbar-link-1-desc-show_true {
     color: black;
     text-decoration: none;
     margin-left: -120px;
 }
   
-.navbar-link-2 {
+.navbar-link-2-desc-show_true {
     color: black;
     text-decoration: none;
     margin-left: 35px;
 }
-.navbar-link-3 {
+.navbar-link-3-desc-show_true {
     color: black;
     text-decoration: none;
     margin-left: 35px;
 }
-.navbar-link-4{
+.navbar-link-4-desc-show_true{
     color: black;
     text-decoration: none;
     margin-left: 35px;
