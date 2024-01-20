@@ -2,15 +2,13 @@ import { useHookMouseFunctionalityErrorsContext } from './hookMouseFunctionality
 import { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
-import { serviceId } from '../components/emailJsConfig';
-import { templateId } from '../components/emailJsConfig';
-import { publicKey } from '../components/emailJsConfig';
+import { serviceIdOne, templateIdOne, publicKeyOne, serviceIdTwo, templateIdTwo, publicKeyTwo } from '../components/emailJsConfig';
 import OpenContHookMouseFunctionalityErrorsStepTwo from './openContHookMouseFunctionalityErrorsStepTwo.jsx'
 import hideContAdding from '../components/componentsHomePage/hideUserAccInfo.png';
 import './openContHookMouseFunctionalityErrorsStepOne.css';
 import { useAuth } from '../components/globalHooks/useauth';
 import { useDispatch } from 'react-redux';
-import { setUserInformErrors } from '../components/store/slices/userSlice.js';
+import { setOperationInformErrors } from '../components/store/slices/userSlice.js';
 import { firebaseConfig } from '../components/firebase.js';
 import { collection, getFirestore, doc, addDoc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
@@ -26,13 +24,13 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
         email,
         displayName
     } = useAuth();
-    const { 
-        selectedText, 
-        isSelectedElement, 
-        isSelectedElementStepTwo, 
-        setIsSelectedElementStepTwo, 
-        setSelectedElement } 
-    = useHookMouseFunctionalityErrorsContext();
+    const {
+        selectedText,
+        isSelectedElement,
+        isSelectedElementStepTwo,
+        setIsSelectedElementStepTwo,
+        setSelectedElement }
+        = useHookMouseFunctionalityErrorsContext();
 
     const { handleSubmit, register } = useForm({ mode: 'onSubmit' });
 
@@ -56,7 +54,7 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
         setIsTextInformErrorSizeAdaptiveXxl(length > 175 && 212 > length);
         setIsTextInformErrorSizeAdaptiveXxxl(length > 212 && 249 > length);
     }, [
-        setIsTextInformErrorSizeAdaptiveXs, 
+        setIsTextInformErrorSizeAdaptiveXs,
         setIsTextInformErrorSizeAdaptiveS,
         setIsTextInformErrorSizeAdaptiveM,
         setIsTextInformErrorSizeAdaptiveL,
@@ -158,7 +156,7 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
 
                         await updateUserField(email, fieldName, updatedArrayThirdValue);
                     }
-                    dispatch(setUserInformErrors({
+                    dispatch(setOperationInformErrors({
                         type: 'ADD_INFORM_ERROR',
                         payload: [
                             {
@@ -175,31 +173,58 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
                 }
             }
 
-
-            //creating an error data message and sending it to the mail of the error resolution service on the site
-            const dataMessageUserAboutError =
+            try {
+                //creating an error data message and sending it to the mail of the error resolution service on the site
+                const dataMessageUserAboutError =
                 isAuth ?
-                    `Inform Error Id = ${informErrorsCollectionDocRef.id}\n
+                `Inform Error Id = ${informErrorsCollectionDocRef.id}\n
                 ~User Account Data\n
                 Email: ${email}\n
                 Name: ${displayName}\n
                 ~Error specified by the user in site\n
                 Selected text user in site with error: ${selectedText}\n
                 Text user inform about error: ${isInputInfromErrors}\n`
-                    :
-                    `~id Inform Error = ${informErrorsCollectionDocRef.id}\n
+                :
+                `~id Inform Error = ${informErrorsCollectionDocRef.id}\n
                 ~Unregistered user\n
                 ~Error specified by the user in site\n
                 Selected text user in site with error: ${selectedText}\n
                 Text user inform about error: ${isInputInfromErrors}\n`
                 ;
-
-            const response = await emailjs.send(serviceId, templateId, {
-                to_email: 'errorscoorchik@gmail.com',
-                message: dataMessageUserAboutError,
-            }, publicKey);
-            console.log(response.status, response.text);
-            setLoadingDataForm(false);
+                const response = await emailjs.send(serviceIdOne, templateIdOne, {
+                    to_email: 'errorscoorchik@gmail.com',
+                    message: dataMessageUserAboutError,
+                }, publicKeyOne);
+                console.log(response.status, response.text);
+                setLoadingDataForm(false);
+            }
+            catch (err) {
+                if (err.response.status == 426) {
+                    const dataMessageUserAboutError =
+                    isAuth ?
+                    `Inform Error Id = ${informErrorsCollectionDocRef.id}\n
+                    ~User Account Data\n
+                    Email: ${email}\n
+                    Name: ${displayName}\n
+                    ~Error specified by the user in site\n
+                    Selected text user in site with error: ${selectedText}\n
+                    Text user inform about error: ${isInputInfromErrors}\n`
+                    :
+                    `~id Inform Error = ${informErrorsCollectionDocRef.id}\n
+                    ~Unregistered user\n
+                    ~Error specified by the user in site\n
+                    Selected text user in site with error: ${selectedText}\n
+                    Text user inform about error: ${isInputInfromErrors}\n`
+                    ;
+                    const response = await emailjs.send(serviceIdTwo, templateIdTwo, {
+                        to_email: 'errorscoorchik@gmail.com',
+                        message: dataMessageUserAboutError,
+                    }, publicKeyTwo);
+                    console.log(response.status, response.text);
+                    setLoadingDataForm(false);
+                    console.log(err);
+                }
+            }
         } catch (err) {
             setLoadingDataForm(false);
             console.log(err);
@@ -407,38 +432,33 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
                     : null}
                 {isTextInformErrorSizeAdaptiveXxxl ?
                     <div className='fp-cont-show-inform-errors_size-cont-XXXL'>
-                        {isLoadingDataForm ?
-                            <div>
-                                <span class="loader_cont-size-XXXL"></span>
+                        <div>
+                            <div className='hide-cont-hide-inform-errors'>
+                                <img src={hideContAdding} onClick={() => (setSelectedElement(false))} className='img-hide-cont-inform-errors' />
                             </div>
-                            :
-                            <div>
-                                <div className='hide-cont-hide-inform-errors'>
-                                    <img src={hideContAdding} onClick={() => (setSelectedElement(false))} className='img-hide-cont-inform-errors' />
-                                </div>
-                                <form onSubmit={handleSubmit(handleUserInformErrors)} className='form-inform-errors'>
-                                    <span className='main-text-cont'>
-                                        Detected error
-                                    </span>
-                                    <span className='main-text-selected'>
-                                        Selected text:
-                                    </span>
-                                    <span className='text-error'>
-                                        {selectedText}
-                                    </span>
-                                    <textarea
-                                        {...register('inputInfromErrors', {
-                                        })}
-                                        name='message'
-                                        maxLength='300'
-                                        id='textarea-input-error-user'
-                                        className='textarea-inform-errors'
-                                        placeholder='*Describe the error'
-                                        onChange={(e) => setInputInfromErrors(e.target.value)}
-                                    />
-                                    <button type='submit' className='button-submit-inform-error'>{isChangeNameButtonLoading ? 'Sending...' : 'Report an error'}</button>
-                                </form>
-                            </div>}
+                            <form onSubmit={handleSubmit(handleUserInformErrors)} className='form-inform-errors'>
+                                <span className='main-text-cont'>
+                                    Detected error
+                                </span>
+                                <span className='main-text-selected'>
+                                    Selected text:
+                                </span>
+                                <span className='text-error'>
+                                    {selectedText}
+                                </span>
+                                <textarea
+                                    {...register('inputInfromErrors', {
+                                    })}
+                                    name='message'
+                                    maxLength='300'
+                                    id='textarea-input-error-user'
+                                    className='textarea-inform-errors'
+                                    placeholder='*Describe the error'
+                                    onChange={(e) => setInputInfromErrors(e.target.value)}
+                                />
+                                <button type='submit' className='button-submit-inform-error'>{isChangeNameButtonLoading ? 'Sending...' : 'Report an error'}</button>
+                            </form>
+                        </div>
                     </div> : null}
             </div>) : <OpenContHookMouseFunctionalityErrorsStepTwo />
     ) : null
