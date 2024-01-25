@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import  hideUserAccInfo from '../componentsHomePage/hideUserAccInfo.png';
-import { removeUser, setOperationInformErrors } from "../store/slices/userSlice.js";
+import { removeUser, setOperationInformErrors, setOperationUserNotifications } from "../store/slices/userSlice.js";
 import { useAuth } from '../globalHooks/useauth.js';
 import CheckAccountPhotoProfile from '../componentsHomePage/checkAccountPhotoProfileHomePage.jsx';
 import addCourierHomePage from '../componentsHomePage/addCourierHomePage.png'
@@ -57,6 +57,10 @@ export default function ProfileAccountIconUserAccSetingsPage() {
         dispatch(removeUser());
         dispatch(setOperationInformErrors({
             type: 'REMOVE_INFORM_ERRORS',
+            payload: {}
+        }))
+        dispatch(setOperationUserNotifications({
+            type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }))
     }

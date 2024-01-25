@@ -13,8 +13,10 @@ const initialState = {
     townLocation: null,
     streetLocation: null,
     gender: null,
+    notificationsHistory: [],
     errorsInformation: [],
-    updatedErrorsInformation: []
+    notificationsViewed: [],
+    notificationsUnseen: []
 };
 
 const userSlice = createSlice({
@@ -54,16 +56,41 @@ const userSlice = createSlice({
                     return state;
             }
         },
+        setOperationUserNotifications(state, action) {
+            switch(action.payload.type){
+                case 'ALL_NOTIFICATIONS_HISTORY':
                     return{
                         ...state,
-                        errorsInformation: updatedErrorsInformation
+                        notificationsHistory: [
+                        ...(state.notificationsHistory || []), action.payload
+                        ]
                     };
-                case 'REMOVE_ALL_INFORM_ERRORS':
-                    return {
+                case 'ADD_NOTIFICATIONS_VIEWED':
+                    return{
                         ...state,
-                        errorsInformation: [],
-                        updatedErrorsInformation: []
+                        notificationsViewed: [
+                            ...(state.notificationsViewed || []), action.payload
+                        ]
                     };
+                case 'ADD_NOTIFICATIONS_UNSEEN':
+                    return{
+                        ...state,
+                        notificationsUnseen: [
+                            ...(state.notificationsUnseen || []), action.payload
+                        ]
+                    };
+                case 'REMOVE_UNSEEN_NOTIFICATIONS':
+                    return{
+                        ...state,
+                        notificationsUnseen: []
+                    }
+                case 'REMOVE_ALL_NOTIFICATIONS':
+                    return{
+                        ...state,
+                        notificationsHistory: [],
+                        notificationsViewed: [],
+                        notificationsUnseen: []
+                    }
                 default:
                     return state;
             }   
@@ -84,12 +111,14 @@ const userSlice = createSlice({
     },
 });
 
+
     
 
 export const {
     setUser, 
     setUserProfile, 
     setOperationInformErrors,  
+    setOperationUserNotifications, 
     removeUser} = userSlice.actions;
 
 export default userSlice.reducer;

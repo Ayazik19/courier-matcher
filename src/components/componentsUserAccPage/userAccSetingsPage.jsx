@@ -3,7 +3,7 @@ import { useAuth } from '../globalHooks/useauth.js';
 import { Link, useNavigate } from 'react-router-dom';
 import './userAccSetingsPage.css';
 import { useEffect, useState } from 'react';
-import { removeUser, setOperationInformErrors } from '../store/slices/userSlice.js';
+import { removeUser, setOperationInformErrors, setOperationUserNotifications } from '../store/slices/userSlice.js';
 import { useDispatch } from 'react-redux';
 import FooterUserSettingsPage from './footerUserSettingsPage.jsx';
 import OpenContHookMouseFunctionalityErrors from '../../mouseFunctionalityErrors/openContHookMouseFunctionalityErrorsStepOne.jsx'
@@ -39,12 +39,20 @@ export default function UserAccSetingsPage() {
             type: 'REMOVE_INFORM_ERRORS',
             payload: {}
         }))
+        dispatch(setOperationUserNotifications({
+            type: 'REMOVE_ALL_NOTIFICATIONS',
+            payload: {}
+        }))
         navigate('/Sign-In-password-recovery');
     }
     const handleSignInRedirectPage = () => {
         dispatch(removeUser());
         dispatch(setOperationInformErrors({
             type: 'REMOVE_INFORM_ERRORS',
+            payload: {}
+        }))
+        dispatch(setOperationUserNotifications({
+            type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }))
         navigate('/SignIn-Registration');
