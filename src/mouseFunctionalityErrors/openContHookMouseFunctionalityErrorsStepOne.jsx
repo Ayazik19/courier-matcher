@@ -10,7 +10,7 @@ import { useAuth } from '../components/globalHooks/useauth';
 import { useDispatch } from 'react-redux';
 import { setOperationInformErrors } from '../components/store/slices/userSlice.js';
 import { firebaseConfig } from '../components/firebase.js';
-import { collection, getFirestore, doc, addDoc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, getFirestore, doc, addDoc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
 const app = initializeApp(firebaseConfig);
@@ -100,62 +100,24 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
             if (userDocSnapshots.exists()) {
                 const userData = userDocSnapshots.data();
                 const idInformErrors = userData.idInformErrors || [];
-                const fieldName = 'idInformErrors';
                 const lengthArrErrors = idInformErrors.length;
 
-                if (lengthArrErrors >= 0 && lengthArrErrors <= 2) {
-                    if (lengthArrErrors === 0) {
-                        const field = 'idInformErrors';
-                        const value = [];
-                        value.push(informErrorsCollectionDocRef.id);
+                if (lengthArrErrors > 0) {
+                    const fieldName = 'idInformErrors';
 
+                    const addInformErrorData = informErrorsCollectionDocRef.id;
+
+                    const updateInformErrorField = async (email, fieldName, addInformErrorData) => {
                         const userRef = doc(db, "users", email);
-                        const setDataField = { [field]: value };
-
                         try {
-                            await setDoc(userRef, setDataField, { merge: true });
-                        }
-                        catch (error) {
+                            await updateDoc(userRef, { [fieldName]: arrayUnion(addInformErrorData) });
+                        } catch (error) {
                             console.log(error);
                         }
-                    }
-                    else if (lengthArrErrors === 1) {
-                        const idInformErrorOne = idInformErrors[0];
-                        const idInformErrorTwo = informErrorsCollectionDocRef.id;
+                    };
 
-                        const updatedArraySecondValue = [idInformErrorOne, idInformErrorTwo];
+                    await updateInformErrorField(email, fieldName, addInformErrorData);
 
-                        const updateUserField = async (email, fieldName, updatedArraySecondValue) => {
-                            const userRef = doc(db, "users", email);
-                            try {
-                                await updateDoc(userRef, { [fieldName]: updatedArraySecondValue });
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        };
-
-                        await updateUserField(email, fieldName, updatedArraySecondValue);
-                    }
-                    else if (lengthArrErrors === 2) {
-                        const idInformErrorsArray = userDocSnapshots.get(fieldName);
-
-                        const idInformErrorOne = idInformErrorsArray[0];
-                        const idInformErrorTwo = idInformErrorsArray[1];
-                        const idInformErrorThree = informErrorsCollectionDocRef.id;
-
-                        const updatedArrayThirdValue = [idInformErrorOne, idInformErrorTwo, idInformErrorThree];
-
-                        const updateUserField = async (email, fieldName, updatedArrayThirdValue) => {
-                            const userRef = doc(db, "users", email);
-                            try {
-                                await updateDoc(userRef, { [fieldName]: updatedArrayThirdValue });
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        };
-
-                        await updateUserField(email, fieldName, updatedArrayThirdValue);
-                    }
                     dispatch(setOperationInformErrors({
                         type: 'ADD_INFORM_ERROR',
                         payload: [
@@ -169,6 +131,30 @@ export default function OpenContHookMouseFunctionalityErrorsStepOne() {
                     setIsSelectedElementStepTwo(true);
                 }
                 else {
+                        const field = 'idInformErrors';
+                        const value = [];
+                        value.push(informErrorsCollectionDocRef.id);
+
+                        const userRef = doc(db, "users", email);
+                        const setDataField = { [field]: value };
+
+                        try {
+                            await setDoc(userRef, setDataField, { merge: true });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+
+                    dispatch(setOperationInformErrors({
+                        type: 'ADD_INFORM_ERROR',
+                        payload: [
+                            {
+                                idInformErrors: informErrorsCollectionDocRef.id,
+                                isFixed: false,
+                                textFeedBackUser: '',
+                            }
+                        ]
+                    }));
                     setIsSelectedElementStepTwo(true);
                 }
             }
