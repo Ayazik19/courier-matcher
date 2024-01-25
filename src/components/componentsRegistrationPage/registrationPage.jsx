@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
-import { setUser, setUserInformErrors, setUserProfile } from "../store/slices/userSlice";
+import { setUser, setOperationInformErrors, setUserProfile, setOperationUserNotifications } from "../store/slices/userSlice";
 import './registrationPage.css';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -94,6 +94,7 @@ export default function RegistrationPage() {
                 }));
                 dispatch(setUserProfile({}));
             dispatch(setOperationInformErrors({}));
+            dispatch(setOperationUserNotifications({}));
                 setSelectedElement(false);
                 setLoadingData(false);
                 navigate("/");

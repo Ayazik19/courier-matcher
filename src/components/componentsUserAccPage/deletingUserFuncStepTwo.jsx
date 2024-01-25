@@ -2,7 +2,7 @@ import LoadingDataFormUserAcc from '../loadingData/loadingDataFormUserAcc.jsx';
 import hideContAdding from '../componentsHomePage/hideUserAccInfo.png';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeUser, setOperationInformErrors } from '../store/slices/userSlice.js';
+import { removeUser, setOperationInformErrors, setOperationUserNotifications } from '../store/slices/userSlice.js';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getAuth, deleteUser } from "firebase/auth";
@@ -44,6 +44,7 @@ export default function DeletingUserFuncStepTwo() {
         setIsLoadingDataForm(true);
         try {
             const userDocRef = doc(db, "users", email);
+            const userNotificationsDocRef = doc(db, "usersNotifications", email);
 
             if (isCheckedCheckBox) {
                 const user = auth.currentUser;

@@ -5,7 +5,7 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { setUser, setOperationInformErrors, setUserProfile } from '../store/slices/userSlice.js';
+import { setUser, setOperationUserNotifications, setOperationInformErrors, setUserProfile } from '../store/slices/userSlice.js';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -132,10 +132,73 @@ export default function SignInUserOnlyPassPage() {
                           }
                         }
                       }
-                    setSelectedElement(false);
-                    setLoadingData(false);
-                    navigate('/');
-                }
+                const userNotificationsDocRef = doc(db, 'usersNotifications', user.email);
+                const userNotificationsDocSnapshot = await getDoc(userNotificationsDocRef);
+
+                if (userNotificationsDocSnapshot.exists()) {
+                    const notificationsData = userNotificationsDocSnapshot.data();
+                    const arrayNotificationsHistory = notificationsData.arrayUserNotifcationsHistory || [];
+                    const arrayNotificationsUnseen = notificationsData.arrayUserNotifcationsUnseen || [];
+                    const arrayNotificationsViewed = notificationsData.arrayUserNotifcationsViewed || [];
+
+                    if (arrayNotificationsHistory !== undefined) {
+                        for (let i = 0; i < arrayNotificationsHistory.length; i++) {
+                            const id = arrayNotificationsHistory[i];
+                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataSenderNotification = id?.senderNotification;
+                            const arrayDataTextNotification = id?.textNotification;
+
+                            dispatch(setOperationUserNotifications({
+                                type: 'ALL_NOTIFICATIONS_HISTORY',
+                                payload: {
+                                    dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                    textNotification: arrayDataTextNotification,
+                                    senderNotification: arrayDataSenderNotification
+                                }
+                            }))
+                        }
+                    }
+                    if (arrayNotificationsUnseen !== undefined) {
+                        for (let i = 0; i < arrayNotificationsUnseen.length; i++) {
+                            const id = arrayNotificationsUnseen[i];
+                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataSenderNotification = id?.senderNotification;
+                            const arrayDataTextNotification = id?.textNotification;
+                            const arrayDataIsViewedNot = id?.isViewedNotifcation;
+
+                            dispatch(setOperationUserNotifications({
+                                type: 'ADD_NOTIFICATIONS_UNSEEN',
+                                payload: [
+                                    {
+                                        dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                        textNotification: arrayDataTextNotification,
+                                        senderNotification: arrayDataSenderNotification,
+                                        isViewedNotification: arrayDataIsViewedNot
+                                    }
+                                ]
+                            }))
+                        }
+                    }
+                    if (arrayNotificationsViewed !== undefined) {
+                        for (let i = 0; i < arrayNotificationsViewed.length; i++) {
+                            const id = arrayNotificationsViewed[i];
+                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataSenderNotification = id?.senderNotification;
+                            const arrayDataTextNotification = id?.textNotification;
+                            const arrayDataIsViewedNot = id?.isViewedNotifcation;
+
+                            dispatch(setOperationUserNotifications({
+                                type: 'ADD_NOTIFICATIONS_VIEWED',
+                                payload: [
+                                    {
+                                        dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                        textNotification: arrayDataTextNotification,
+                                        senderNotification: arrayDataSenderNotification,
+                                        isViewedNotification: arrayDataIsViewedNot
+                                    }
+                                ]
+                            }))
+                        }
             }
         } catch (err) {
             setLoadingData(false);

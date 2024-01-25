@@ -9,6 +9,7 @@ import HomePage from './components/componentsHomePage/homePage.jsx';
 import RegistrationPage from './components/componentsRegistrationPage/registrationPage.jsx';
 import UserAccSetingsPage from './components/componentsUserAccPage/userAccSetingsPage.jsx';
 import TermsCooperationPage from './components/componentsTermsCooperationPage/termsCooperationPage';
+import { HooksProcessingDatabaseUserNotificationsProvider } from './components/globalHooks/hooksProcessingDatabaseUserNotifications.js';
 import { HookHeaderIconsEmergenceProvider } from './components/globalHooks/hookHeaderNavIconsEmergence.js';
 import { HookSignInPagesProvider } from './components/componentsSignInPage/useHookSignInPages.js';
 import { HookStepsRedirectProvider } from './components/componentsUserAccPage/hookStepsDeleteAcc/hookStepsDeleteAcc';
@@ -17,24 +18,26 @@ import { HookMouseFunctionalityErrorsProvider } from './mouseFunctionalityErrors
 function App() {
     return (
         <div className="App">
-            <HookMouseFunctionalityErrorsProvider>
-                {/* <HookHeaderIconsEmergenceProvider> */}
-                <HookSignInPagesProvider>
-                    <HookStepsRedirectProvider>
-                        <Routes>
-                            <Route path="/" element={<HomePage />}>Home</Route>
-                            <Route path="/SignIn-Registration" element={<SignInPage />}></Route>
-                            <Route path="/Terms-Cooperation" element={<TermsCooperationPage />}></Route>
-                            <Route path="/Sign-In-password-recovery" element={<SignInPasswordRecoveryPage />}></Route>
-                            <Route path="/Registration-SignIn" element={<RegistrationPage />}></Route>
-                            <Route path="/ChooseCourier" element={<PageChooseCourier />}></Route>
-                            <Route path="/User-account" element={<UserAccSetingsPage />}></Route>
-                            <Route path="/Chooose-courier-result" element={<FormChooseCourierResult />}></Route>
-                        </Routes>
-                    </HookStepsRedirectProvider>
-                </HookSignInPagesProvider>
-                {/* </HookHeaderIconsEmergenceProvider> */}
-            </HookMouseFunctionalityErrorsProvider>
+            <HooksProcessingDatabaseUserNotificationsProvider>
+                <HookMouseFunctionalityErrorsProvider>
+                    <HookHeaderIconsEmergenceProvider>
+                        <HookSignInPagesProvider>
+                            <HookStepsRedirectProvider>
+                                <Routes>
+                                    <Route path="/" element={<HomePage />}>Home</Route>
+                                    <Route path="/SignIn-Registration" element={<SignInPage />}></Route>
+                                    <Route path="/Terms-Cooperation" element={<TermsCooperationPage />}></Route>
+                                    <Route path="/Sign-In-password-recovery" element={<SignInPasswordRecoveryPage />}></Route>
+                                    <Route path="/Registration-SignIn" element={<RegistrationPage />}></Route>
+                                    <Route path="/ChooseCourier" element={<PageChooseCourier />}></Route>
+                                    <Route path="/User-account" element={<UserAccSetingsPage />}></Route>
+                                    <Route path="/Chooose-courier-result" element={<FormChooseCourierResult />}></Route>
+                                </Routes>
+                            </HookStepsRedirectProvider>
+                        </HookSignInPagesProvider>
+                    </HookHeaderIconsEmergenceProvider>
+                </HookMouseFunctionalityErrorsProvider>
+            </HooksProcessingDatabaseUserNotificationsProvider>
         </div>
     );
 }
