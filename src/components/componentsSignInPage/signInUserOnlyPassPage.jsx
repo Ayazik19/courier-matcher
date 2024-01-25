@@ -20,6 +20,7 @@ import CheckAccountPhotoProfileSignIn from './checkAccountPhotoProfileSignIn.jsx
 import { useAuth } from '../globalHooks/useauth.js';
 import { useHookMouseFunctionalityErrorsContext } from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
 import { useHookSignInPagesContext } from './useHookSignInPages.js';
+import { useHookHeaderIconsEmergenceContext } from '../globalHooks/hookHeaderNavIconsEmergence.js';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -27,8 +28,13 @@ const db = getFirestore(app);
 export default function SignInUserOnlyPassPage() {
     const navigate = useNavigate();
 
-    const { setIsRedirectSignInOnlyPassPage } = useHookSignInPagesContext();
 
+    const { setIsRedirectSignInOnlyPassPage } = useHookSignInPagesContext();
+    const {
+        setHideIconAddCourier,
+        setHideContUserAcc,
+        setHideNotificationIcon
+    } = useHookHeaderIconsEmergenceContext();
     const { setSelectedElement } = useHookMouseFunctionalityErrorsContext();
 
     const [isBackRegister, setIsBackRegister] = useState(false);
@@ -77,7 +83,7 @@ export default function SignInUserOnlyPassPage() {
         const { inputPassSignIn } = data;
         setLoadingData(true);
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, inputEmailPasswordReset, inputPassSignIn);
+            const userCredential = await signInWithEmailAndPassword(auth, email, inputPassSignIn);
             const user = userCredential.user;
 
             if (user && user.email) {
@@ -111,32 +117,108 @@ export default function SignInUserOnlyPassPage() {
 
                     if (idInformErrors !== undefined) {
                         for (let i = 0; i < idInformErrors.length; i++) {
-                          const id = idInformErrors[i];
-                      
-                          const idInformErrorDocRef = doc(db, 'informErrors', id);
-                          const idInformErrorDocSnapshot = await getDoc(idInformErrorDocRef);
-                      
-                          if (idInformErrorDocSnapshot.exists()) {
-                            const dataIdInformError = idInformErrorDocSnapshot.data();
-                            const isFixed = dataIdInformError.isFixed;
-                            const textFeedBackUser = dataIdInformError.textFeedBackUser;
-                      
+                            const id = idInformErrors[i];
+
+                            const idInformErrorDocRef = doc(db, 'informErrors', id);
+                            const idInformErrorDocSnapshot = await getDoc(idInformErrorDocRef);
+
+                            if (idInformErrorDocSnapshot.exists()) {
+                                const dataIdInformError = idInformErrorDocSnapshot.data();
+                                const isFixed = dataIdInformError.isFixed;
+                                const textFeedBackUser = dataIdInformError.textFeedBackUser;
+
                                 dispatch(setOperationInformErrors({
-                              type: 'ADD_INFORM_ERROR',
-                              payload: {
-                                idInformErrors: id,
-                                isFixed: isFixed,
+                                    type: 'ADD_INFORM_ERROR',
+                                    payload: {
+                                        idInformErrors: id,
+                                        isFixed: isFixed,
                                         textFeedBackUser: textFeedBackUser
-                              }
-                            }));
-                          }
+                                    }
+                                }));
+                            }
                         }
                       }
                     setSelectedElement(false);
                     setLoadingData(false);
                     navigate('/');
                 }
+                const userNotificationsDocRef = doc(db, 'usersNotifications', user.email);
+                const userNotificationsDocSnapshot = await getDoc(userNotificationsDocRef);
+
+                if (userNotificationsDocSnapshot.exists()) {
+                    const notificationsData = userNotificationsDocSnapshot.data();
+                    const arrayNotificationsHistory = notificationsData.arrayUserNotifcationsHistory || [];
+                    const arrayNotificationsUnseen = notificationsData.arrayUserNotifcationsUnseen || [];
+                    const arrayNotificationsViewed = notificationsData.arrayUserNotifcationsViewed || [];
+
+                    if (arrayNotificationsHistory !== undefined) {
+                        for (let i = 0; i < arrayNotificationsHistory.length; i++) {
+                            const id = arrayNotificationsHistory[i];
+                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataSenderNotification = id?.senderNotification;
+                            const arrayDataTextNotification = id?.textNotification;
+
+                            dispatch(setOperationUserNotifications({
+                                type: 'ALL_NOTIFICATIONS_HISTORY',
+                                payload: {
+                                    dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                    textNotification: arrayDataTextNotification,
+                                    senderNotification: arrayDataSenderNotification
+                                }
+                            }))
+                        }
+                    }
+                    if (arrayNotificationsUnseen !== undefined) {
+                        for (let i = 0; i < arrayNotificationsUnseen.length; i++) {
+                            const id = arrayNotificationsUnseen[i];
+                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataSenderNotification = id?.senderNotification;
+                            const arrayDataTextNotification = id?.textNotification;
+                            const arrayDataIsViewedNot = id?.isViewedNotifcation;
+
+                            dispatch(setOperationUserNotifications({
+                                type: 'ADD_NOTIFICATIONS_UNSEEN',
+                                payload: [
+                                    {
+                                        dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                        textNotification: arrayDataTextNotification,
+                                        senderNotification: arrayDataSenderNotification,
+                                        isViewedNotification: arrayDataIsViewedNot
+                                    }
+                                ]
+                            }))
+                        }
+                    }
+                    if (arrayNotificationsViewed !== undefined) {
+                        for (let i = 0; i < arrayNotificationsViewed.length; i++) {
+                            const id = arrayNotificationsViewed[i];
+                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataSenderNotification = id?.senderNotification;
+                            const arrayDataTextNotification = id?.textNotification;
+                            const arrayDataIsViewedNot = id?.isViewedNotifcation;
+
+                            dispatch(setOperationUserNotifications({
+                                type: 'ADD_NOTIFICATIONS_VIEWED',
+                                payload: [
+                                    {
+                                        dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                        textNotification: arrayDataTextNotification,
+                                        senderNotification: arrayDataSenderNotification,
+                                        isViewedNotification: arrayDataIsViewedNot
+                                    }
+                                ]
+                            }))
+                        }
+                    }
+                }
             }
+            setIsRedirectSignInOnlyPassPage(false);
+            setSelectedElement(false);
+            setLoadingData(false);
+            setHideIconAddCourier(false);
+            setHideContUserAcc(false);
+            setHideNotificationIcon(false);
+            navigate('/');
         } catch (err) {
             setLoadingData(false);
             setIsErrorUserData(true);
