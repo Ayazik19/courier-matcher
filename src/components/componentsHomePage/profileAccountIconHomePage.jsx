@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import  hideUserAccInfo from './hideUserAccInfo.png';
-import { removeUser, setUserInformErrors } from "../store/slices/userSlice.js";
+import { removeUser, setOperationInformErrors } from "../store/slices/userSlice.js";
 import { useAuth } from '../globalHooks/useauth';
 import CheckAccountPhotoProfile from './checkAccountPhotoProfileHomePage.jsx';
 import addCourierHomePage from './addCourierHomePage.png'
@@ -56,8 +56,10 @@ export default function ProfileAccountIconHomePage() {
     }
     const hadbleRediractionSignInPage = () => {
         dispatch(removeUser());
-        dispatch(setUserInformErrors({
-            type: 'REMOVE_ALL_INFORM_ERRORS',
+        dispatch(setOperationInformErrors({
+            type: 'REMOVE_INFORM_ERRORS',
+            payload: {}
+        }))
             payload: {}
         }))
     }

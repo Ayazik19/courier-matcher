@@ -5,7 +5,7 @@ import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
-import { setUser, setUserInformErrors, setUserProfile } from '../store/slices/userSlice.js';
+import { setUser, setOperationInformErrors, setUserProfile } from '../store/slices/userSlice.js';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -79,9 +79,10 @@ export default function SignInPage() {
                         townLocation: townLocation,
                         streetLocation: streetLocation
                     }));
+                    const lengthInfErrArr = idInformErrors.length || [];
                     
                     if (idInformErrors !== undefined) {
-                        for (let i = 0; i < idInformErrors.length; i++) {
+                        for (let i = 0; i < lengthInfErrArr; i++) {
                             const id = idInformErrors[i];
                         
                             const idInformErrorDocRef = doc(db, 'informErrors', id);
@@ -92,7 +93,7 @@ export default function SignInPage() {
                                 const isFixed = dataIdInformError.isFixed;
                                 const textFeedBackUser = dataIdInformError.textFeedBackUser;
                         
-                                dispatch(setUserInformErrors({
+                                dispatch(setOperationInformErrors({
                                     type: 'ADD_INFORM_ERROR',
                                     payload: {
                                         idInformErrors: id,

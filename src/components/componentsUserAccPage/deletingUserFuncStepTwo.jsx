@@ -2,7 +2,7 @@ import LoadingDataFormUserAcc from '../loadingData/loadingDataFormUserAcc.jsx';
 import hideContAdding from '../componentsHomePage/hideUserAccInfo.png';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeUser } from '../store/slices/userSlice.js';
+import { removeUser, setOperationInformErrors } from '../store/slices/userSlice.js';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getAuth, deleteUser } from "firebase/auth";
@@ -53,6 +53,8 @@ export default function DeletingUserFuncStepTwo() {
                     deleteDoc(userDocRef)
                         .then(() => {
                             dispatch(removeUser());
+                            dispatch(setOperationInformErrors({ type: 'REMOVE_INFORM_ERRORS'}));
+                            dispatch(setOperationUserNotifications({ type: 'REMOVE_ALL_NOTIFICATIONS'}));
                             setIsLoadingDataForm(false);
                         })
                         .catch((error) => {
