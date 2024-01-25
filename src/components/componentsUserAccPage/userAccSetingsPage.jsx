@@ -3,7 +3,7 @@ import { useAuth } from '../globalHooks/useauth.js';
 import { Link, useNavigate } from 'react-router-dom';
 import './userAccSetingsPage.css';
 import { useEffect, useState } from 'react';
-import { removeUser, setUserInformErrors } from '../store/slices/userSlice.js';
+import { removeUser, setOperationInformErrors } from '../store/slices/userSlice.js';
 import { useDispatch } from 'react-redux';
 import FooterUserSettingsPage from './footerUserSettingsPage.jsx';
 import OpenContHookMouseFunctionalityErrors from '../../mouseFunctionalityErrors/openContHookMouseFunctionalityErrorsStepOne.jsx'
@@ -35,16 +35,16 @@ export default function UserAccSetingsPage() {
     }
     const handleResetPasswordRedirectPage = () => {
         dispatch(removeUser());
-        dispatch(setUserInformErrors({
-            type: 'REMOVE_ALL_INFORM_ERRORS',
+        dispatch(setOperationInformErrors({
+            type: 'REMOVE_INFORM_ERRORS',
             payload: {}
         }))
         navigate('/Sign-In-password-recovery');
     }
     const handleSignInRedirectPage = () => {
         dispatch(removeUser());
-        dispatch(setUserInformErrors({
-            type: 'REMOVE_ALL_INFORM_ERRORS',
+        dispatch(setOperationInformErrors({
+            type: 'REMOVE_INFORM_ERRORS',
             payload: {}
         }))
         navigate('/SignIn-Registration');

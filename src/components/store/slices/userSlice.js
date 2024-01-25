@@ -36,17 +36,24 @@ const userSlice = createSlice({
             state.streetLocation = action.payload.streetLocation;
             state.phoneNumber = action.payload.phoneNumber;
         },
-        setUserInformErrors(state, action) {
-            switch(action.payload.type){
+        setOperationInformErrors(state, action) {
+            switch (action.payload.type) {
                 case 'ADD_INFORM_ERROR':
                     return{
                         ...state,
                         errorsInformation: [
-                            ...state.errorsInformation, action.payload
+                            ...(state.errorsInformation || []),, action.payload
                         ]
                     };
-                case 'REMOVE_ID_INFORM_ERROR':
-                    const updatedErrorsInformation = state.errorsInformation.filter(item => item.idInformErrors !== action.payload.idInformErrors);
+                case 'REMOVE_INFORM_ERRORS':
+                    return{
+                        ...state,
+                        errorsInformation: [] 
+                    }
+                default:
+                    return state;
+            }
+        },
                     return{
                         ...state,
                         errorsInformation: updatedErrorsInformation
@@ -79,6 +86,10 @@ const userSlice = createSlice({
 
     
 
-export const {setUser, setUserProfile, setUserInformErrors, removeUser} = userSlice.actions;
+export const {
+    setUser, 
+    setUserProfile, 
+    setOperationInformErrors,  
+    removeUser} = userSlice.actions;
 
 export default userSlice.reducer;

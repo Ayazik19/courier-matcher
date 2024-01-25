@@ -5,7 +5,7 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { setUser, setUserInformErrors, removeUser, setUserProfile } from '../store/slices/userSlice.js';
+import { setUser, setOperationInformErrors, setUserProfile } from '../store/slices/userSlice.js';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -34,7 +34,10 @@ export default function SignInUserOnlyPassPage() {
     const [isBackRegister, setIsBackRegister] = useState(false);
 
     const handleChooseAccPage = () => {
-        dispatch(removeUser());
+        dispatch(setOperationInformErrors({
+            type: 'REMOVE_INFORM_ERRORS',
+            payload: {}
+        }))
         setIsRedirectSignInOnlyPassPage(false);
         navigate('/SignIn-Registration');
     }
@@ -118,12 +121,12 @@ export default function SignInUserOnlyPassPage() {
                             const isFixed = dataIdInformError.isFixed;
                             const textFeedBackUser = dataIdInformError.textFeedBackUser;
                       
-                            dispatch(setUserInformErrors({
+                                dispatch(setOperationInformErrors({
                               type: 'ADD_INFORM_ERROR',
                               payload: {
                                 idInformErrors: id,
                                 isFixed: isFixed,
-                                textFeedBackUser: textFeedBackUser,
+                                        textFeedBackUser: textFeedBackUser
                               }
                             }));
                           }

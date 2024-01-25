@@ -93,7 +93,7 @@ export default function RegistrationPage() {
                     displayName: inputRegistrationLogin,
                 }));
                 dispatch(setUserProfile({}));
-                dispatch(setUserInformErrors({}));
+            dispatch(setOperationInformErrors({}));
                 setSelectedElement(false);
                 setLoadingData(false);
                 navigate("/");
