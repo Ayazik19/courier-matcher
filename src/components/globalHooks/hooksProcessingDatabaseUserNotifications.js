@@ -21,10 +21,14 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
     const {
         email,
         errorsInformation,
-        notificationsUnseen
+        notificationsUnseen,
+        notificationsViewed
     } = useAuth();
 
     const [checkDataChanged, setCheckDataChanged] = useState(false);
+
+    //text notification
+    const suppServicTextNotification = 'Thank you for reporting the error on our website. The error you found has been solved, we are awarding you 100 special bonuses!';
 
     //sender notifications
     const adminSenderNotification = 'Admin';
@@ -50,7 +54,6 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
 
                         const informErrorDataOne = informDocSnapshotsOne.data();
                         const dataDataBaseIsFixedError = informErrorDataOne.isFixed;
-                        const dataDataBaseTextFeedBackError = informErrorDataOne.textFeedBackUser;
 
                         if (dataDataBaseIsFixedError) {
                             // Adding fixed inform errors doc
@@ -61,7 +64,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                                 dateTimeFixedInformError: new Date(),
                                 emailUser: email,
                                 isFixed: dataDataBaseIsFixedError,
-                                textFeedBackUser: dataDataBaseTextFeedBackError
+                                textFeedBackUser: suppServicTextNotification
                             };
 
                             const fixedInformErrorsRef = doc(fixedInformErrorsCollection, idInfErr);
@@ -103,7 +106,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                                 payload: [
                                     {
                                         dateTimeReceivingNotification: timestampString,
-                                        textNotification: dataDataBaseTextFeedBackError,
+                                        textNotification: suppServicTextNotification,
                                         senderNotification: suppServicSenderNotification,
                                         categoryNotifications: othersCategory
                                     }
@@ -116,7 +119,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
 
                             const objectNotification = {
                                 dateTimeReceivingNotification: timestampString,
-                                textNotification: dataDataBaseTextFeedBackError,
+                                textNotification: suppServicTextNotification,
                                 senderNotification: suppServicSenderNotification,
                                 categoryNotifications: othersCategory
                             }
@@ -169,7 +172,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                                     {
                                         isViewedNotifcation: false,
                                         dateTimeReceivingNotification: timestampString,
-                                        textNotification: dataDataBaseTextFeedBackError,
+                                        textNotification: suppServicTextNotification,
                                         senderNotification: suppServicSenderNotification,
                                         categoryNotifications: othersCategory
                                     }
@@ -179,7 +182,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                             const objectNotificationUnseen = {
                                 isViewedNotifcation: false,
                                 dateTimeReceivingNotification: timestampString,
-                                textNotification: dataDataBaseTextFeedBackError,
+                                textNotification: suppServicTextNotification,
                                 senderNotification: suppServicSenderNotification,
                                 categoryNotifications: othersCategory
                             }
@@ -276,19 +279,23 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
 
 
     let lengthNotificationsUnseen = notificationsUnseen && notificationsUnseen.length ? notificationsUnseen.length : 0;
+    let lengthNotificationsViewed = notificationsViewed && notificationsViewed.length ? notificationsViewed.length : 0;
     const [calculateCountUnseenNotifications, setCalculateCountUnseenNotifications] = useState(0);
+    const [calculateCountViewedNotifications, setCalculateCountViewedNotifications] = useState(0);
+
 
     useEffect(() => {
         setCalculateCountUnseenNotifications(lengthNotificationsUnseen);
-    }, [lengthNotificationsUnseen]);
+        setCalculateCountViewedNotifications(lengthNotificationsViewed);
+    }, [lengthNotificationsUnseen, lengthNotificationsViewed]);
 
 
 
     return (
         <HooksProcessingDatabaseUserNotificationsContext.Provider
             value={{
-                calculateCountUnseenNotifications,
-                setCalculateCountUnseenNotifications
+                calculateCountUnseenNotifications, calculateCountViewedNotifications,
+                setCalculateCountUnseenNotifications, setCalculateCountViewedNotifications
             }}
         >
             {children}
