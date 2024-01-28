@@ -1,10 +1,10 @@
 import './CheckAccountPhotoProfileInfoAcc.css';
-import { useAuth } from "../hook/useauth";
+import { useAuth } from "../globalHooks/useauth.js";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { updateDoc, getFirestore, doc } from 'firebase/firestore';
-import { setUserPhotoProfile } from '../store/slices/userSlice';
+import {setUserProfile} from '../store/slices/userSlice.js';
 import photoUserDefault from '../componentsUserAccPage/photoUserDefaultAcc.jpg';
 import changePhotoUserAccHomePage from './changePhotoUserAccHomePage.png';
 import './checkAccountPhotoProfile.css';
@@ -58,7 +58,7 @@ export default function CheckAccountPhotoProfile(){
             const userRef = doc(db, 'users', email);
             try {
                 await updateDoc(userRef, { photoAcc: photoAccValue });
-                dispatch(setUserPhotoProfile({ photoAcc: photoAccValue }));
+                dispatch(setUserProfile({ photoAcc: photoAccValue }));
             } catch (error) {
             }
           };
