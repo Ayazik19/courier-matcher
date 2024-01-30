@@ -4,7 +4,14 @@ import { useDispatch } from 'react-redux';
 import { setOperationInformErrors, setOperationUserNotifications } from '../store/slices/userSlice';
 import { collection, doc, getDoc, getFirestore, setDoc, deleteDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { initializeApp } from 'firebase/app';
+import { useHookHeaderIconsEmergenceContext } from '../globalHooks/hookHeaderNavIconsEmergence';
 import { firebaseConfig } from '../firebase.js';
+import {
+    OverlayScrollbars,
+    ScrollbarsHidingPlugin,
+    SizeObserverPlugin,
+    ClickScrollPlugin
+} from 'overlayscrollbars';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -14,6 +21,25 @@ const HooksProcessingDatabaseUserNotificationsContext = createContext();
 
 export const useHooksProcessingDatabaseUserNotificationsContext = () => {
     return useContext(HooksProcessingDatabaseUserNotificationsContext);
+}
+
+export const useScrollBar = (root, hasScroll) => {
+    const {
+        hideNotificationIcon
+    } = useHookHeaderIconsEmergenceContext()
+    useEffect(() => {
+        let scrollBars;
+
+        if (root.current && hasScroll && !hideNotificationIcon) {
+            scrollBars = OverlayScrollbars(root.current, config)
+        }
+
+        return () => {
+            if (scrollBars) {
+                scrollBars.destroy();
+            }
+        }
+    }, [root, hasScroll, !hideNotificationIcon]);
 }
 
 export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) => {
