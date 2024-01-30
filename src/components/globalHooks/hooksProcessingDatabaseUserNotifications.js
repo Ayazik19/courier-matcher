@@ -22,6 +22,7 @@ const HooksProcessingDatabaseUserNotificationsContext = createContext();
 export const useHooksProcessingDatabaseUserNotificationsContext = () => {
     return useContext(HooksProcessingDatabaseUserNotificationsContext);
 }
+let config = {};
 
 export const useScrollBar = (root, hasScroll) => {
     const {
