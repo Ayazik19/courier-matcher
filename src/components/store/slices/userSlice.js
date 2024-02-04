@@ -16,7 +16,9 @@ const initialState = {
     notificationsHistory: [],
     errorsInformation: [],
     notificationsViewed: [],
-    notificationsUnseen: []
+    notificationsUnseen: [],
+    notificationsHide: [],
+    notificationsBanned: []
 };
 
 const userSlice = createSlice({
@@ -100,6 +102,18 @@ const userSlice = createSlice({
                     return state;
             }   
         },
+        setHideNotifications: (state, action) => {
+            if (!state.notificationsHide) {
+              state.notificationsHide = [];
+            }
+            state.notificationsHide.push(action.payload);
+        },
+        setBannedNotfications: (state, action) => {
+            if(!state.notificationsBanned){
+                state.notificationsBanned = [];
+            }
+            state.notificationsBanned.push(action.payload);
+        },
         removeUser(state) {
             state.token = null;
             state.id = null;
@@ -113,6 +127,12 @@ const userSlice = createSlice({
             state.streetLocation = null;
             state.townLocation = null;
         },
+        setRemoveBannedNotifications: (state) => {
+            state.notificationsBanned = [];
+        },
+        setRemoveHideNotificaitons: (state) => {
+            state.notificationsHide = []
+        },
     },
 });
 
@@ -124,6 +144,10 @@ export const {
     setUserProfile, 
     setOperationInformErrors,  
     setOperationUserNotifications, 
+    setHideNotifications, 
+    setRemoveHideNotificaitons,
+    setBannedNotfications,
+    setRemoveBannedNotfications,
     removeUser} = userSlice.actions;
 
 export default userSlice.reducer;
