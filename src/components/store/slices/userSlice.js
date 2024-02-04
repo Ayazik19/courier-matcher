@@ -44,7 +44,7 @@ const userSlice = createSlice({
                     return{
                         ...state,
                         errorsInformation: [
-                            ...(state.errorsInformation || []),, action.payload
+                            ...(state.errorsInformation || []), action.payload
                         ]
                     };
                 case 'REMOVE_INFORM_ERRORS':
