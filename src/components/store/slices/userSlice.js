@@ -84,6 +84,11 @@ const userSlice = createSlice({
                         ...state,
                         notificationsUnseen: []
                     }
+                case 'REMOVE_VIEWED_NOTIFICATIONS':
+                    return{
+                        ...state,
+                        notificationsViewed: []
+                    }
                 case 'REMOVE_ALL_NOTIFICATIONS':
                     return{
                         ...state,
