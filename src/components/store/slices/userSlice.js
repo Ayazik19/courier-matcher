@@ -131,7 +131,7 @@ const userSlice = createSlice({
             state.notificationsBanned = [];
         },
         setRemoveHideNotificaitons: (state) => {
-            state.notificationsHide = []
+            state.notificationsHide = [];
         },
     },
 });
@@ -147,7 +147,7 @@ export const {
     setHideNotifications, 
     setRemoveHideNotificaitons,
     setBannedNotfications,
-    setRemoveBannedNotfications,
+    setRemoveBannedNotifications,
     removeUser} = userSlice.actions;
 
 export default userSlice.reducer;
