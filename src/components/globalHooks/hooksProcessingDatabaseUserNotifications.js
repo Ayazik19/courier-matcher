@@ -79,10 +79,10 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                         const informErrorsDocRefOne = doc(db, "informErrors", idInfErr);
                         const informDocSnapshotsOne = await getDoc(informErrorsDocRefOne);
 
-                        const informErrorDataOne = informDocSnapshotsOne.data();
-                        const dataDataBaseIsFixedError = informErrorDataOne.isFixed;
+                        const informErrorData = informDocSnapshotsOne.data();
 
-                        if (dataDataBaseIsFixedError) {
+                        if (informErrorData && informErrorData.isFixed) {
+                            const dataDataBaseIsFixedError = informErrorData.isFixed;
                             // Adding fixed inform errors doc
                             const fixedInformErrorsCollection = collection(db, 'fixedInformErrors');
 
