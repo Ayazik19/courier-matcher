@@ -251,6 +251,16 @@ export default function NotificationFunctionality() {
         adaptiveSizeUnScrollNots();
     }, [adaptiveSizeUnScrollNots])
 
+    //data creating scrollbar
+    const hasScrollCountViewed = calculateCountViewedNotifications > 3;
+    const hasScrollCountUnseen = calculateCountUnseenNotifications > 3;
+    const hasScrollOperation = (hasScrollCountViewed || hasScrollCountUnseen) || (calculateCountViewedNotifications >= 3 && calculateCountViewedNotifications >= 3);
+
+    const hasScroll = (hasScrollOperation && isNotsEqualsLessThree) || (isOneOrThreeNots || isTwoOrThreeNots);
+
+    const scrollBarNot = useRef(null);
+    useScrollBar(scrollBarNot, hasScroll)
+
     useEffect(() => {
         if(!hideIconAddCourier || !hideContIconUserAcc || isSelectedElement) {
             setHideNotificationIcon(true);
