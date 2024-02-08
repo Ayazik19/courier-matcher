@@ -219,6 +219,37 @@ export default function NotificationFunctionality() {
             }
         }
     }
+    const adaptiveSizeUnScrollNots = useCallback(() => {
+        setIsNotsEqualsNull(notificationsViewed.length === 0 && notificationsUnseen.length === 0);
+        setIsOneViewed(notificationsViewed.length === 1);
+        setIsTwoViewed(notificationsViewed.length === 2);
+        setIsOneUnseen(notificationsUnseen.length === 1);
+        setIsTwoUnseen(notificationsUnseen.length === 2);
+        setIsThreeViewed(notificationsViewed.length === 3);
+        setIsThreeUnseen(notificationsUnseen.length === 3);
+        setIsNotsEqualsLessThree(!isThreeViewed && !isThreeUnseen);
+
+        setIsOneOrTwoNots((isOneUnseen && isTwoViewed) || (isTwoUnseen && isOneViewed));
+        setIsOneOrThreeNots((isOneUnseen && isThreeViewed) || (isThreeUnseen && isOneViewed));
+        setIsTwoOrThreeNots((isTwoUnseen && isThreeViewed) || (isThreeUnseen && isTwoViewed))
+    }, [
+        isOneViewed,
+        isTwoViewed,
+        isOneUnseen,
+        isTwoUnseen,
+        isThreeViewed,
+        isThreeUnseen,
+        isOneOrTwoNots,
+        isTwoOrThreeNots,
+        isOneOrThreeNots,
+        isNotsEqualsLessThree,
+        isClickHideNot,
+        !hideNotificationIcon
+    ]);
+
+    useEffect(() => {
+        adaptiveSizeUnScrollNots();
+    }, [adaptiveSizeUnScrollNots])
 
     useEffect(() => {
         if(!hideIconAddCourier || !hideContIconUserAcc || isSelectedElement) {
