@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import  hideUserAccInfo from './hideUserAccInfo.png';
-import { removeUser, setOperationInformErrors, setOperationUserNotifications } from "../store/slices/userSlice.js";
+import hideUserAccInfo from './hideUserAccInfo.png';
+import { removeUser, setOperationInformErrors, setOperationUserNotifications, setRemoveHideNotificaitons, setRemoveBannedNotifications } from "../store/slices/userSlice.js";
 import { useAuth } from '../globalHooks/useauth';
 import CheckAccountPhotoProfile from './checkAccountPhotoProfileHomePage.jsx';
 import addCourierHomePage from './addCourierHomePage.png'
@@ -26,7 +26,7 @@ export default function ProfileAccountIconHomePage() {
         setHideContUserAcc,
         setHideIconAddCourier
     } = useHookHeaderIconsEmergenceContext();
-    const {isSelectedElement} = useHookMouseFunctionalityErrorsContext();
+    const { isSelectedElement } = useHookMouseFunctionalityErrorsContext();
 
     const navigate = useNavigate();
 
@@ -37,11 +37,11 @@ export default function ProfileAccountIconHomePage() {
     const handleShowInfoAccount = () => {
         setHideContUserAcc(false);
         setEventClickTracking(eventClickTracking + 1);
-        if(!hideContIconUserAcc){
-            if(eventClickTracking % 2 == 0){
+        if (!hideContIconUserAcc) {
+            if (eventClickTracking % 2 == 0) {
                 setHideContUserAcc(true);
             }
-            else{
+            else {
                 setHideContUserAcc(false);
             }
         }
@@ -59,11 +59,26 @@ export default function ProfileAccountIconHomePage() {
         dispatch(setOperationInformErrors({
             type: 'REMOVE_INFORM_ERRORS',
             payload: {}
+        }));
+        dispatch(setOperationUserNotifications({
+            type: 'REMOVE_ALL_NOTIFICATIONS',
+            payload: {}
+        }));
+        dispatch(setRemoveHideNotificaitons());
+        dispatch(setRemoveBannedNotifications());
+    }
+    const hadnleDispatchData = () => {
+        dispatch(removeUser());
+        dispatch(setOperationInformErrors({
+            type: 'REMOVE_INFORM_ERRORS',
+            payload: {}
         }))
         dispatch(setOperationUserNotifications({
             type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }))
+        dispatch(setRemoveHideNotificaitons());
+        dispatch(setRemoveBannedNotifications());
     }
     const hadbleRediractionChooseCourierPage = () => {
         navigate('/ChooseCourier');
@@ -71,15 +86,15 @@ export default function ProfileAccountIconHomePage() {
 
 
     useEffect(() => {
-        if(!hideIconAddCourier || !hideNotificationIcon || isSelectedElement) {
+        if (!hideIconAddCourier || !hideNotificationIcon || isSelectedElement) {
             setHideContUserAcc(true);
         }
-    },[hideIconAddCourier, hideNotificationIcon, isSelectedElement]);
+    }, [hideIconAddCourier, hideNotificationIcon, isSelectedElement]);
 
 return isAuth ? (
     <>
         <div className="home-page-acc-header-right-icon-acc" onClick={handleShowInfoAccount}>
-                <div className= 'account-icon'>
+                <div className='account-icon'>
                     <CheckAccountPhotoProfile />
                 </div>
         </div>
@@ -97,7 +112,7 @@ return isAuth ? (
                         />
                     </div>
                     <div className='main-nav-acc-user'>
-                        <div className= 'nav-account-icon'>
+                            <div className='nav-account-icon'>
                             <CheckAccountPhotoProfileInfoAcc />
                         </div>
                         <span className='text-user-name'>
@@ -115,9 +130,9 @@ return isAuth ? (
                             className='button-account-add-courier'
                             onClick={hadbleRediractionChooseCourierPage}
                         >
-                            <img src={addCourierHomePage} className='img-add-courier'/>
+                                <img src={addCourierHomePage} className='img-add-courier' />
                             <Link 
-                                to = '/ChooseCourier'
+                                    to='/ChooseCourier'
                                 className='nav-text-add-courier'
                             >
                                 Add
@@ -131,7 +146,7 @@ return isAuth ? (
                         >
                             <img src={logOutAccUserHomePage} className='img-log-out-acc-user' />
                             <Link 
-                                to = '/SignIn-Registration'
+                                    to='/SignIn-Registration'
                                 className='nav-text-log-out-acc-user'
                             >
                                 Log out                          
@@ -140,7 +155,7 @@ return isAuth ? (
                     </div>
                     <div className='footer-nav-links'>
                         <Link 
-                            to = '/ChooseCourier'
+                                to='/ChooseCourier'
                             className='nav-text-choose-courier'
                         >
                             Choose courier                          
@@ -149,7 +164,7 @@ return isAuth ? (
                             .
                         </span>
                         <Link 
-                            to = '/Terms-Cooperation'
+                                to='/Terms-Cooperation'
                             className='nav-text-terms-cooperation'
                         >
                             Terms cooperation                           
@@ -162,12 +177,20 @@ return isAuth ? (
 ) : (
         <div className="home-page-acc-header-right">
             <button className="button-home-page-header-button-registration-acc">
-                <Link to='/Registration-SignIn' className="link-register-header-home-page">
+                <Link
+                    to='/Registration-SignIn'
+                    className="link-register-header-home-page"
+                    onClick={hadnleDispatchData}
+                >
                     Register
                 </Link>
             </button>
             <button className="button-home-page-header-button-sign-in-acc">
-                <Link to='/SignIn-Registration' className="link-sign-in-header-home-page">
+                <Link
+                    to='/SignIn-Registration'
+                    className="link-sign-in-header-home-page"
+                    onClick={hadnleDispatchData}
+                >
                     Sign In
                 </Link>
             </button>
