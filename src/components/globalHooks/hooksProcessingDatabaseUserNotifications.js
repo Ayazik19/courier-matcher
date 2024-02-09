@@ -22,12 +22,14 @@ const HooksProcessingDatabaseUserNotificationsContext = createContext();
 export const useHooksProcessingDatabaseUserNotificationsContext = () => {
     return useContext(HooksProcessingDatabaseUserNotificationsContext);
 }
+
 let config = {};
 
 export const useScrollBar = (root, hasScroll) => {
     const {
         hideNotificationIcon
-    } = useHookHeaderIconsEmergenceContext()
+    } = useHookHeaderIconsEmergenceContext();
+
     useEffect(() => {
         let scrollBars;
 
@@ -49,7 +51,8 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
         email,
         errorsInformation,
         notificationsUnseen,
-        notificationsViewed
+        notificationsViewed,
+        notificationsBanned
     } = useAuth();
 
     const [checkDataChanged, setCheckDataChanged] = useState(false);
@@ -67,6 +70,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
     const othersCategory = 'Others'
 
     const [operationChangingUpdatesInformErrosArrayHook, setOperationChangingUpdatesInformErrosArrayHook] = useState(false);
+    const [isChangingUpdDataOperationBannedNot, setIsChangingUpdDataOperationBannedNot] = useState(false);
 
     //adding and dispatching data fixed inform errors, next create a notification receipt functionality
     useEffect(() => {
@@ -103,6 +107,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                             const userDocSnapshots = await getDoc(userDocRef);
 
                             const userData = userDocSnapshots.data();
+                            const bannedTypeNotifications = userData.bannedTypeNotifications;
                             const idInformErrorsArray = userData.idInformErrors;
 
                             const updatedArrayIdInformErrorsUser = idInformErrorsArray.filter((element) => {
@@ -125,127 +130,142 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                             // Deleting doc in inform errors collection, whoose was fixed 
                             await deleteDoc(doc(db, "informErrors", idInfErr));
 
-                            //dispatching and adding data db in notifications hisotry
-                            const timestamp = new Date();
-                            const timestampString = timestamp.toISOString();
-                            dispatch(setOperationUserNotifications({
-                                type: 'ALL_NOTIFICATIONS_HISTORY',
-                                payload: [
-                                    {
-                                        dateTimeReceivingNotification: timestampString,
-                                        textNotification: suppServicTextNotification,
-                                        senderNotification: suppServicSenderNotification,
-                                        categoryNotifications: othersCategory
-                                    }
-                                ]
-                            }))
-                            const userNotificationRef = doc(db, 'usersNotifications', email);
-                            const userNotificationDocSnapshots = await getDoc(userNotificationRef);
-                            const dataUserNotifications = userNotificationDocSnapshots.data();
-                            const arrayUserNotifcationsUnseenDb = dataUserNotifications && dataUserNotifications.arrayUserNotifcationsUnseen ? true : false;
+                            // operation check banned arr this type notification
+                            const isCheckBannedSuppServNots = notificationsBanned.find(elements => elements === suppServicSenderNotification) ? false : true;
+                            if (isCheckBannedSuppServNots) {
+                                //dispatching and adding data db in notifications hisotry
+                                const timestamp = new Date();
+                                const timestampString = timestamp.toISOString();
+                                const isHideNot = false;
+                                const isBannedNot = false;
+                                dispatch(setOperationUserNotifications({
+                                    type: 'ALL_NOTIFICATIONS_HISTORY',
+                                    payload: [
+                                        {
+                                            dateNotification: timestampString,
+                                            textNotification: suppServicTextNotification,
+                                            senderNotification: suppServicSenderNotification,
+                                            categoryNotification: othersCategory,
+                                        }
+                                    ]
+                                }))
+                                const userNotificationRef = doc(db, 'usersNotifications', email);
+                                const userNotificationDocSnapshots = await getDoc(userNotificationRef);
+                                const dataUserNotifications = userNotificationDocSnapshots.data();
+                                const arrayUserNotifcationsUnseenDb = dataUserNotifications && dataUserNotifications.arrayUserNotifcationsUnseen ? true : false;
 
-                            const objectNotification = {
-                                dateTimeReceivingNotification: timestampString,
-                                textNotification: suppServicTextNotification,
-                                senderNotification: suppServicSenderNotification,
-                                categoryNotifications: othersCategory
-                            }
-                            if (userNotificationDocSnapshots.exists()) {
-                                //adding to an existing array with notification history in the db
-                                const fieldName = 'arrayUserNotifcationsHistory';
+                                const objectNotification = {
+                                    dateNotification: timestampString,
+                                    textNotification: suppServicTextNotification,
+                                    senderNotification: suppServicSenderNotification,
+                                    categoryNotification: othersCategory,
+                                }
+                                if (userNotificationDocSnapshots.exists()) {
+                                    //adding to an existing array with notification history in the db
+                                    const fieldName = 'arrayUserNotifcationsHistory';
 
 
-                                const addArrayNotificationsData = [objectNotification];
+                                    const addArrayNotificationsData = [objectNotification];
 
-                                const updateNotificationsField = async (email, fieldName, addArrayNotificationsData) => {
-                                    const notificationsRef = doc(db, 'usersNotifications', email);
+                                    const updateNotificationsField = async (email, fieldName, addArrayNotificationsData) => {
+                                        const notificationsRef = doc(db, 'usersNotifications', email);
+                                        try {
+                                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addArrayNotificationsData) });
+                                        }
+                                        catch (error) {
+                                            console.log(error);
+                                        }
+                                    };
+                                    await updateNotificationsField(email, fieldName, addArrayNotificationsData);
+                                }
+                                else {
+                                    const userNotificationsCollection = collection(db, 'usersNotifications');
+
+                                    const createDocNotificationsHistory = {
+                                        emailUser: email
+                                    };
+
+                                    const historyNotificationsRef = doc(userNotificationsCollection, email);
+                                    await setDoc(historyNotificationsRef, createDocNotificationsHistory);
+
+                                    const field = 'arrayUserNotifcationsHistory';
+                                    const value = [];
+                                    value.push(objectNotification);
+
+                                    const userNotificationRef = doc(db, 'usersNotifications', email);
+                                    const setDataField = { [field]: value };
+
                                     try {
-                                        await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addArrayNotificationsData) });
+                                        await setDoc(userNotificationRef, setDataField, { merge: true })
                                     }
                                     catch (error) {
                                         console.log(error);
                                     }
-                                };
-                                await updateNotificationsField(email, fieldName, addArrayNotificationsData);
-                            }
-                            else {
-                                const userNotificationsCollection = collection(db, 'usersNotifications');
-
-                                const createDocNotificationsHistory = {
-                                    emailUser: email
-                                };
-
-                                const historyNotificationsRef = doc(userNotificationsCollection, email);
-                                await setDoc(historyNotificationsRef, createDocNotificationsHistory);
-
-                                const field = 'arrayUserNotifcationsHistory';
-                                const value = [];
-                                value.push(objectNotification);
-
-                                const userNotificationRef = doc(db, 'usersNotifications', email);
-                                const setDataField = { [field]: value };
-
-                                try {
-                                    await setDoc(userNotificationRef, setDataField, { merge: true })
                                 }
-                                catch (error) {
-                                    console.log(error);
+                                //dispatching and adding data db unseen notification
+                                dispatch(setOperationUserNotifications({
+                                    type: 'ADD_NOTIFICATIONS_UNSEEN',
+                                    payload: [
+                                        {
+                                            isViewedNotifcation: false,
+                                            dateNotification: timestampString,
+                                            textNotification: suppServicTextNotification,
+                                            senderNotification: suppServicSenderNotification,
+                                            categoryNotification: othersCategory,
+                                            isHideNot: isHideNot,
+                                            isBannedNot: isBannedNot
+                                        }
+                                    ]
+                                }));
+
+                                const objectNotificationUnseen = {
+                                    isViewedNotifcation: false,
+                                    dateNotification: timestampString,
+                                    textNotification: suppServicTextNotification,
+                                    senderNotification: suppServicSenderNotification,
+                                    categoryNotification: othersCategory,
+                                    isHideNot: isHideNot,
+                                    isBannedNot: isBannedNot
                                 }
-                            }
-                            //dispatching and adding data db unseen notification
-                            dispatch(setOperationUserNotifications({
-                                type: 'ADD_NOTIFICATIONS_UNSEEN',
-                                payload: [
-                                    {
-                                        isViewedNotifcation: false,
-                                        dateTimeReceivingNotification: timestampString,
-                                        textNotification: suppServicTextNotification,
-                                        senderNotification: suppServicSenderNotification,
-                                        categoryNotifications: othersCategory
-                                    }
-                                ]
-                            }));
 
-                            const objectNotificationUnseen = {
-                                isViewedNotifcation: false,
-                                dateTimeReceivingNotification: timestampString,
-                                textNotification: suppServicTextNotification,
-                                senderNotification: suppServicSenderNotification,
-                                categoryNotifications: othersCategory
-                            }
+                                if (!arrayUserNotifcationsUnseenDb) {
+                                    const fieldName = 'arrayUserNotifcationsUnseen';
 
-                            if (!arrayUserNotifcationsUnseenDb) {
-                                const fieldName = 'arrayUserNotifcationsUnseen';
+                                    const addArrayNotificationsUnseenData = [objectNotificationUnseen];
 
-                                const addArrayNotificationsUnseenData = [objectNotificationUnseen];
+                                    const updateNotificationsField = async (email, fieldName, addArrayNotificationsUnseenData) => {
+                                        const notificationsRef = doc(db, 'usersNotifications', email);
+                                        try {
+                                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addArrayNotificationsUnseenData) });
+                                        }
+                                        catch (error) {
+                                            console.log(error);
+                                        }
+                                    };
+                                    await updateNotificationsField(email, fieldName, addArrayNotificationsUnseenData);
+                                }
+                                else {
+                                    const field = 'arrayUserNotifcationsUnseen';
+                                    const value = [];
+                                    value.push(objectNotificationUnseen);
 
-                                const updateNotificationsField = async (email, fieldName, addArrayNotificationsUnseenData) => {
-                                    const notificationsRef = doc(db, 'usersNotifications', email);
+                                    const userNotificationRef = doc(db, 'usersNotifications', email);
+                                    const setDataField = { [field]: value };
+
                                     try {
-                                        await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addArrayNotificationsUnseenData) });
+                                        await setDoc(userNotificationRef, setDataField, { merge: true })
                                     }
                                     catch (error) {
                                         console.log(error);
                                     }
-                                };
-                                await updateNotificationsField(email, fieldName, addArrayNotificationsUnseenData);
-                            }
-                            else {
-                                const field = 'arrayUserNotifcationsUnseen';
-                                const value = [];
-                                value.push(objectNotificationUnseen);
-
-                                const userNotificationRef = doc(db, 'usersNotifications', email);
-                                const setDataField = { [field]: value };
-
-                                try {
-                                    await setDoc(userNotificationRef, setDataField, { merge: true })
                                 }
-                                catch (error) {
-                                    console.log(error);
-                                }
+                                setCheckDataChanged(true);
                             }
-                            setCheckDataChanged(true);
+                            //operation if notification banned,
+                            //dispatch upd data inform error action
+                            else{
+                                setCheckDataChanged(true);
+                            }
                         }
                     }
                 }
@@ -262,7 +282,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
         }, 2000);
 
         return () => clearTimeout(timer);
-    }, [checkDataChanged]);
+    }, [checkDataChanged, isChangingUpdDataOperationBannedNot]);
 
     //updating array inform errors
     useEffect(() => {
