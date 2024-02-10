@@ -11,7 +11,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import './notificationFunctionality.css';
 import { useAuth } from '../globalHooks/useauth';
 import { useDispatch } from 'react-redux';
-import { setOperationUserNotifications, setHideNotifications, setBannedNotfications } from '../store/slices/userSlice.js';
+import { setOperationUserNotifications, setHideNotifications, setBannedNotfications, setRemoveBannedNotifications, setRemoveHideNotificaitons } from '../store/slices/userSlice.js';
 import { useHooksProcessingDatabaseUserNotificationsContext } from '../globalHooks/hooksProcessingDatabaseUserNotifications.js';
 import { doc, getDoc, getFirestore, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { initializeApp } from 'firebase/app';
@@ -63,8 +63,89 @@ export default function NotificationFunctionality() {
     const handleShowContNotifications = async () => {
         setLoadingDataNots(true);
         setHideNotificationIcon(false);
-        const updatedArrDataViewedNot = [];
-        const updatedArrDataUnseenNot = [];
+        if (showHideNots) {
+            // operation hide arr
+            for (let i = 0; i < notificationsHide.length; i++) {
+                dispatch(setOperationUserNotifications({
+                    type: 'ADD_NOTIFICATIONS_VIEWED',
+                    payload: notificationsHide[i]
+                }));
+            }
+            const fieldHideArr = 'arrHideNots';
+            const newValueHideArr = [];
+
+            const updNotArrHidefield = async (email, fieldHideArr, newValueHideArr) => {
+                const userDocNotsRef = doc(db, 'usersNotifications', email);
+                try {
+                    await updateDoc(userDocNotsRef, { [fieldHideArr]: newValueHideArr })
+                }
+                catch (error) {
+                    console.log(error);
+                };
+            }
+            await updNotArrHidefield(email, fieldHideArr, newValueHideArr);
+            dispatch(setRemoveHideNotificaitons());
+            setShowHideNots(false);
+        }
+        if (showBannedNots) {
+            // operation banned arr
+            const fieldBannedArr = 'arrBannedNots';
+            const newValueBannedArr = [];
+
+            const updNotArrBannedfield = async (email, fieldBannedArr, newValueBannedArr) => {
+                const userDocNotsRef = doc(db, 'usersNotifications', email);
+                try {
+                    await updateDoc(userDocNotsRef, { [fieldBannedArr]: newValueBannedArr })
+                }
+                catch (error) {
+                    console.log(error);
+                };
+            }
+            await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
+            dispatch(setRemoveBannedNotifications());
+            setShowBannedNots(false);
+        }
+        if (showAllTypesblockedots) {
+            // operation banned arr
+            const fieldBannedArr = 'arrBannedNots';
+            const newValueBannedArr = [];
+
+            const updNotArrBannedfield = async (email, fieldBannedArr, newValueBannedArr) => {
+                const userDocNotsRef = doc(db, 'usersNotifications', email);
+                try {
+                    await updateDoc(userDocNotsRef, { [fieldBannedArr]: newValueBannedArr })
+                }
+                catch (error) {
+                    console.log(error);
+                };
+            }
+            await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
+            setShowAllTypesblockedots(false);
+            dispatch(setRemoveBannedNotifications());
+            //operation hide arr
+            for (let i = 0; i < notificationsHide.length; i++) {
+
+                dispatch(setOperationUserNotifications({
+                    type: 'ADD_NOTIFICATIONS_VIEWED',
+                    payload: notificationsHide[i]
+                }));
+            }
+            const fieldHideArr = 'arrHideNots';
+            const newValueHideArr = [];
+
+            const updNotArrHidefield = async (email, fieldHideArr, newValueHideArr) => {
+                const userDocNotsRef = doc(db, 'usersNotifications', email);
+                try {
+                    await updateDoc(userDocNotsRef, { [fieldHideArr]: newValueHideArr })
+                }
+                catch (error) {
+                    console.log(error);
+                };
+            }
+            await updNotArrHidefield(email, fieldHideArr, newValueHideArr);
+            dispatch(setRemoveHideNotificaitons());
+            setShowAllTypesblockedots(false);
+        }
         if (lengthArrViewed > 0) {
             for (let i = 0; i < lengthArrViewed; i++) {
                 const idObj = i + 0;
@@ -219,6 +300,9 @@ export default function NotificationFunctionality() {
             }
         }
     }
+    const [showHideNots, setShowHideNots] = useState(false);
+    const [showBannedNots, setShowBannedNots] = useState(false);
+    const [showAllTypesblockedots, setShowAllTypesblockedots] = useState(false);
     const adaptiveSizeUnScrollNots = useCallback(() => {
         setIsNotsEqualsNull(notificationsViewed.length === 0 && notificationsUnseen.length === 0);
         setIsOneViewed(notificationsViewed.length === 1);
