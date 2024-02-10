@@ -136,7 +136,6 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                                 //dispatching and adding data db in notifications hisotry
                                 const timestamp = new Date();
                                 const timestampString = timestamp.toISOString();
-                                const isHideNot = false;
                                 const isBannedNot = false;
                                 dispatch(setOperationUserNotifications({
                                     type: 'ALL_NOTIFICATIONS_HISTORY',
@@ -212,7 +211,6 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                                             textNotification: suppServicTextNotification,
                                             senderNotification: suppServicSenderNotification,
                                             categoryNotification: othersCategory,
-                                            isHideNot: isHideNot,
                                             isBannedNot: isBannedNot
                                         }
                                     ]
@@ -224,7 +222,6 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
                                     textNotification: suppServicTextNotification,
                                     senderNotification: suppServicSenderNotification,
                                     categoryNotification: othersCategory,
-                                    isHideNot: isHideNot,
                                     isBannedNot: isBannedNot
                                 }
 
@@ -335,7 +332,6 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
         setCalculateCountUnseenNotifications(lengthNotificationsUnseen);
         setCalculateCountViewedNotifications(lengthNotificationsViewed);
     }, [lengthNotificationsUnseen, lengthNotificationsViewed]);
-
 
 
     return (

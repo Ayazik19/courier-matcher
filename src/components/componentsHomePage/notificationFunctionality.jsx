@@ -153,39 +153,37 @@ export default function NotificationFunctionality() {
                 const dateNotDataObjectArr = notificationsViewed[i]?.payload[0]?.dateNotification;
                 const categNotDataObjecetArr = notificationsViewed[i]?.payload[0]?.categoryNotification;
                 const senderNotDataOgjectArr = notificationsViewed[i]?.payload[0]?.senderNotification;
-                const isHideNot = notificationsViewed[i]?.payload[0]?.isHideNot;
                 const isBannedNot = notificationsViewed[i]?.payload[0]?.isBannedNot;
 
                 const addingObjArrViewedNot = {
-                    id: idObj,
+                        id: i,
                     textNotification: textNotDataObjectArr,
                     dateNotification: dateNotDataObjectArr,
                     categoryNotification: categNotDataObjecetArr,
                     senderNotification: senderNotDataOgjectArr,
-                    isHideNot: isHideNot,
                     isBannedNot: isBannedNot
                 };
                 updatedArrDataViewedNot.push(addingObjArrViewedNot);
             }
+            }
+            setShowHideNots(false);
             setUpdateArrDataViewedNotHookData(updatedArrDataViewedNot);
         }
         if (lengthArrUnseen > 0) {
+            const updatedArrDataUnseenNot = [];
             for (let i = 0; i < lengthArrUnseen; i++) {
-                const id = i + 0;
                 const textNotDataObjectArr = notificationsUnseen[i]?.payload[0]?.textNotification;
                 const dateNotDataObjectArr = notificationsUnseen[i]?.payload[0]?.dateNotification;
                 const categNotDataObjecetArr = notificationsUnseen[i]?.payload[0]?.categoryNotification;
                 const senderNotDataOgjectArr = notificationsUnseen[i]?.payload[0]?.senderNotification;
-                const isHideNot = notificationsUnseen[i]?.payload[0]?.isHideNot;
                 const isBannedNot = notificationsUnseen[i]?.payload[0]?.isBannedNot;
 
                 const addingObjArrUnseenNot = {
-                    id: id,
+                    id: i,
                     textNotification: textNotDataObjectArr,
                     dateNotification: dateNotDataObjectArr,
                     categoryNotification: categNotDataObjecetArr,
                     senderNotification: senderNotDataOgjectArr,
-                    isHideNot: isHideNot,
                     isBannedNot: isBannedNot
                 };
                 updatedArrDataUnseenNot.push(addingObjArrUnseenNot);
@@ -205,13 +203,11 @@ export default function NotificationFunctionality() {
                     const dataUserNotifications = userNotificationDocSnapshots.data();
                     const arrayUserNotifcationsViewedDb = dataUserNotifications && dataUserNotifications.arrayUserNotifcationsViewed ? true : false;
 
-
                     for (let i = 0; i < lengthArrUnseen; i++) {
                         const objectArrDateTimeReceivingNotification = notificationsUnseen[i]?.payload[0]?.dateNotification;
                         const objectArrTextNotification = notificationsUnseen[i]?.payload[0]?.textNotification;
                         const objectArrSenderNotification = notificationsUnseen[i]?.payload[0]?.senderNotification;
                         const categNotDataObjecetArr = notificationsUnseen[i]?.payload[0]?.categoryNotification;
-                        const isHideNot = notificationsUnseen[i]?.payload[0]?.isHideNot;
                         const isBannedNot = notificationsUnseen[i]?.payload[0]?.isBannedNot;
 
                         //dispatching and adding data db viewed notification
@@ -224,7 +220,6 @@ export default function NotificationFunctionality() {
                                     textNotification: objectArrTextNotification,
                                     senderNotification: objectArrSenderNotification,
                                     categoryNotification: categNotDataObjecetArr,
-                                    isHideNot: isHideNot,
                                     isBannedNot: isBannedNot
                                 }
                             ]
@@ -236,7 +231,6 @@ export default function NotificationFunctionality() {
                             textNotification: objectArrTextNotification,
                             senderNotification: objectArrSenderNotification,
                             categoryNotification: categNotDataObjecetArr,
-                            isHideNot: isHideNot,
                             isBannedNot: isBannedNot
                         }
 
