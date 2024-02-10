@@ -43,7 +43,7 @@ export default function NotificationFunctionality() {
     const { isSelectedElement } = useHookMouseFunctionalityErrorsContext();
     const {
         calculateCountUnseenNotifications, calculateCountViewedNotifications,
-        setCalculateCountUnseenNotifications
+        setCalculateCountUnseenNotifications,
     } = useHooksProcessingDatabaseUserNotificationsContext();
 
     const [eventClickTracking, setEventClickTracking] = useState(1);
@@ -332,7 +332,7 @@ export default function NotificationFunctionality() {
     //data creating scrollbar
     const hasScrollCountViewed = calculateCountViewedNotifications > 3;
     const hasScrollCountUnseen = calculateCountUnseenNotifications > 3;
-    const hasScrollOperation = (hasScrollCountViewed || hasScrollCountUnseen) || (calculateCountViewedNotifications >= 3 && calculateCountViewedNotifications >= 3);
+    const hasScrollOperation = (hasScrollCountViewed || hasScrollCountUnseen) || (calculateCountViewedNotifications >= 3 && calculateCountUnseenNotifications >= 3);
 
     const hasScroll = (hasScrollOperation && isNotsEqualsLessThree) || (isOneOrThreeNots || isTwoOrThreeNots);
 
