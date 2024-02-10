@@ -294,9 +294,25 @@ export default function NotificationFunctionality() {
             }
         }
     }
+    const [isNotsEqualsNull, setIsNotsEqualsNull] = useState(false);
+    const [isOneViewed, setIsOneViewed] = useState(false);
+    const [isTwoViewed, setIsTwoViewed] = useState(false);
+    const [isOneUnseen, setIsOneUnseen] = useState(false);
+    const [isTwoUnseen, setIsTwoUnseen] = useState(false);
+    const [isThreeViewed, setIsThreeViewed] = useState(false);
+    const [isThreeUnseen, setIsThreeUnseen] = useState(false);
+    const [isOneOrTwoNots, setIsOneOrTwoNots] = useState(false);
+    const [isOneOrThreeNots, setIsOneOrThreeNots] = useState(false);
+    const [isTwoOrThreeNots, setIsTwoOrThreeNots] = useState(false);
+    const [isNotTypeBanned, setisNotTypeBanned] = useState(false);
+
+    const [isNotsEqualsLessThree, setIsNotsEqualsLessThree] = useState(false);
+
     const [showHideNots, setShowHideNots] = useState(false);
     const [showBannedNots, setShowBannedNots] = useState(false);
     const [showAllTypesblockedots, setShowAllTypesblockedots] = useState(false);
+
+    //display adaptive nots
     const adaptiveSizeUnScrollNots = useCallback(() => {
         setIsNotsEqualsNull(notificationsViewed.length === 0 && notificationsUnseen.length === 0);
         setIsOneViewed(notificationsViewed.length === 1);
