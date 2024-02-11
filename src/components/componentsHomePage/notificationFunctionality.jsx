@@ -63,92 +63,28 @@ export default function NotificationFunctionality() {
     const handleShowContNotifications = async () => {
         setLoadingDataNots(true);
         setHideNotificationIcon(false);
-        if (showHideNots) {
-            // operation hide arr
-            for (let i = 0; i < notificationsHide.length; i++) {
-                dispatch(setOperationUserNotifications({
-                    type: 'ADD_NOTIFICATIONS_VIEWED',
-                    payload: notificationsHide[i]
-                }));
-            }
-            const fieldHideArr = 'arrHideNots';
-            const newValueHideArr = [];
-
-            const updNotArrHidefield = async (email, fieldHideArr, newValueHideArr) => {
-                const userDocNotsRef = doc(db, 'usersNotifications', email);
-                try {
-                    await updateDoc(userDocNotsRef, { [fieldHideArr]: newValueHideArr })
-                }
-                catch (error) {
-                    console.log(error);
-                };
-            }
-            await updNotArrHidefield(email, fieldHideArr, newValueHideArr);
-            dispatch(setRemoveHideNotificaitons());
-            setShowHideNots(false);
-        }
-        if (showBannedNots) {
-            // operation banned arr
-            const fieldBannedArr = 'arrBannedNots';
-            const newValueBannedArr = [];
-
-            const updNotArrBannedfield = async (email, fieldBannedArr, newValueBannedArr) => {
-                const userDocNotsRef = doc(db, 'usersNotifications', email);
-                try {
-                    await updateDoc(userDocNotsRef, { [fieldBannedArr]: newValueBannedArr })
-                }
-                catch (error) {
-                    console.log(error);
-                };
-            }
-            await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
-            dispatch(setRemoveBannedNotifications());
-            setShowBannedNots(false);
-        }
-        if (showAllTypesblockedots) {
-            // operation banned arr
-            const fieldBannedArr = 'arrBannedNots';
-            const newValueBannedArr = [];
-
-            const updNotArrBannedfield = async (email, fieldBannedArr, newValueBannedArr) => {
-                const userDocNotsRef = doc(db, 'usersNotifications', email);
-                try {
-                    await updateDoc(userDocNotsRef, { [fieldBannedArr]: newValueBannedArr })
-                }
-                catch (error) {
-                    console.log(error);
-                };
-            }
-            await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
-            setShowAllTypesblockedots(false);
-            dispatch(setRemoveBannedNotifications());
-            //operation hide arr
-            for (let i = 0; i < notificationsHide.length; i++) {
-
-                dispatch(setOperationUserNotifications({
-                    type: 'ADD_NOTIFICATIONS_VIEWED',
-                    payload: notificationsHide[i]
-                }));
-            }
-            const fieldHideArr = 'arrHideNots';
-            const newValueHideArr = [];
-
-            const updNotArrHidefield = async (email, fieldHideArr, newValueHideArr) => {
-                const userDocNotsRef = doc(db, 'usersNotifications', email);
-                try {
-                    await updateDoc(userDocNotsRef, { [fieldHideArr]: newValueHideArr })
-                }
-                catch (error) {
-                    console.log(error);
-                };
-            }
-            await updNotArrHidefield(email, fieldHideArr, newValueHideArr);
-            dispatch(setRemoveHideNotificaitons());
-            setShowAllTypesblockedots(false);
-        }
         if (lengthArrViewed > 0) {
+            const updatedArrDataViewedNot = [];
             for (let i = 0; i < lengthArrViewed; i++) {
-                const idObj = i + 0;
+                const checkTypePayloadData = notificationsViewed[i]?.payload.findObjToHideNot ? true : false;
+                if (checkTypePayloadData) {
+                    const textNotDataObjectArr = notificationsViewed[i]?.payload.findObjToHideNot.textNotification;
+                    const dateNotDataObjectArr = notificationsViewed[i]?.payload.findObjToHideNot.dateNotification;
+                    const categNotDataObjecetArr = notificationsViewed[i]?.payload.findObjToHideNot.categoryNotification;
+                    const senderNotDataOgjectArr = notificationsViewed[i]?.payload.findObjToHideNot.senderNotification;
+                    const isBannedNot = notificationsViewed[i]?.payload.findObjToHideNot.isBannedNot;
+
+                    const addingObjArrViewedNot = {
+                        id: i,
+                        textNotification: textNotDataObjectArr,
+                        dateNotification: dateNotDataObjectArr,
+                        categoryNotification: categNotDataObjecetArr,
+                        senderNotification: senderNotDataOgjectArr,
+                        isBannedNot: isBannedNot
+                    };
+                    updatedArrDataViewedNot.push(addingObjArrViewedNot);
+                }
+                else{
                 const textNotDataObjectArr = notificationsViewed[i]?.payload[0]?.textNotification;
                 const dateNotDataObjectArr = notificationsViewed[i]?.payload[0]?.dateNotification;
                 const categNotDataObjecetArr = notificationsViewed[i]?.payload[0]?.categoryNotification;
@@ -356,10 +292,103 @@ export default function NotificationFunctionality() {
     useScrollBar(scrollBarNot, hasScroll)
 
     useEffect(() => {
-        if(!hideIconAddCourier || !hideContIconUserAcc || isSelectedElement) {
+        const loadingNewDataActionNot = async () => {
+            if (showBannedNots || showAllTypesblockedots || showHideNots) {
+                setLoadingDataNots(true);
+                if (showHideNots) {
+                    // operation hide arr
+                    for (let i = 0; i < notificationsHide.length; i++) {
+                        dispatch(setOperationUserNotifications({
+                            type: 'ADD_NOTIFICATIONS_VIEWED',
+                            payload: notificationsHide[i]
+                        }));
+                    }
+                    const fieldHideArr = 'arrHideNots';
+                    const newValueHideArr = [];
+        
+                    const updNotArrHidefield = async (email, fieldHideArr, newValueHideArr) => {
+                        const userDocNotsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(userDocNotsRef, { [fieldHideArr]: newValueHideArr })
+                        }
+                        catch (error) {
+                            console.log(error);
+                        };
+                    }
+                    await updNotArrHidefield(email, fieldHideArr, newValueHideArr);
+                    dispatch(setRemoveHideNotificaitons());
+                    setShowHideNots(false);
+                }
+                if (showBannedNots) {
+                    // operation banned arr
+                    const fieldBannedArr = 'arrBannedNots';
+                    const newValueBannedArr = [];
+        
+                    const updNotArrBannedfield = async (email, fieldBannedArr, newValueBannedArr) => {
+                        const userDocNotsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(userDocNotsRef, { [fieldBannedArr]: newValueBannedArr })
+                        }
+                        catch (error) {
+                            console.log(error);
+                        };
+                    }
+                    await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
+                    dispatch(setRemoveBannedNotifications());
+                    setShowBannedNots(false);
+                }
+                if (showAllTypesblockedots) {
+                    // operation banned arr
+                    const fieldBannedArr = 'arrBannedNots';
+                    const newValueBannedArr = [];
+        
+                    const updNotArrBannedfield = async (email, fieldBannedArr, newValueBannedArr) => {
+                        const userDocNotsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(userDocNotsRef, { [fieldBannedArr]: newValueBannedArr })
+                        }
+                        catch (error) {
+                            console.log(error);
+                        };
+                    }
+                    await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
+                    setShowAllTypesblockedots(false);
+                    dispatch(setRemoveBannedNotifications());
+                    //operation hide arr
+                    for (let i = 0; i < notificationsHide.length; i++) {
+                        dispatch(setOperationUserNotifications({
+                            type: 'ADD_NOTIFICATIONS_VIEWED',
+                            payload: notificationsHide[i]
+                        }));
+                    }
+                    const fieldHideArr = 'arrHideNots';
+                    const newValueHideArr = [];
+        
+                    const updNotArrHidefield = async (email, fieldHideArr, newValueHideArr) => {
+                        const userDocNotsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(userDocNotsRef, { [fieldHideArr]: newValueHideArr })
+                        }
+                        catch (error) {
+                            console.log(error);
+                        };
+                    }
+                    await updNotArrHidefield(email, fieldHideArr, newValueHideArr);
+                    dispatch(setRemoveHideNotificaitons());
+                    setShowAllTypesblockedots(false);
+                }   
+                setLoadingDataNots(false);
+            }
+        }
+        loadingNewDataActionNot();
+        handleShowContNotifications();
+    },[showBannedNots, showAllTypesblockedots, showHideNots])
+
+    useEffect(() => {
+        if (!hideIconAddCourier || !hideContIconUserAcc || isSelectedElement) {
             setHideNotificationIcon(true);
         }
-    },[hideIconAddCourier, hideContIconUserAcc, isSelectedElement]);
+    }, [hideIconAddCourier, hideContIconUserAcc, isSelectedElement]);
 
 
     return isAuth ? (
