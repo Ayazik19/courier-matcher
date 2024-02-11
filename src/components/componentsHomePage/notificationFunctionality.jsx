@@ -362,14 +362,310 @@ export default function NotificationFunctionality() {
     },[hideIconAddCourier, hideContIconUserAcc, isSelectedElement]);
 
 
-    return(
-        //The code is under development...
+    return isAuth ? (
         <div>
-            
-            <div className='icon-notification' onClick = {handleShowContNotifications}>
-                <img src={iconNotification} className='img-icon-notifcation'/>
-                {/* <CheckOperationNotificationsUser /> */}
+            <div className='icon-notification' onClick={handleShowContNotifications}>
+                <img src={iconNotification} className='img-icon-notifcation' />
+                <CheckOperationNotificationsUser />
             </div>
+            {!hideNotificationIcon ?
+                <div>
+                    <div className='nav-cont-notifications-user'>
+                        <div className='cont-notifications'>
+                            <div className={lengthArrUnseen < 0 ? 'header-cont-nofications_uns-equal-null' : 'header-cont-nofications'}>
+                                <div className={lengthArrUnseen === 0 ? 'header-text-cont_uns-equal-null' : 'header-text-cont'}>
+                                    <span className='text-cont-notification_left'>
+                                        {lengthArrUnseen > 0 ? 'New' : 'Your'} {lengthArrUnseen > 1 || lengthArrViewed > 1 ? 'notifications' : 'notification'}
+                                    </span>
+                                    <span className={lengthArrUnseen > 1 || lengthArrViewed > 1 ? 'text-cont-notification_left_new-nots-center' : 'text-cont-notification_left_center'}>
+                                        {checkNots ? '.' : null}
+                                    </span>
+                                    <span className='text-cont-notification-2_left'>
+                                        {lengthArrUnseen > 0 && lengthArrViewed === 0 ? 'Unseen' : null}
+                                        {lengthArrViewed > 0 && lengthArrUnseen === 0 ? 'Viewed' : null}
+                                        {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Unseen' : null}
+                                    </span>
+                                    <span className={checkNots ? 'text-cont-notification_right' : 'text-cont-notification_right-nots-undefined'}>
+                                        Settings
+                                    </span>
+                                    {isNotTypeBanned && isNotsEqualsNull ?
+                                        <div className='header-cont-line_blocked-true'>
+                                        </div>
+                                        : null}
+                                    {isNotsEqualsNull ?
+                                        <div className='header-cont-line_blocked-true'>
+                                        </div>
+                                        : null}
+                                </div>
+                            </div>
+                            {isLoadingDataNots ?
+                                <div className='cont-loading-data-nots'>
+                                    <div class="loader-nots"></div>
+                                </div>
+                                : null}
+                            {hasScroll && !isLoadingDataNots ?
+                                <div className={lengthArrUnseen > 0 ? 'notification_true-scroll_new-uns' : 'notification_true-scroll'} ref={scrollBarNot}>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                    <div className='footer-cont-hints-nots_true-scroll'>
+                                        <div className='footer-cont-nots_left'>
+                                            <span className='footer-nots-text-1'>
+                                                <span>you can disable</span><br />
+                                                <span>or hide the notification</span><br />
+                                                <span>when you hover</span><br />
+                                            </span>
+                                        </div>
+                                        <div className='footer-cont-nots_center'>
+                                            <img src={logoSite} alt='logo coorchik' className='footer-img-nots_logo' />
+                                        </div>
+                                        <div className='footer-cont-nots_right'>
+                                            <span className='footer-nots-text-2'>
+                                                <span>you can view</span><br />
+                                                <span>the list of notifications</span><br />
+                                                <span>in the
+                                                    <Link className='link-redirect-settings-nots-page'>
+                                                        ﾠsettings
+                                                    </Link>
+                                                </span><br />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> : null}
+                            {isOneUnseen && !hasScroll && !isOneViewed && !isOneOrTwoNots && !isLoadingDataNots ?
+                                <div className='notification_true_one-not'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isOneViewed && !hasScroll && !isOneUnseen && !isOneOrTwoNots && !isLoadingDataNots ?
+                                <div className='notification_true_one-not'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isTwoUnseen && !hasScroll && !isOneOrTwoNots && !isTwoViewed && !isLoadingDataNots ?
+                                <div className='notifcation_true_two-nots'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isTwoViewed && !hasScroll && !isOneOrTwoNots && !isTwoUnseen && !isLoadingDataNots ?
+                                <div className='notifcation_true_two-nots'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isThreeViewed && !hasScroll && !isLoadingDataNots ?
+                                <div className='notifcation_true_three-nots'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isThreeUnseen && !isThreeViewed && !hasScroll && !isLoadingDataNots ?
+                                <div className='notifcation_true_three-nots'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isOneUnseen && isOneViewed && !isOneOrTwoNots && !hasScroll && !isLoadingDataNots ?
+                                <div className='notifcation_true_couple-nots-equls-one'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isTwoUnseen && isTwoViewed && !hasScroll && !isLoadingDataNots ?
+                                <div className='notifcation_true_couple-nots-equls-two'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isOneOrTwoNots && !isLoadingDataNots ?
+                                <div className='notifcation_true_one-uns-or-two-view-nots'>
+                                    <div className='main-cont-notifications_unviewed-notifications'>
+                                        {operationDataUpdNotUnseen}
+                                    </div>
+                                    <div className='main-cont-notifications_viewed-notifications'>
+                                        <div className={lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'header-cont-nofications_viewed-notifications' : 'header-cont-nofications_viewed-notifications_uns-equal-null'}>
+                                            <div className='header-text-cont'>
+                                                <span className='text-cont-notification_left'>
+                                                    {lengthArrViewed > 0 && lengthArrUnseen > 0 ? 'Viewed' : null}
+                                                </span>
+                                            </div>
+                                            {operationDataUpdNotViewed}
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+                            {isNotsEqualsNull ?
+                                <div className={notificationsHide.length === 0 && notificationsBanned.length === 0 ? 'notifcation_false_equals-null' : 'notifcation_false_equals-null_blocked-type-nots-true'}>
+                                    {notificationsHide.length > 0 || notificationsBanned.length > 0 ?
+                                        <div className='nots-cont_blocks-true'>
+                                            <span className='text-nots-cont-1_blocks-true'>
+                                                You don't have any notifications
+                                            </span>
+                                            <br />
+                                            <span className='text-nots-cont-2_blocks-true'>
+                                                {notificationsHide.length > 0 && notificationsBanned.length === 0 ?
+                                                    <div>
+                                                        <span className='text-nots-cont-2_text-1'>
+                                                            You have {notificationsHide.length} hidden notification{notificationsHide.length > 0 ? 's' : null}
+                                                        </span>
+                                                        <br />
+                                                        <span className='notifications-hide-recovery' onClick={() => (setShowHideNots(true))}>
+                                                            Restore all hidden ones
+                                                        </span>
+                                                    </div>
+                                                    : null}
+                                                {notificationsHide.length === 0 && notificationsBanned.length > 0 ?
+                                                    <div>
+                                                        <span className='text-nots-cont-2_text-2' >
+                                                            You have {notificationsBanned.length} blocked notification{notificationsBanned.length > 0 ? 's' : null}
+                                                        </span>
+                                                        <span className='notifications-banned-recovery' onClick={() => (setShowBannedNots(true))}>
+                                                            Restore all blocked ones
+                                                        </span>
+                                                    </div>
+                                                    : null}
+                                                {notificationsHide.length > 0 && notificationsBanned.length > 0 ?
+                                                    <div>
+                                                        <span className='text-nots-cont-2_text-3'>
+                                                            You have {notificationsHide.length} hide, {notificationsBanned.length} blocked notifications
+                                                        </span>
+                                                        <span className='all-types-blocked-nots-recovery'>
+                                                            Restore all <p className='click-action-not' onClick={() => (setShowHideNots(true))}>hidden</p>, <p className='click-action-not' onClick={() => (setShowBannedNots(true))}>blocked</p> ones or <p className='click-action-not' onClick={() => setShowAllTypesblockedots(true)}>all</p>
+                                                        </span>
+                                                    </div>
+                                                    : null}
+                                            </span>
+                                        </div>
+                                        :
+                                        <div className='nots-cont_blocks-false'>
+                                            <span className='text-nots-cont_blocks-false'>
+                                                You don't have any notifications
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                                : null}
+                            {hasScroll && !isLoadingDataNots ?
+                                <div className='redirect-full-notifications-page'>
+                                    <span className='text-redirect-cont'>
+                                        <a className='link-redirect'>
+                                            Show all
+                                        </a>
+                                    </span>
+                                </div>
+                                :
+                                <div className={!isNotsEqualsNull ? 'redirect-full-notifications-page_unscroll' : 'redirect-full-notifications-page_unscroll_nots-null'}>
+                                    <span className='text-redirect-cont'>
+                                        <a className='link-redirect'>
+                                            Show all
+                                        </a>
+                                    </span>
+                                </div>}
+                        </div>
+                    </div>
+                </div>
+                : null}
         </div>
-    );
-}
+    ) : null;
+};
