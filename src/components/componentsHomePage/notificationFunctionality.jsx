@@ -6,6 +6,8 @@ import imgSsCoorchik from './imagelogoSSCoorchik.png';
 import suppServiceIcon from './suppServiceIcon.png';
 import iconActionNot from './iconActionNot.png';
 import logoSite from './logoSite.png';
+import imgBlockedNotAction from './imgBlockedNotAction.png';
+import imgHideNotAction from './imgHideNotAction.png';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import './notificationFunctionality.css';
@@ -230,6 +232,566 @@ export default function NotificationFunctionality() {
             }
         }
     }
+
+
+    const [operationDataUpdNotViewed, setOperationDataUpdNotViewed] = useState(null);
+    const [operationDataUpdNotUnseen, setOperationDataUpdNotUnseen] = useState(null);
+
+    const [saveHideDataNotObjHook, setSaveHideDataNotObjHook] = useState(false);
+
+    const [isClickHideNot, setIsClickHideNot] = useState(false);
+
+    useEffect(() => {
+        const displayDataNotViewed = (updateArrDataViewedNotHookData.map((notification, index) => {
+            const senderIsSs = notification.senderNotification === 'SS Coorchik';
+
+            const createdAtMoment = moment(notification.dateNotification);
+            let formattedDate = '';
+            if (createdAtMoment.isSame(moment(), 'day')) {
+                formattedDate = `today in ${createdAtMoment.format('HH:mm')}`;
+            } else if (createdAtMoment.isSame(moment().subtract(1, 'day'), 'day')) {
+                formattedDate = `yesterday in ${createdAtMoment.format('HH:mm')}`;
+            } else {
+                formattedDate = `${createdAtMoment.format('DD')} ${createdAtMoment.format('MMMM')} in ${createdAtMoment.format('HH:mm')}`;
+            }
+
+
+
+            const handleOperationHideNot = async (idNot) => {
+                setIsClickHideNot(true);
+                const userNotsDocRef = doc(db, 'usersNotifications', email);
+                const userNotsDocSnapshot = await getDoc(userNotsDocRef);
+                const dataUsersNots = userNotsDocSnapshot.data();
+
+                const findObjToHideNot = updateArrDataViewedNotHookData.find(item => item.id === idNot);
+                const filteredArrViewed = updateArrDataViewedNotHookData.filter(item => item.id !== idNot);
+
+                setUpdateArrDataViewedNotHookData(filteredArrViewed);
+                setSaveHideDataNotObjHook(findObjToHideNot);
+                dispatch(setOperationUserNotifications({
+                    type: 'REMOVE_VIEWED_NOTIFICATIONS',
+                    payload: {}
+                }));
+                const field = 'arrayUserNotifcationsViewed';
+                const value = [];
+
+                const userNotificationRef = doc(db, 'usersNotifications', email);
+                const setDataField = { [field]: value };
+
+                try {
+                    await setDoc(userNotificationRef, setDataField, { merge: true })
+                }
+                catch (error) {
+                    console.log(error);
+                }
+                // adding new data viewed nots in action and db
+                for (let i = 0; i < filteredArrViewed.length; i++) {
+                    const textNotDataObjectArr = filteredArrViewed[i]?.textNotification;
+                    const dateNotDataObjectArr = filteredArrViewed[i]?.dateNotification;
+                    const categNotDataObjecetArr = filteredArrViewed[i]?.categoryNotification;
+                    const senderNotDataOgjectArr = filteredArrViewed[i]?.senderNotification;
+                    const isBannedNot = filteredArrViewed[i]?.isBannedNot;
+
+                    dispatch(setOperationUserNotifications({
+                        type: 'ADD_NOTIFICATIONS_VIEWED',
+                        payload: [
+                            {
+                                textNotification: textNotDataObjectArr,
+                                dateNotification: dateNotDataObjectArr,
+                                categoryNotification: categNotDataObjecetArr,
+                                senderNotification: senderNotDataOgjectArr,
+                                isBannedNot: isBannedNot
+                            }
+                        ]
+                    }))
+                    const objViewedAction = {
+                        textNotification: textNotDataObjectArr,
+                        dateNofification: dateNotDataObjectArr,
+                        categoryNotification: categNotDataObjecetArr,
+                        senderNotification: senderNotDataOgjectArr,
+                        isBannedNot: isBannedNot
+                    };
+                    const fieldName = 'arrayUserNotifcationsViewed';
+
+                    const updateDataNotViewed = [objViewedAction];
+
+
+                    const updateNotificationsArrHideField = async (email, fieldName, updateDataNotViewed) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...updateDataNotViewed) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, updateDataNotViewed);
+                }
+                const arrHideNots = dataUsersNots.arrHideNots ? true : false;
+                if (arrHideNots) {
+                    const fieldName = 'arrHideNots';
+
+                    const addDataHideNot = [findObjToHideNot];
+
+                    const updateNotificationsArrHideField = async (email, fieldName, addDataHideNot) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addDataHideNot) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, addDataHideNot);
+                }
+                else {
+                    const field = 'arrHideNots';
+                    const value = [];
+                    value.push(findObjToHideNot);
+
+                    const userNotificationRef = doc(db, 'usersNotifications', email);
+                    const setDataField = { [field]: value };
+
+                    try {
+                        await setDoc(userNotificationRef, setDataField, { merge: true })
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }
+                dispatch(setHideNotifications({ findObjToHideNot }));
+                adaptiveSizeUnScrollNots();
+            }
+
+            const handleOperationBanningNot = async (idNot) => {
+                const userNotsDocRef = doc(db, 'usersNotifications', email);
+                const userNotsDocSnapshot = await getDoc(userNotsDocRef);
+                const dataUsersNots = userNotsDocSnapshot.data();
+
+                const filteredArrViewed = updateArrDataViewedNotHookData.filter(item => item.id !== idNot)
+                const findObjIdToBanned = updateArrDataViewedNotHookData.find(item => item.id === idNot);
+
+                setUpdateArrDataViewedNotHookData(filteredArrViewed);
+                setSaveHideDataNotObjHook(findObjIdToBanned);
+
+                dispatch(setOperationUserNotifications({
+                    type: 'REMOVE_VIEWED_NOTIFICATIONS',
+                    payload: {}
+                }));
+
+                const field = 'arrayUserNotifcationsViewed';
+                const value = [];
+                const userNotificationRef = doc(db, 'usersNotifications', email);
+                const setDataField = { [field]: value };
+                try {
+                    await setDoc(userNotificationRef, setDataField, { merge: true })
+                }
+                catch (error) {
+                    console.log(error);
+                }
+
+                // adding new data viewed nots in action and db
+                for (let i = 0; i < filteredArrViewed.length; i++) {
+                    const textNotDataObjectArr = filteredArrViewed[i]?.textNotification;
+                    const dateNotDataObjectArr = filteredArrViewed[i]?.dateNotification;
+                    const categNotDataObjecetArr = filteredArrViewed[i]?.categoryNotification;
+                    const senderNotDataOgjectArr = filteredArrViewed[i]?.senderNotification;
+                    const isBannedNot = filteredArrViewed[i]?.isBannedNot;
+                    dispatch(setOperationUserNotifications({
+                        type: 'ADD_NOTIFICATIONS_VIEWED',
+                        payload: [
+                            {
+                                textNotification: textNotDataObjectArr,
+                                dateNotification: dateNotDataObjectArr,
+                                categoryNotification: categNotDataObjecetArr,
+                                senderNotification: senderNotDataOgjectArr,
+                                isBannedNot: isBannedNot
+                            }
+                        ]
+                    }))
+                    const objViewedAction = {
+                        textNotification: textNotDataObjectArr,
+                        dateNofification: dateNotDataObjectArr,
+                        categoryNotification: categNotDataObjecetArr,
+                        senderNotification: senderNotDataOgjectArr,
+                        isBannedNot: isBannedNot
+                    };
+                    const fieldName = 'arrayUserNotifcationsViewed';
+
+                    const updateDataNotViewed = [objViewedAction];
+
+
+                    const updateNotificationsArrHideField = async (email, fieldName, updateDataNotViewed) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...updateDataNotViewed) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, updateDataNotViewed);
+                }
+                const arrBannedNots = dataUsersNots.arrBannedNots ? true : false;
+                if (arrBannedNots) {
+                    const fieldName = 'arrBannedNots';
+
+                    const addDataBannedNot = [notification.senderNotification];
+
+                    const updateNotificationsArrHideField = async (email, fieldName, addDataBannedNot) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addDataBannedNot) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, addDataBannedNot);
+                }
+                else {
+                    const field = 'arrBannedNots';
+                    const value = [];
+                    value.push(notification.senderNotification);
+
+                    const userNotificationRef = doc(db, 'usersNotifications', email);
+                    const setDataField = { [field]: value };
+
+                    try {
+                        await setDoc(userNotificationRef, setDataField, { merge: true })
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }
+                dispatch(setBannedNotfications(notification.senderNotification));
+                adaptiveSizeUnScrollNots();
+            }
+
+            return (
+                <div>
+                    <div className='user-notification_sender-supp-serv' key={index}>
+                        {senderIsSs ?
+                            (
+                                <>
+                                    <div className='user-notification_sender-supp-serv' key={index}>
+                                        <img src={imgSsCoorchik} alt='logo coorchik' className='img-notification_sender-supp-serv' />
+                                        <div className='sender-not-departm'>
+                                            <img src={suppServiceIcon} alt='service support coorchik' className='icon-supp-serv-sender-not' />
+                                        </div>
+                                        <div className='text-nofication-cont'>
+                                            <span className='text-notification_sender-supp-serv'>
+                                                The support service has successfully solved the technical
+                                                problem, you have been awarded bonuses!
+                                            </span>
+                                            <br></br>
+                                            <span className='date-notification'>{formattedDate}</span>
+                                        </div>
+                                        <div className='actions-not'>
+                                            <img src={iconActionNot} className='img-action-not' />
+                                        </div>
+                                        <div className='nots-action'>
+                                            <div className='element-list-actions'></div>
+                                            <div className='list-actions'>
+                                                <div className='action_hide-not' onClick={() => handleOperationHideNot(notification.id)}>
+                                                    <img src = {imgHideNotAction} className='icon-hide-not-action' alt='hide notification'/>
+                                                    <span className='action-text'>
+                                                        Hide
+                                                    </span>
+                                                </div>
+                                                <div className='action_do-not-notify' onClick={() => handleOperationBanningNot(notification.id)}>
+                                                    <img src = {imgBlockedNotAction} className='icon-blocked-not-action' alt='banned notification'/>
+                                                    <span className='action-text'>
+                                                        Do not notify
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                            : null}
+                    </div>
+                </div>
+            );
+        }).reverse());
+
+        const displayDataNotUnseen = (updateArrDataUnseenNotHookData.map((notification, index) => {
+            const senderIsSs = notification.senderNotification === 'SS Coorchik';
+
+            const createdAtMoment = moment(notification.dateNotification);
+            let formattedDate = '';
+            if (createdAtMoment.isSame(moment(), 'day')) {
+                formattedDate = `today in ${createdAtMoment.format('HH:mm')}`;
+            } else if (createdAtMoment.isSame(moment().subtract(1, 'day'), 'day')) {
+                formattedDate = `yesterday in ${createdAtMoment.format('HH:mm')}`;
+            } else {
+                formattedDate = `${createdAtMoment.format('DD')} ${createdAtMoment.format('MMMM')} in ${createdAtMoment.format('HH:mm')}`;
+            }
+
+
+            const handleOperationHideNot = async (idNot) => {
+                setIsClickHideNot(true);
+                const userNotsDocRef = doc(db, 'usersNotifications', email);
+                const userNotsDocSnapshot = await getDoc(userNotsDocRef);
+                const dataUsersNots = userNotsDocSnapshot.data();
+
+                
+                const findObjToHideNot = updateArrDataUnseenNotHookData.find(item => item.id === idNot);
+                const filteredArrUnseen = updateArrDataUnseenNotHookData.filter(item => item.id !== idNot);
+
+                setUpdateArrDataUnseenNotHookData(filteredArrUnseen);
+                setSaveHideDataNotObjHook(findObjToHideNot);
+                dispatch(setOperationUserNotifications({
+                    type: 'REMOVE_UNSEEN_NOTIFICATIONS',
+                    payload: {}
+                }));
+                const field = 'arrayUserNotifcationsUnseen';
+                const value = [];
+
+                const userNotificationRef = doc(db, 'usersNotifications', email);
+                const setDataField = { [field]: value };
+
+                try {
+                    await setDoc(userNotificationRef, setDataField, { merge: true })
+                }
+                catch (error) {
+                    console.log(error);
+                }
+                // adding new data viewed nots in action and db
+                for (let i = 0; i < filteredArrUnseen.length; i++) {
+                    const textNotDataObjectArr = filteredArrUnseen[i]?.textNotification;
+                    const dateNotDataObjectArr = filteredArrUnseen[i]?.dateNotification;
+                    const categNotDataObjecetArr = filteredArrUnseen[i]?.categoryNotification;
+                    const senderNotDataOgjectArr = filteredArrUnseen[i]?.senderNotification;
+                    const isBannedNot = filteredArrUnseen[i]?.isBannedNot;
+                    dispatch(setOperationUserNotifications({
+                        type: 'ADD_NOTIFICATIONS_UNSEEN',
+                        payload: [
+                            {
+                                textNotification: textNotDataObjectArr,
+                                dateNotification: dateNotDataObjectArr,
+                                categoryNotification: categNotDataObjecetArr,
+                                senderNotification: senderNotDataOgjectArr,
+                                isBannedNot: isBannedNot
+                            }
+                        ]
+                    }))
+                    const objUnseenAction = {
+                        textNotification: textNotDataObjectArr,
+                        dateNofification: dateNotDataObjectArr,
+                        categoryNotification: categNotDataObjecetArr,
+                        senderNotification: senderNotDataOgjectArr,
+                        isBannedNot: isBannedNot
+                    };
+                    const fieldName = 'arrayUserNotifcationsUnseen';
+
+                    const updateDataNotUnseen = [objUnseenAction];
+
+
+                    const updateNotificationsArrHideField = async (email, fieldName, updateDataNotUnseen) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...updateDataNotUnseen) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, updateDataNotUnseen);
+                }
+                console.log('findObjToHideNot', findObjToHideNot);
+                const arrHideNots = dataUsersNots.arrHideNots ? true : false;
+                if (arrHideNots) {
+                    const fieldName = 'arrHideNots';
+
+                    const addDataHideNot = [findObjToHideNot];
+
+                    const updateNotificationsArrHideField = async (email, fieldName, addDataHideNot) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addDataHideNot) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, addDataHideNot);
+                }
+                else {
+                    const field = 'arrHideNots';
+                    const value = [];
+                    value.push(findObjToHideNot);
+
+                    const userNotificationRef = doc(db, 'usersNotifications', email);
+                    const setDataField = { [field]: value };
+
+                    try {
+                        await setDoc(userNotificationRef, setDataField, { merge: true })
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }
+                dispatch(setHideNotifications({ findObjToHideNot }));
+            }
+
+            const handleOperationBanningNot = async (idNot) => {
+                const userNotsDocRef = doc(db, 'usersNotifications', email);
+                const userNotsDocSnapshot = await getDoc(userNotsDocRef);
+                const dataUsersNots = userNotsDocSnapshot.data();
+
+                const filteredArrUnseen = updateArrDataUnseenNotHookData.filter(item => item.id !== idNot)
+                const findObjIdToBanned = updateArrDataUnseenNotHookData.find(item => item.id === idNot);
+
+                setUpdateArrDataUnseenNotHookData(filteredArrUnseen);
+                setSaveHideDataNotObjHook(findObjIdToBanned);
+
+                dispatch(setOperationUserNotifications({
+                    type: 'REMOVE_UNSEEN_NOTIFICATIONS',
+                    payload: {}
+                }));
+
+                const field = 'arrayUserNotifcationsUnseen';
+                const value = [];
+                const userNotificationRef = doc(db, 'usersNotifications', email);
+                const setDataField = { [field]: value };
+                try {
+                    await setDoc(userNotificationRef, setDataField, { merge: true })
+                }
+                catch (error) {
+                    console.log(error);
+                }
+
+                // adding new data viewed nots in action and db
+                for (let i = 0; i < filteredArrUnseen.length; i++) {
+                    const textNotDataObjectArr = filteredArrUnseen[i]?.textNotification;
+                    const dateNotDataObjectArr = filteredArrUnseen[i]?.dateNotification;
+                    const categNotDataObjecetArr = filteredArrUnseen[i]?.categoryNotification;
+                    const senderNotDataOgjectArr = filteredArrUnseen[i]?.senderNotification;
+                    const isBannedNot = filteredArrUnseen[i]?.isBannedNot;
+                    dispatch(setOperationUserNotifications({
+                        type: 'ADD_NOTIFICATIONS_UNSEEN',
+                        payload: [
+                            {
+                                textNotification: textNotDataObjectArr,
+                                dateNotification: dateNotDataObjectArr,
+                                categoryNotification: categNotDataObjecetArr,
+                                senderNotification: senderNotDataOgjectArr,
+                                isBannedNot: isBannedNot
+                            }
+                        ]
+                    }))
+                    const objViewedAction = {
+                        textNotification: textNotDataObjectArr,
+                        dateNofification: dateNotDataObjectArr,
+                        categoryNotification: categNotDataObjecetArr,
+                        senderNotification: senderNotDataOgjectArr,
+                        isBannedNot: isBannedNot
+                    };
+                    const fieldName = 'arrayUserNotifcationsUnseen';
+
+                    const updateDataNotUnseen = [objViewedAction];
+
+
+                    const updateNotificationsArrHideField = async (email, fieldName, updateDataNotUnseen) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...updateDataNotUnseen) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, updateDataNotUnseen);
+                }
+                const arrBannedNots = dataUsersNots.arrBannedNots ? true : false;
+                if (arrBannedNots) {
+                    const fieldName = 'arrBannedNots';
+
+                    const addDataBannedNot = [notification.senderNotification];
+
+                    const updateNotificationsArrHideField = async (email, fieldName, addDataBannedNot) => {
+                        const notificationsRef = doc(db, 'usersNotifications', email);
+                        try {
+                            await updateDoc(notificationsRef, { [fieldName]: arrayUnion(...addDataBannedNot) });
+                        }
+                        catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    await updateNotificationsArrHideField(email, fieldName, addDataBannedNot);
+                }
+                else {
+                    const field = 'arrBannedNots';
+                    const value = [];
+                    value.push(notification.senderNotification);
+
+                    const userNotificationRef = doc(db, 'usersNotifications', email);
+                    const setDataField = { [field]: value };
+
+                    try {
+                        await setDoc(userNotificationRef, setDataField, { merge: true })
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }
+                dispatch(setBannedNotfications(notification.senderNotification));
+            }
+
+            return (
+                <div>
+                    <div className='user-notification-unseen_sender-supp-serv' key={index}>
+                        {senderIsSs ?
+                            (
+                                <>
+                                    <div className='user-notification_sender-supp-serv' key={index}>
+                                        <img src={imgSsCoorchik} className='img-notification_sender-supp-serv' />
+                                        <div className='sender-not-departm'>
+                                            <img src={suppServiceIcon} alt='service support coorchik' className='icon-supp-serv-sender-not' />
+                                        </div>
+                                        <div className='text-nofication-cont'>
+                                            <span className='text-notification_sender-supp-serv'>
+                                                The support service has successfully solved the technical
+                                                problem, you have been awarded bonuses!
+                                            </span>
+                                            <br></br>
+                                            <span className='date-notification'>{formattedDate}</span>
+                                        </div>
+                                        <div className='actions-not'>
+                                            <img src={iconActionNot} className='img-action-not' />
+                                        </div>
+                                        <div className='nots-action'>
+                                            <div className='element-list-actions'></div>
+                                            <div className='list-actions'>
+                                                <div className='action_hide-not' onClick={() => handleOperationHideNot(notification.id)}>
+                                                    <img src = {imgHideNotAction} className='icon-hide-not-action' alt='hide notification'/>
+                                                    <span className='action-text'>
+                                                        Hide
+                                                    </span>
+                                                </div>
+                                                <div className='action_do-not-notify' onClick={() => handleOperationBanningNot(notification.id)}>
+                                                    <img src = {imgBlockedNotAction} className='icon-blocked-not-action' alt='banned notification'/>
+                                                    <span className='action-text'>
+                                                        Do not notify
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                            : null}
+                    </div>
+                </div>
+            );
+        }).reverse());
+
+        setOperationDataUpdNotViewed(displayDataNotViewed);
+        setOperationDataUpdNotUnseen(displayDataNotUnseen);
+    }, [updateArrDataViewedNotHookData, updateArrDataUnseenNotHookData])
+
     const [isNotsEqualsNull, setIsNotsEqualsNull] = useState(false);
     const [isOneViewed, setIsOneViewed] = useState(false);
     const [isTwoViewed, setIsTwoViewed] = useState(false);
