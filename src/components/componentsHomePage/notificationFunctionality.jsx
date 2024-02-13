@@ -368,10 +368,15 @@ export default function NotificationFunctionality() {
                 const userNotsDocSnapshot = await getDoc(userNotsDocRef);
                 const dataUsersNots = userNotsDocSnapshot.data();
 
-                const filteredArrViewed = updateArrDataViewedNotHookData.filter(item => item.id !== idNot)
+                const filteredArrViewed = updateArrDataViewedNotHookData.filter(item => item.id !== idNot);
                 const findObjIdToBanned = updateArrDataViewedNotHookData.find(item => item.id === idNot);
 
-                setUpdateArrDataViewedNotHookData(filteredArrViewed);
+                let removeSenderSsNots;
+
+                if (findObjIdToBanned && findObjIdToBanned.senderNotification === 'SS Coorchik') {
+                    removeSenderSsNots = filteredArrViewed.filter(item => item.senderNotification !== 'SS Coorchik');
+                }
+
                 setSaveHideDataNotObjHook(findObjIdToBanned);
 
                 dispatch(setOperationUserNotifications({
@@ -391,12 +396,13 @@ export default function NotificationFunctionality() {
                 }
 
                 // adding new data viewed nots in action and db
-                for (let i = 0; i < filteredArrViewed.length; i++) {
-                    const textNotDataObjectArr = filteredArrViewed[i]?.textNotification;
-                    const dateNotDataObjectArr = filteredArrViewed[i]?.dateNotification;
-                    const categNotDataObjecetArr = filteredArrViewed[i]?.categoryNotification;
-                    const senderNotDataOgjectArr = filteredArrViewed[i]?.senderNotification;
-                    const isBannedNot = filteredArrViewed[i]?.isBannedNot;
+                if (removeSenderSsNots.length > 0) {
+                    for (let i = 0; i < removeSenderSsNots.length; i++) {
+                        const textNotDataObjectArr = removeSenderSsNots[i]?.textNotification;
+                        const dateNotDataObjectArr = removeSenderSsNots[i]?.dateNotification;
+                        const categNotDataObjecetArr = removeSenderSsNots[i]?.categoryNotification;
+                        const senderNotDataOgjectArr = removeSenderSsNots[i]?.senderNotification;
+                        const isBannedNot = removeSenderSsNots[i]?.isBannedNot;
                     dispatch(setOperationUserNotifications({
                         type: 'ADD_NOTIFICATIONS_VIEWED',
                         payload: [
@@ -431,6 +437,10 @@ export default function NotificationFunctionality() {
                         }
                     };
                     await updateNotificationsArrHideField(email, fieldName, updateDataNotViewed);
+                    }
+                }
+                else {
+                    setUpdateArrDataViewedNotHookData([]);
                 }
                 const arrBannedNots = dataUsersNots.arrBannedNots ? true : false;
                 if (arrBannedNots) {
@@ -494,13 +504,13 @@ export default function NotificationFunctionality() {
                                             <div className='element-list-actions'></div>
                                             <div className='list-actions'>
                                                 <div className='action_hide-not' onClick={() => handleOperationHideNot(notification.id)}>
-                                                    <img src = {imgHideNotAction} className='icon-hide-not-action' alt='hide notification'/>
+                                                    <img src={imgHideNotAction} className='icon-hide-not-action' alt='hide notification' />
                                                     <span className='action-text'>
                                                         Hide
                                                     </span>
                                                 </div>
                                                 <div className='action_do-not-notify' onClick={() => handleOperationBanningNot(notification.id)}>
-                                                    <img src = {imgBlockedNotAction} className='icon-blocked-not-action' alt='banned notification'/>
+                                                    <img src={imgBlockedNotAction} className='icon-blocked-not-action' alt='banned notification' />
                                                     <span className='action-text'>
                                                         Do not notify
                                                     </span>
@@ -644,7 +654,11 @@ export default function NotificationFunctionality() {
                 const filteredArrUnseen = updateArrDataUnseenNotHookData.filter(item => item.id !== idNot)
                 const findObjIdToBanned = updateArrDataUnseenNotHookData.find(item => item.id === idNot);
 
-                setUpdateArrDataUnseenNotHookData(filteredArrUnseen);
+                let removeSenderSsNots;
+
+                if (findObjIdToBanned && findObjIdToBanned.senderNotification === 'SS Coorchik') {
+                    removeSenderSsNots = filteredArrUnseen.filter(item => item.senderNotification !== 'SS Coorchik');
+                }
                 setSaveHideDataNotObjHook(findObjIdToBanned);
 
                 dispatch(setOperationUserNotifications({
@@ -664,12 +678,13 @@ export default function NotificationFunctionality() {
                 }
 
                 // adding new data viewed nots in action and db
-                for (let i = 0; i < filteredArrUnseen.length; i++) {
-                    const textNotDataObjectArr = filteredArrUnseen[i]?.textNotification;
-                    const dateNotDataObjectArr = filteredArrUnseen[i]?.dateNotification;
-                    const categNotDataObjecetArr = filteredArrUnseen[i]?.categoryNotification;
-                    const senderNotDataOgjectArr = filteredArrUnseen[i]?.senderNotification;
-                    const isBannedNot = filteredArrUnseen[i]?.isBannedNot;
+                if (removeSenderSsNots.length > 0) {
+                    for (let i = 0; i < removeSenderSsNots.length; i++) {
+                        const textNotDataObjectArr = removeSenderSsNots[i]?.textNotification;
+                        const dateNotDataObjectArr = removeSenderSsNots[i]?.dateNotification;
+                        const categNotDataObjecetArr = removeSenderSsNots[i]?.categoryNotification;
+                        const senderNotDataOgjectArr = removeSenderSsNots[i]?.senderNotification;
+                        const isBannedNot = removeSenderSsNots[i]?.isBannedNot;
                     dispatch(setOperationUserNotifications({
                         type: 'ADD_NOTIFICATIONS_UNSEEN',
                         payload: [
@@ -704,6 +719,10 @@ export default function NotificationFunctionality() {
                         }
                     };
                     await updateNotificationsArrHideField(email, fieldName, updateDataNotUnseen);
+                    }
+                }
+                else {
+                    setUpdateArrDataUnseenNotHookData([]);
                 }
                 const arrBannedNots = dataUsersNots.arrBannedNots ? true : false;
                 if (arrBannedNots) {
@@ -766,13 +785,13 @@ export default function NotificationFunctionality() {
                                             <div className='element-list-actions'></div>
                                             <div className='list-actions'>
                                                 <div className='action_hide-not' onClick={() => handleOperationHideNot(notification.id)}>
-                                                    <img src = {imgHideNotAction} className='icon-hide-not-action' alt='hide notification'/>
+                                                    <img src={imgHideNotAction} className='icon-hide-not-action' alt='hide notification' />
                                                     <span className='action-text'>
                                                         Hide
                                                     </span>
                                                 </div>
                                                 <div className='action_do-not-notify' onClick={() => handleOperationBanningNot(notification.id)}>
-                                                    <img src = {imgBlockedNotAction} className='icon-blocked-not-action' alt='banned notification'/>
+                                                    <img src={imgBlockedNotAction} className='icon-blocked-not-action' alt='banned notification' />
                                                     <span className='action-text'>
                                                         Do not notify
                                                     </span>
