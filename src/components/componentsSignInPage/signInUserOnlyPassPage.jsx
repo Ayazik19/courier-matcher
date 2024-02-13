@@ -140,6 +140,8 @@ export default function SignInUserOnlyPassPage() {
                     const arrayNotificationsHistory = notificationsData.arrayUserNotifcationsHistory || [];
                     const arrayNotificationsUnseen = notificationsData.arrayUserNotifcationsUnseen || [];
                     const arrayNotificationsViewed = notificationsData.arrayUserNotifcationsViewed || [];
+                    const arrayNotificationsBanned = notificationsData.arrBannedNots || [];
+                    const arrayNotificationsHide = notificationsData.arrHideNots || [];
 
                     if (arrayNotificationsHistory !== undefined) {
                         for (let i = 0; i < arrayNotificationsHistory.length; i++) {
@@ -210,7 +212,21 @@ export default function SignInUserOnlyPassPage() {
                             }))
                         }
             }
-        } catch (err) {
+                    if (arrayNotificationsBanned !== undefined) {
+                        for (let i = 0; i < arrayNotificationsBanned.length; i++) {
+                            const elemtnsArrBanned = arrayNotificationsBanned[i];
+                            dispatch(setBannedNotfications(elemtnsArrBanned));
+                        }
+                    }
+                    if (arrayNotificationsHide !== undefined) {
+                        for (let i = 0; i < arrayNotificationsHide.length; i++) {
+                            const objArrhide = arrayNotificationsHide[i];
+                            dispatch(setHideNotifications(objArrhide));
+                        }
+                    }
+                }
+            }
+        }
             setLoadingData(false);
             setIsErrorUserData(true);
             console.log(err);
