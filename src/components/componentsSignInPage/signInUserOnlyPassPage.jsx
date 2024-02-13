@@ -5,7 +5,7 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { setUser, setOperationUserNotifications, setOperationInformErrors, setUserProfile } from '../store/slices/userSlice.js';
+import { setUser, setOperationUserNotifications, setOperationInformErrors, setUserProfile, setBannedNotfications, setHideNotifications } from '../store/slices/userSlice.js';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -144,16 +144,18 @@ export default function SignInUserOnlyPassPage() {
                     if (arrayNotificationsHistory !== undefined) {
                         for (let i = 0; i < arrayNotificationsHistory.length; i++) {
                             const id = arrayNotificationsHistory[i];
-                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataDateTimeReceivingNotification = id?.dateNotification;
                             const arrayDataSenderNotification = id?.senderNotification;
                             const arrayDataTextNotification = id?.textNotification;
+                            const arrrayDataCategoryNotification = id?.categoryNotification;
 
                             dispatch(setOperationUserNotifications({
                                 type: 'ALL_NOTIFICATIONS_HISTORY',
                                 payload: {
-                                    dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                    dateNotification: arrayDataDateTimeReceivingNotification,
                                     textNotification: arrayDataTextNotification,
-                                    senderNotification: arrayDataSenderNotification
+                                    senderNotification: arrayDataSenderNotification,
+                                    categoryNotification: arrrayDataCategoryNotification
                                 }
                             }))
                         }
@@ -161,19 +163,23 @@ export default function SignInUserOnlyPassPage() {
                     if (arrayNotificationsUnseen !== undefined) {
                         for (let i = 0; i < arrayNotificationsUnseen.length; i++) {
                             const id = arrayNotificationsUnseen[i];
-                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataDateTimeReceivingNotification = id?.dateNotification;
                             const arrayDataSenderNotification = id?.senderNotification;
                             const arrayDataTextNotification = id?.textNotification;
                             const arrayDataIsViewedNot = id?.isViewedNotifcation;
+                            const arrayDataIsBannedNot = id?.isBannedNot;
+                            const arrrayDataCategoryNotification = id?.categoryNotification;
 
                             dispatch(setOperationUserNotifications({
                                 type: 'ADD_NOTIFICATIONS_UNSEEN',
                                 payload: [
                                     {
-                                        dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                        dateNotification: arrayDataDateTimeReceivingNotification,
                                         textNotification: arrayDataTextNotification,
                                         senderNotification: arrayDataSenderNotification,
-                                        isViewedNotification: arrayDataIsViewedNot
+                                        isViewedNotification: arrayDataIsViewedNot,
+                                        isBannedNot: arrayDataIsBannedNot,
+                                        categoryNotification: arrrayDataCategoryNotification
                                     }
                                 ]
                             }))
@@ -182,19 +188,23 @@ export default function SignInUserOnlyPassPage() {
                     if (arrayNotificationsViewed !== undefined) {
                         for (let i = 0; i < arrayNotificationsViewed.length; i++) {
                             const id = arrayNotificationsViewed[i];
-                            const arrayDataDateTimeReceivingNotification = id?.dateTimeReceivingNotification;
+                            const arrayDataDateTimeReceivingNotification = id?.dateNotification;
                             const arrayDataSenderNotification = id?.senderNotification;
                             const arrayDataTextNotification = id?.textNotification;
+                            const arrayDataIsBannedNot = id?.isBannedNot;
                             const arrayDataIsViewedNot = id?.isViewedNotifcation;
+                            const arrrayDataCategoryNotification = id?.categoryNotification;
 
                             dispatch(setOperationUserNotifications({
                                 type: 'ADD_NOTIFICATIONS_VIEWED',
                                 payload: [
                                     {
-                                        dateTimeReceivingNotification: arrayDataDateTimeReceivingNotification,
+                                        dateNotification: arrayDataDateTimeReceivingNotification,
                                         textNotification: arrayDataTextNotification,
                                         senderNotification: arrayDataSenderNotification,
-                                        isViewedNotification: arrayDataIsViewedNot
+                                        isBannedNot: arrayDataIsBannedNot,
+                                        isViewedNotification: arrayDataIsViewedNot,
+                                        categoryNotification: arrrayDataCategoryNotification
                                     }
                                 ]
                             }))
