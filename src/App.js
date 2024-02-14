@@ -14,6 +14,7 @@ import { HookHeaderIconsEmergenceProvider } from './components/globalHooks/hookH
 import { HookSignInPagesProvider } from './components/componentsSignInPage/useHookSignInPages.js';
 import { HookStepsRedirectProvider } from './components/componentsUserAccPage/hookStepsDeleteAcc/hookStepsDeleteAcc';
 import { HookMouseFunctionalityErrorsProvider } from './mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
+import NotificationsHistoryPage from './components/componentsNotificationsHistory/notificationsHistoryPage.jsx';
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                                     <Route path="/ChooseCourier" element={<PageChooseCourier />}></Route>
                                     <Route path="/User-account" element={<UserAccSetingsPage />}></Route>
                                     <Route path="/Chooose-courier-result" element={<FormChooseCourierResult />}></Route>
+                                    <Route path="/Notifications-hisory" element={<NotificationsHistoryPage />}></Route>
                                 </Routes>
                             </HookStepsRedirectProvider>
                         </HookSignInPagesProvider>

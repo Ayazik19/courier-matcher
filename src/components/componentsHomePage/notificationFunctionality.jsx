@@ -1259,17 +1259,17 @@ export default function NotificationFunctionality() {
                             {hasScroll && !isLoadingDataNots ?
                                 <div className='redirect-full-notifications-page'>
                                     <span className='text-redirect-cont'>
-                                        <a className='link-redirect'>
+                                        <Link to = '/Notifications-hisory' className='link-redirect'>
                                             Show all
-                                        </a>
+                                        </Link>
                                     </span>
                                 </div>
                                 :
                                 <div className={!isNotsEqualsNull ? 'redirect-full-notifications-page_unscroll' : 'redirect-full-notifications-page_unscroll_nots-null'}>
                                     <span className='text-redirect-cont'>
-                                        <a className='link-redirect'>
+                                        <Link to = '/Notifications-hisory' className='link-redirect'>
                                             Show all
-                                        </a>
+                                        </Link>
                                     </span>
                                 </div>}
                         </div>
