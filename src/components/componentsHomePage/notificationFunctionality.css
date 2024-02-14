@@ -14,6 +14,9 @@
     position: absolute;
     margin-left: -75px;
 }
+.cont-notifications{
+    box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.293);
+}
 .header-cont-nofications{
     width: 390px;
     margin-top: 40px;
@@ -539,4 +542,7 @@
     text-decoration: underline;
 }
 
-
+.link-redirect{
+    text-decoration: none;
+    color: black;
+}
