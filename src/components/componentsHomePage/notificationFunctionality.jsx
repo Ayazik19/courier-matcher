@@ -86,7 +86,7 @@ export default function NotificationFunctionality() {
                     };
                     updatedArrDataViewedNot.push(addingObjArrViewedNot);
                 }
-                else{
+                else {
                 const textNotDataObjectArr = notificationsViewed[i]?.payload[0]?.textNotification;
                 const dateNotDataObjectArr = notificationsViewed[i]?.payload[0]?.dateNotification;
                 const categNotDataObjecetArr = notificationsViewed[i]?.payload[0]?.categoryNotification;
@@ -133,20 +133,21 @@ export default function NotificationFunctionality() {
         setLoadingDataNots(false);
         if (!hideNotificationIcon) {
             if (eventClickTracking % 2 == 0) {
-                setCalculateCountUnseenNotifications(0);
+                //deleting data db unseen notifications and
+                dispatch(setOperationUserNotifications({ type: 'REMOVE_UNSEEN_NOTIFICATIONS' }));
                 setHideNotificationIcon(true);
-                if (lengthArrUnseen > 0) {
+                if (updateArrDataUnseenNotHookData.length > 0) {
                     const userNotificationRef = doc(db, 'usersNotifications', email);
                     const userNotificationDocSnapshots = await getDoc(userNotificationRef);
                     const dataUserNotifications = userNotificationDocSnapshots.data();
                     const arrayUserNotifcationsViewedDb = dataUserNotifications && dataUserNotifications.arrayUserNotifcationsViewed ? true : false;
 
-                    for (let i = 0; i < lengthArrUnseen; i++) {
-                        const objectArrDateTimeReceivingNotification = notificationsUnseen[i]?.payload[0]?.dateNotification;
-                        const objectArrTextNotification = notificationsUnseen[i]?.payload[0]?.textNotification;
-                        const objectArrSenderNotification = notificationsUnseen[i]?.payload[0]?.senderNotification;
-                        const categNotDataObjecetArr = notificationsUnseen[i]?.payload[0]?.categoryNotification;
-                        const isBannedNot = notificationsUnseen[i]?.payload[0]?.isBannedNot;
+                    for (let i = 0; i < updateArrDataUnseenNotHookData.length; i++) {
+                        const objectArrDateTimeReceivingNotification = updateArrDataUnseenNotHookData[i]?.dateNotification;
+                        const objectArrTextNotification = updateArrDataUnseenNotHookData[i]?.textNotification;
+                        const objectArrSenderNotification = updateArrDataUnseenNotHookData[i].senderNotification;
+                        const categNotDataObjecetArr = updateArrDataUnseenNotHookData[i].categoryNotification;
+                        const isBannedNot = updateArrDataUnseenNotHookData[i].isBannedNot;
 
                         //dispatching and adding data db viewed notification
                         dispatch(setOperationUserNotifications({
@@ -204,7 +205,6 @@ export default function NotificationFunctionality() {
                             }
                         }
                     }
-                    //deleting data db unseen notifications and
                     //dispatching empty unseen notificatons array in action
                     const fieldName = 'arrayUserNotifcationsUnseen';
 
@@ -220,8 +220,6 @@ export default function NotificationFunctionality() {
                         }
                     };
                     await updateNotificationsField(email, fieldName, deletingObjectsElsArrayNotificiatosUnseen);
-
-                    dispatch(setOperationUserNotifications({ type: 'REMOVE_UNSEEN_NOTIFICATIONS' }));
 
                     setUpdateArrDataViewedNotHookData([]);
                     setUpdateArrDataUnseenNotHookData([]);
