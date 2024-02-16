@@ -1,5 +1,7 @@
 import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
+import filteredHistoryNotSlice from './slices/filteredHistoryNotSlice';
+
 import { 
    persistStore, 
    persistReducer,
@@ -14,8 +16,8 @@ import storage from 'redux-persist/lib/storage';
  
 const rootReducer = combineReducers({
    user: userReducer,
+   filteredHistoryNot: filteredHistoryNotSlice,
 });
-
 
 const persistConfig = {
    key: 'root',
