@@ -377,6 +377,7 @@ export default function NotificationFunctionality() {
 
                 setSaveHideDataNotObjHook(findObjIdToBanned);
 
+
                 dispatch(setOperationUserNotifications({
                     type: 'REMOVE_VIEWED_NOTIFICATIONS',
                     payload: {}
@@ -543,7 +544,6 @@ export default function NotificationFunctionality() {
                 const userNotsDocRef = doc(db, 'usersNotifications', email);
                 const userNotsDocSnapshot = await getDoc(userNotsDocRef);
                 const dataUsersNots = userNotsDocSnapshot.data();
-
                 
                 const findObjToHideNot = updateArrDataUnseenNotHookData.find(item => item.id === idNot);
                 const filteredArrUnseen = updateArrDataUnseenNotHookData.filter(item => item.id !== idNot);
@@ -853,6 +853,7 @@ export default function NotificationFunctionality() {
         isOneOrThreeNots,
         isNotsEqualsLessThree,
         isClickHideNot,
+        hideNotificationIcon,
         !hideNotificationIcon
     ]);
 
@@ -875,12 +876,27 @@ export default function NotificationFunctionality() {
             if (showBannedNots || showAllTypesblockedots || showHideNots) {
                 setLoadingDataNots(true);
                 if (showHideNots) {
-                    // operation hide arr
+                    // transferring restoring data from hide arr to viewed
                     for (let i = 0; i < notificationsHide.length; i++) {
+                        const idObj = notificationsHide[i];
                         dispatch(setOperationUserNotifications({
                             type: 'ADD_NOTIFICATIONS_VIEWED',
-                            payload: notificationsHide[i]
+                            payload: idObj
                         }));
+
+                        const fieldViwedArr = 'arrayUserNotifcationsViewed';
+                        const newValueViewedArr = [idObj];
+
+                        const updNotArrViewedfield = async (email, fieldViwedArr, newValueViewedArr) => {
+                            const userDocNotsRef = doc(db, 'usersNotifications', email);
+                            try {
+                                await updateDoc(userDocNotsRef, { [fieldViwedArr]: arrayUnion(...newValueViewedArr) })
+                            }
+                            catch (error) {
+                                console.log(error);
+                            };
+                        }
+                        await updNotArrViewedfield(email, fieldViwedArr, newValueViewedArr);
                     }
                     const fieldHideArr = 'arrHideNots';
                     const newValueHideArr = [];
@@ -933,12 +949,28 @@ export default function NotificationFunctionality() {
                     await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
                     setShowAllTypesblockedots(false);
                     dispatch(setRemoveBannedNotifications());
-                    //operation hide arr
+
+                    // transferring restoring data from hide arr to viewed
                     for (let i = 0; i < notificationsHide.length; i++) {
+                        const idObj = notificationsHide[i];
                         dispatch(setOperationUserNotifications({
                             type: 'ADD_NOTIFICATIONS_VIEWED',
-                            payload: notificationsHide[i]
+                            payload: idObj
                         }));
+
+                        const fieldViwedArr = 'arrayUserNotifcationsViewed';
+                        const newValueViewedArr = [idObj];
+
+                        const updNotArrViewedfield = async (email, fieldViwedArr, newValueViewedArr) => {
+                            const userDocNotsRef = doc(db, 'usersNotifications', email);
+                            try {
+                                await updateDoc(userDocNotsRef, { [fieldViwedArr]: arrayUnion(...newValueViewedArr) })
+                            }
+                            catch (error) {
+                                console.log(error);
+                            };
+                        }
+                        await updNotArrViewedfield(email, fieldViwedArr, newValueViewedArr);
                     }
                     const fieldHideArr = 'arrHideNots';
                     const newValueHideArr = [];
