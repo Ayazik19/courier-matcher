@@ -1,4 +1,5 @@
 import UserAccSetingsHeaderPage from "../componentsUserAccPage/userAccSetingsHeaderPage";
+import OperationDisplayHistoryNotifications from './operationDisplayHistoryNotifications.jsx';
 import OptNotificationsHistory from './optNotificationsHistory.jsx';
 import './notificationsHistoryPage.css';
 
