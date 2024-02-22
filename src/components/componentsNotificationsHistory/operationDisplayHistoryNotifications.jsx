@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import './operationDisplayHistoryNotifications.css';
+import { useDispatch } from 'react-redux';
 import { setActionFilteredNots, setFilterActionNots, setRemoveFilterActs } from '../store/slices/filteredHistoryNotSlice';
 import { useFilteredOperations } from '../globalHooks/filteredOperations';
+import { useAuth } from '../globalHooks/useauth';
 
 export default function OperationDisplayHistoryNotifications() {
+    const dispatch = useDispatch();
     const {
         arrActionFilteredNots
     } = useFilteredOperations();
@@ -32,6 +35,84 @@ export default function OperationDisplayHistoryNotifications() {
     useEffect(() => {
         adaptivFilterCount(arrActionFilteredNots.length);
     }, [adaptivFilterCount, arrActionFilteredNots.length]);
+    const [saveData, setSaveData] = useState();
+
+    const handleAddTypeFilterAdmin = () => {
+        const isFilterAdminNull = arrActionFilteredNots.find(items => items.nameSenderNot === 'Coorchik') ? true : false;
+        if (!isFilterAdminNull) {
+            setSaveData(arrActionFilteredNots);
+            dispatch(setRemoveFilterActs());
+            const idAddedType = lengthActFilters + 1;
+            for (let i = 0; i < lengthActFilters; i++) {
+                const stateDataArr = arrActionFilteredNots[i].nameSenderNot;
+
+                dispatch(setActionFilteredNots(
+                    {
+                        id: i + 1,
+                        nameSenderNot: stateDataArr
+                    }
+                ))
+            }
+            dispatch(setActionFilteredNots(
+                {
+                    id: idAddedType,
+                    nameSenderNot: 'Coorchik'
+                }
+            ))
+            setSaveData();
+        }
+    }
+
+    const handleAddTypeFilterSs = () => {
+        const isFilterSsNull = arrActionFilteredNots.find(items => items.nameSenderNot === 'SS Coorchik') ? true : false;
+        if (!isFilterSsNull) {
+            setSaveData(arrActionFilteredNots);
+            dispatch(setRemoveFilterActs());
+            const idAddedType = lengthActFilters + 1;
+            for (let i = 0; i < lengthActFilters; i++) {
+                const stateDataArr = arrActionFilteredNots[i].nameSenderNot;
+
+                dispatch(setActionFilteredNots(
+                    {
+                        id: i + 1,
+                        nameSenderNot: stateDataArr
+                    }
+                ))
+            }
+            dispatch(setActionFilteredNots(
+                {
+                    id: idAddedType,
+                    nameSenderNot: 'SS Coorchik'
+                }
+            ))
+            setSaveData();
+        }
+    }
+    const handleAddTypeFilterCouriers = () => {
+        const isFilterCouriersNull = arrActionFilteredNots.find(items => items.nameSenderNot === 'Couriers') ? true : false;
+        if (!isFilterCouriersNull) {
+            setSaveData(arrActionFilteredNots);
+            dispatch(setRemoveFilterActs());
+            const idAddedType = lengthActFilters + 1;
+            for (let i = 0; i < lengthActFilters; i++) {
+                const stateDataArr = arrActionFilteredNots[i].nameSenderNot;
+
+                dispatch(setActionFilteredNots(
+                    {
+                        id: i + 1,
+                        nameSenderNot: stateDataArr
+                    }
+                ))
+            }
+            dispatch(setActionFilteredNots(
+                {
+                    id: idAddedType,
+                    nameSenderNot: 'Couriers'
+                }
+            ))
+            setSaveData();
+        }
+    }
     return (
         <div>
             <div className="history-nots-cont">
