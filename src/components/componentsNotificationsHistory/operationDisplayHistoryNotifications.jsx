@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import './operationDisplayHistoryNotifications.css';
+import removeFilterIcon from './removeFilterIcon.png';
+import hoverAddActFilterIcon from './hoverAddActFilterIcon.png';
+import hoverClearActFiltersIcon from './hoverClearActFiltersIcon.png';
 import { useDispatch } from 'react-redux';
 import { setActionFilteredNots, setFilterActionNots, setRemoveFilterActs } from '../store/slices/filteredHistoryNotSlice';
 import { useFilteredOperations } from '../globalHooks/filteredOperations';
@@ -10,6 +13,20 @@ export default function OperationDisplayHistoryNotifications() {
     const {
         arrActionFilteredNots
     } = useFilteredOperations();
+    const [eventClickTracking, setEventClickTracking] = useState(1);
+    const [isShowAttribFilters, setShowAttribFilters] = useState(false);
+    const handleShowContAddFilters = () => {
+        setShowAttribFilters(true);
+        setEventClickTracking(eventClickTracking + 1);
+        if (isShowAttribFilters) {
+            if (eventClickTracking % 2 == 0) {
+                setShowAttribFilters(false);
+            }
+            else {
+                setShowAttribFilters(true);
+            }
+        }
+    }
     const lengthActFilters = arrActionFilteredNots.length;
     //count nots
     const [isCountActNull, setIsCountActNull] = useState(false);
@@ -113,6 +130,25 @@ export default function OperationDisplayHistoryNotifications() {
             setSaveData();
         }
     }
+    const filterActOperation = (arrActionFilteredNots && arrActionFilteredNots.map((actFilter, index) => {
+
+        const handleRemoveFilterSenderNot = (idActFilter) => {
+            dispatch(setFilterActionNots(idActFilter));
+        }
+
+        return (
+            <div className={isSenderSs ? 'act-filter_sender-ss' : 'act-filter_admin'} key={index}>
+                <span className='text-act-not'>
+                    {actFilter.nameSenderNot}
+                </span>
+                <img
+                    src={removeFilterIcon}
+                    className='img-hide-filter-act'
+                    onClick={() => handleRemoveFilterSenderNot(actFilter.id)}
+                />
+            </div>
+        );
+    }));
     return (
         <div>
             <div className="history-nots-cont">
@@ -123,6 +159,52 @@ export default function OperationDisplayHistoryNotifications() {
                     <span className="header-text_right">
                         Settings
                     </span>
+                </div>
+                <div className="filters-operartion-nots">
+                    {isCountActOne ?
+                        <div className='display-act-filters_count-one'>
+                            {filterActOperation}
+                        </div> : null}
+                    {isCountActTwo ?
+                        <div className='display-act-filters_count-two'>
+                            {filterActOperation}
+                        </div> : null}
+                    {isCountActThree ?
+                        <div className='display-act-filters_count-three'>
+                            {filterActOperation}
+                        </div> : null}
+                    <div className='manage-filters-btns'>
+                        <div className={isCountActNull ? 'filters-btns_filter-count-false' : "filters-btns_filter-count-true"}>
+                            <div
+                                className='filter-btn_type-add-filter'
+                                {...(!isShowAttribFilters ? { 'data-title': 'Add filter type' } : null)}
+                                onClick={handleShowContAddFilters}
+                            >
+                                {isShowAttribFilters ?
+                                    <div className='cont-add-attribs-senders-nots-filter'>
+                                        <div className='attributes-filters'>
+                                            <li className='attr-actions-type-one' onClick={handleAddTypeFilterSs}>
+                                                <span className='text-attributes-filter'>SS Coorchik</span>
+                                            </li>
+                                            <li className='attr-actions-type-two' onClick={handleAddTypeFilterAdmin}>
+                                                <span className='text-attributes-filter'>Coorchik</span>
+                                            </li>
+                                            <li className='attr-actions-type-three' onClick={handleAddTypeFilterCouriers}>
+                                                <span className='text-attributes-filter'>Couriers</span>
+                                            </li>
+                                        </div>
+                                    </div> : null}
+                                <img src={hoverAddActFilterIcon} className='icons-manage-filters' />
+                            </div>
+                            <div
+                                className='filter-btn_type-remove-all-filters'
+                                {...(!isShowAttribFilters ? { 'data-title': 'Clears the selected notification filters' } : null)}
+                                onClick={handleDispatchRemoveAllFilters}
+                            >
+                                <img src={hoverClearActFiltersIcon} className='icons-manage-filters' />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
