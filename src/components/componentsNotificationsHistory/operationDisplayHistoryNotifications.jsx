@@ -7,12 +7,16 @@ import { useDispatch } from 'react-redux';
 import { setActionFilteredNots, setFilterActionNots, setRemoveFilterActs } from '../store/slices/filteredHistoryNotSlice';
 import { useFilteredOperations } from '../globalHooks/filteredOperations';
 import { useAuth } from '../globalHooks/useauth';
+import DisplayPagesNots from './displayPagesNots';
 
 export default function OperationDisplayHistoryNotifications() {
     const dispatch = useDispatch();
     const {
         arrActionFilteredNots
     } = useFilteredOperations();
+    const {
+        notificationsHistory
+    } = useAuth();
     const [eventClickTracking, setEventClickTracking] = useState(1);
     const [isShowAttribFilters, setShowAttribFilters] = useState(false);
     const handleShowContAddFilters = () => {
@@ -206,6 +210,9 @@ export default function OperationDisplayHistoryNotifications() {
                         </div>
                     </div>
                 </div>
+                    <div className='history-nots'>
+                        <DisplayPagesNots />
+                    </div>
             </div>
             </div>
     );
