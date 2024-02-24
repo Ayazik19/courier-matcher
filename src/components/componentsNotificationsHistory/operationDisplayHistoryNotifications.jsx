@@ -166,7 +166,7 @@ export default function OperationDisplayHistoryNotifications() {
                 </div>
                 <div className="filters-operartion-nots">
                     {isCountActOne ?
-                        <div className='display-act-filters_count-one'>
+                        <div className={isSenderCouriers || isSenderAdmin ? 'display-act-filters_count-one_adaptiv-type-small' : 'display-act-filters_count-one_adaptiv-type-big'}>
                             {filterActOperation}
                         </div> : null}
                     {isCountActTwo ?
