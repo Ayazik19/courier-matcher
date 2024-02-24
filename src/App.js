@@ -15,11 +15,13 @@ import { HookSignInPagesProvider } from './components/componentsSignInPage/useHo
 import { HookStepsRedirectProvider } from './components/componentsUserAccPage/hookStepsDeleteAcc/hookStepsDeleteAcc';
 import { HookMouseFunctionalityErrorsProvider } from './mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
 import NotificationsHistoryPage from './components/componentsNotificationsHistory/notificationsHistoryPage.jsx';
+import { HookPagesNotsProvider } from './components/globalHooks/usePagesNots.js';
 
 function App() {
     return (
         <div className="App">
             <HooksProcessingDatabaseUserNotificationsProvider>
+                <HookPagesNotsProvider>
                 <HookMouseFunctionalityErrorsProvider>
                     <HookHeaderIconsEmergenceProvider>
                         <HookSignInPagesProvider>
@@ -39,6 +41,7 @@ function App() {
                         </HookSignInPagesProvider>
                     </HookHeaderIconsEmergenceProvider>
                 </HookMouseFunctionalityErrorsProvider>
+                </HookPagesNotsProvider>
             </HooksProcessingDatabaseUserNotificationsProvider>
         </div>
     );
