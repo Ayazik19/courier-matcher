@@ -7,7 +7,9 @@ import { useDispatch } from 'react-redux';
 import { setActionFilteredNots, setFilterActionNots, setRemoveFilterActs } from '../store/slices/filteredHistoryNotSlice';
 import { useFilteredOperations } from '../globalHooks/filteredOperations';
 import { useAuth } from '../globalHooks/useauth';
+import { useHookPagesNots } from '../globalHooks/usePagesNots';
 import DisplayPagesNots from './displayPagesNots';
+
 
 export default function OperationDisplayHistoryNotifications() {
     const dispatch = useDispatch();
@@ -17,6 +19,25 @@ export default function OperationDisplayHistoryNotifications() {
     const {
         notificationsHistory
     } = useAuth();
+    const {
+        selectedPage, setSelectedPage,
+        setUpdDataArrHistoryNot, updDataArrHistoryNot,
+        showPageOneNot, setShowPageOneNot,
+        showPageTwoNot, setShowPageTwoNot,
+        showPageThreeNot, setShowPageThreeNot,
+        showPageFourNot, setShowPageFourNot,
+        showPageFiveNot, setShowPageFiveNot,
+        showPageSixNot, setShowPageSixNot,
+        showPageSevenNot, setShowPageSevenNot,
+        showPageEightNot, setShowPageEightNot
+    } = useHookPagesNots();
+
+
+    const lengthHistory = notificationsHistory.length;
+    const countPagesDisplay = lengthHistory / 5;
+    const isDisplay = lengthHistory / 5 > 1;
+    const roundingCountSlice = Math.ceil(countPagesDisplay);
+
     const removeFilterPayloadArr = [];
     useEffect(() => {
         let sliceArrayNots = [];
@@ -36,7 +57,16 @@ export default function OperationDisplayHistoryNotifications() {
             };
             removeFilterPayloadArr.push(removePayloadTypeObj);
         }
+        if (isDisplay) {
+            for (let i = 0; i < roundingCountSlice; i++) {
+                const sliceNots = removeFilterPayloadArr.slice(i * 5, (i + 1) * 5);
+                sliceArrayNots.push(sliceNots);
+                console.log(sliceArrayNots);
+            }
+        }
+        setUpdDataArrHistoryNot(sliceArrayNots);
     }, [notificationsHistory])
+
     const [eventClickTracking, setEventClickTracking] = useState(1);
     const [isShowAttribFilters, setShowAttribFilters] = useState(false);
     const handleShowContAddFilters = () => {
