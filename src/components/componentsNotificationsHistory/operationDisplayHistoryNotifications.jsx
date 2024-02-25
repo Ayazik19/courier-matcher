@@ -184,6 +184,101 @@ export default function OperationDisplayHistoryNotifications() {
             setSaveData();
         }
     }
+
+    const [footerContHistoryNotSliceOne, setFooterContHistoryNotSliceOne] = useState(false);
+    const [footerContHistoryNotSliceTwo, setFooterContHistoryNotSliceTwo] = useState(false);
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const handleShowListPage = (i) => {
+        const isSelectedItem = selectedPage === i ? selectedPage + i : i;
+        if (isSelectedItem === 0) {
+            setShowPageOneNot(true);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 1) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(true);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 2) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(true);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 3) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(true);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 4) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(true);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 5) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(true);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 6) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(true);
+            setShowPageEightNot(false);
+        }
+        else if (isSelectedItem === 7) {
+            setShowPageOneNot(false);
+            setShowPageTwoNot(false);
+            setShowPageThreeNot(false);
+            setShowPageFourNot(false);
+            setShowPageFiveNot(false);
+            setShowPageSixNot(false);
+            setShowPageSevenNot(false);
+            setShowPageEightNot(true);
+        }
+        setSelectedPage(undefined);
+        setCurrentPage(i);
+    }
+
+    const handleNextPage = () => {
+        setSelectedPage(currentPage + 1);
+        handleShowListPage(currentPage + 1);
+    }
     const filterActOperation = (arrActionFilteredNots && arrActionFilteredNots.map((actFilter, index) => {
 
         const handleRemoveFilterSenderNot = (idActFilter) => {
@@ -203,6 +298,51 @@ export default function OperationDisplayHistoryNotifications() {
             </div>
         );
     }));
+    const getIsSelectedPage = useCallback((i) => {
+        return (
+            (showPageOneNot && i === 0) ||
+            (showPageTwoNot && i === 1) ||
+            (showPageThreeNot && i === 2) ||
+            (showPageFourNot && i === 3) ||
+            (showPageFiveNot && i === 4) ||
+            (showPageSixNot && i === 5) ||
+            (showPageSevenNot && i === 6) ||
+            (showPageEightNot && i === 7)
+        );
+    }, [showPageOneNot, showPageTwoNot, showPageThreeNot, showPageFourNot, showPageFiveNot, showPageSixNot, showPageSevenNot, showPageEightNot])
+
+    useEffect(() => {
+        if (isDisplay) {
+            const pagesOne = [];
+            const pagesTwo = [];
+            const sliceCountPagesDisplay = roundingCountSlice >= 4 && 7 >= roundingCountSlice ? true : false;
+            if (sliceCountPagesDisplay) {
+                for (let i = 4; i < roundingCountSlice; i++) {
+                    const isSelectedPage = getIsSelectedPage(i);
+                    pagesTwo.push(
+                        <div key={i} className={isSelectedPage ? `count-${i + 1} pager-cont_choosen` : `count-${i + 1} pager-cont`} onClick={() => handleShowListPage(i)}>
+                            <span className='text-list-item-pager'>
+                                {i + 1}
+                            </span>
+                        </div>
+                    );
+                }
+            }
+            for (let i = 0; i < 4; i++) {
+                const isSelectedPage = getIsSelectedPage(i);
+                pagesOne.push(
+                    <div key={i} className={isSelectedPage ? `count-${i + 1} pager-cont_choosen` : `count-${i + 1} pager-cont`} onClick={() => handleShowListPage(i)}>
+                        <span className='text-list-item-pager'>
+                            {i + 1}
+                        </span>
+                    </div>
+                );
+            }
+            setFooterContHistoryNotSliceOne(pagesOne);
+            setFooterContHistoryNotSliceTwo(pagesTwo);
+        }
+    }, [isDisplay, countPagesDisplay, getIsSelectedPage]);
+
     return (
         <div>
             <div className="history-nots-cont">
