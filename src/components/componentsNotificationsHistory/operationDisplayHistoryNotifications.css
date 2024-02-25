@@ -213,3 +213,60 @@
 .attr-actions-type{
     align-items: center;
 }
+.footer-cont-pager-items{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 92%;
+    margin-left: 4%;
+    padding-top: 20px;
+}
+.pager-cont{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: default;
+}
+.pager-cont-ii{
+    width: 60px;
+    height: 60px;
+    cursor: default;
+}
+.pager-cont-start{
+    width: 105px;
+    height: 100px;
+    cursor: default;
+}
+.pager-cont_choosen{
+    border-radius: 50%;
+    width: 30px;
+    background-color: rgb(255, 255, 255, 0.08);
+    height: 30px;
+}
+.pager-cont:hover{
+    background-color: rgb(255, 255, 255, 0.08);
+    cursor: default;
+}
+.count-1{
+    margin-left: 0px;
+}
+.count-2,
+.count-3,
+.count-4,
+.count-5,
+.count-6,
+.count-7,
+.count-8,
+.count-9,
+.count-10,
+.list-item_type-next,
+.text-list-item-pager{
+    margin-left: 30px;
+}
+.text-list-item-pager{
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 12.5px;
+    font-weight: 600;
+}
