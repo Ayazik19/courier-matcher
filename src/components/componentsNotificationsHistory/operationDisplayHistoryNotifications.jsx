@@ -106,6 +106,10 @@ export default function OperationDisplayHistoryNotifications() {
     useEffect(() => {
         adaptivFilterCount(arrActionFilteredNots.length);
     }, [adaptivFilterCount, arrActionFilteredNots.length]);
+
+    const handleDispatchRemoveAllFilters = () => {
+        dispatch(setRemoveFilterActs());
+    }
     const [saveData, setSaveData] = useState();
 
     const handleAddTypeFilterAdmin = () => {
