@@ -16,6 +16,14 @@
     font-size: 14px;
     color: white;
 }
+.header-text-history-not{
+    padding-top: 10px;
+    font-size: 15px;
+    color: white;
+    display: block;
+    text-align: center;
+    font-weight: 600;
+}
 
 .header-text_left {
     font-weight: 600;

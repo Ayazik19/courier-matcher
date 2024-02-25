@@ -354,9 +354,6 @@ export default function OperationDisplayHistoryNotifications() {
                     <span className="header-text_left">
                         History notifications
                     </span>
-                    <span className="header-text_right">
-                        Settings
-                    </span>
                 </div>
                 <div className="filters-operartion-nots">
                     {isCountActOne ?
