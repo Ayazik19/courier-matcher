@@ -17,6 +17,26 @@ export default function OperationDisplayHistoryNotifications() {
     const {
         notificationsHistory
     } = useAuth();
+    const removeFilterPayloadArr = [];
+    useEffect(() => {
+        let sliceArrayNots = [];
+        for (let i = 0; i < notificationsHistory.length; i++) {
+            const id = i;
+            const dateNotification = notificationsHistory[i]?.payload.dateNotification;
+            const textNotification = notificationsHistory[i]?.payload.textNotification;
+            const senderNotification = notificationsHistory[i]?.payload.senderNotification;
+            const categoryNotification = notificationsHistory[i]?.payload.categoryNotification;
+
+            const removePayloadTypeObj = {
+                id: id,
+                dateNotification: dateNotification,
+                textNotification: textNotification,
+                senderNotification: senderNotification,
+                categoryNotification: categoryNotification
+            };
+            removeFilterPayloadArr.push(removePayloadTypeObj);
+        }
+    }, [notificationsHistory])
     const [eventClickTracking, setEventClickTracking] = useState(1);
     const [isShowAttribFilters, setShowAttribFilters] = useState(false);
     const handleShowContAddFilters = () => {
