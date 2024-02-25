@@ -407,6 +407,35 @@ export default function OperationDisplayHistoryNotifications() {
                     <div className='history-nots'>
                         <DisplayPagesNots />
                     </div>
+                {arrActionFilteredNots.length !== 0 ?
+                    <div className='footer-cont-pager-items'>
+                        {!showPageFiveNot && updDataArrHistoryNot.length > 4 ?
+                            <>
+                                {footerContHistoryNotSliceOne}
+                                <div className='pager-cont-ii list-item_type-next' onClick={handleNextPage}>
+                                    <span className='text-list-item-pager'>
+                                        further
+                                    </span>
+                                </div>
+                            </>
+                            : null}
+                        {updDataArrHistoryNot.length >= 5 && showPageFiveNot ?
+                            <>
+                                <div className='pager-cont-start list-item_type-start-redirect' onClick={() => handleShowListPage(0)}>
+                                    <span className='text-list-item-pager'>
+                                        for the start
+                                    </span>
+                                </div>
+                                {footerContHistoryNotSliceTwo}
+                                <div className='pager-cont-ii list-item_type-next' onClick={handleNextPage}>
+                                    <span className='text-list-item-pager'>
+                                        further
+                                    </span>
+                                </div>
+                            </> : null}
+                    </div>
+                    :
+                    null}
             </div>
             </div>
     );
