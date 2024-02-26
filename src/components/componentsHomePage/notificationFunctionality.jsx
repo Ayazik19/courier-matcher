@@ -13,7 +13,8 @@ import { useNavigate, Link } from 'react-router-dom'
 import './notificationFunctionality.css';
 import { useAuth } from '../globalHooks/useauth';
 import { useDispatch } from 'react-redux';
-import { setOperationUserNotifications, setHideNotifications, setBannedNotfications, setRemoveBannedNotifications, setRemoveHideNotificaitons } from '../store/slices/userSlice.js';
+import { setOperationUserNotifications, setHideNotifications, setBannedNotfications, setRemoveBannedNotifications, setRemoveHideNotificaitons, setUpdNotificationsSettings } from '../store/slices/userSlice.js';
+import { setUpdNotificationsSsSettings, setUpdNotificationsAdminSettings, setUpdNotificationsCouriersSettings } from '../store/slices/notificationsAgreementSlice.js';
 import { useHooksProcessingDatabaseUserNotificationsContext } from '../globalHooks/hooksProcessingDatabaseUserNotifications.js';
 import { doc, getDoc, getFirestore, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { initializeApp } from 'firebase/app';
@@ -473,6 +474,20 @@ export default function NotificationFunctionality() {
                         console.log(error);
                     }
                 }
+                const fieldSettinsNot = 'notificationsSs';
+                const valueSettingsNot = false;
+                
+                const updateNotificationsSettingsField = async (email, fieldSettinsNot, valueSettingsNot) => {
+                    const notificationsRef = doc(db, 'usersNotifications', email);
+                    try {
+                        await updateDoc(notificationsRef, { [fieldSettinsNot]: valueSettingsNot });
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                };
+                await updateNotificationsSettingsField(email, fieldSettinsNot, valueSettingsNot);
+                dispatch(setUpdNotificationsSsSettings(false));
                 dispatch(setBannedNotfications(notification.senderNotification));
                 adaptiveSizeUnScrollNots();
             }
@@ -754,6 +769,20 @@ export default function NotificationFunctionality() {
                         console.log(error);
                     }
                 }
+                const fieldSettinsNot = 'notificationsSs';
+                const valueSettingsNot = false;
+                
+                const updateNotificationsSettingsField = async (email, fieldSettinsNot, valueSettingsNot) => {
+                    const notificationsRef = doc(db, 'usersNotifications', email);
+                    try {
+                        await updateDoc(notificationsRef, { [fieldSettinsNot]: valueSettingsNot });
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                };
+                await updateNotificationsSettingsField(email, fieldSettinsNot, valueSettingsNot);
+                dispatch(setUpdNotificationsSsSettings(false));
                 dispatch(setBannedNotfications(notification.senderNotification));
             }
 
@@ -930,10 +959,31 @@ export default function NotificationFunctionality() {
                     }
                     await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
                     dispatch(setRemoveBannedNotifications());
+                    const fieldSettinпsSsNot = 'notificationsSs';
+const fieldSettinsCouriersNot = 'notificationsSs';
+const fieldSettinsAdminNot = 'notificationsSs';
+const valueSettingsNot = true;
+
+const updateNotificationsSettingsField = async (email, fieldSettinпsSsNot, valueSettingsNot) => {
+    const notificationsRef = doc(db, 'usersNotifications', email);
+    try {
+        await updateDoc(notificationsRef, { [fieldSettinпsSsNot]: valueSettingsNot });
+        await updateDoc(notificationsRef, { [fieldSettinsCouriersNot]: valueSettingsNot });
+        await updateDoc(notificationsRef, { [fieldSettinsAdminNot]: valueSettingsNot });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+await updateNotificationsSettingsField(email, fieldSettinпsSsNot, valueSettingsNot);
+                    dispatch(setUpdNotificationsSsSettings(true));
+                    dispatch(setUpdNotificationsAdminSettings(true));
+                    dispatch(setUpdNotificationsCouriersSettings(true));
                     setShowBannedNots(false);
                 }
                 if (showAllTypesblockedots) {
                     // operation banned arr
+
                     const fieldBannedArr = 'arrBannedNots';
                     const newValueBannedArr = [];
         
@@ -949,6 +999,9 @@ export default function NotificationFunctionality() {
                     await updNotArrBannedfield(email, fieldBannedArr, newValueBannedArr);
                     setShowAllTypesblockedots(false);
                     dispatch(setRemoveBannedNotifications());
+                    dispatch(setUpdNotificationsSsSettings(true));
+                    dispatch(setUpdNotificationsAdminSettings(true));
+                    dispatch(setUpdNotificationsCouriersSettings(true));
 
                     // transferring restoring data from hide arr to viewed
                     for (let i = 0; i < notificationsHide.length; i++) {
@@ -993,7 +1046,7 @@ export default function NotificationFunctionality() {
         }
         loadingNewDataActionNot();
         handleShowContNotifications();
-    },[showBannedNots, showAllTypesblockedots, showHideNots])
+    }, [showBannedNots, showAllTypesblockedots, showHideNots])
 
     useEffect(() => {
         if (!hideIconAddCourier || !hideContIconUserAcc || isSelectedElement) {
@@ -1239,10 +1292,6 @@ export default function NotificationFunctionality() {
                                 <div className={notificationsHide.length === 0 && notificationsBanned.length === 0 ? 'notifcation_false_equals-null' : 'notifcation_false_equals-null_blocked-type-nots-true'}>
                                     {notificationsHide.length > 0 || notificationsBanned.length > 0 ?
                                         <div className='nots-cont_blocks-true'>
-                                            <span className='text-nots-cont-1_blocks-true'>
-                                                You don't have any notifications
-                                            </span>
-                                            <br />
                                             <span className='text-nots-cont-2_blocks-true'>
                                                 {notificationsHide.length > 0 && notificationsBanned.length === 0 ?
                                                     <div>
@@ -1289,7 +1338,7 @@ export default function NotificationFunctionality() {
                             {hasScroll && !isLoadingDataNots ?
                                 <div className='redirect-full-notifications-page'>
                                     <span className='text-redirect-cont'>
-                                        <Link to = '/Notifications-hisory' className='link-redirect'>
+                                        <Link to='/Notifications-hisory' className='link-redirect'>
                                             Show all
                                         </Link>
                                     </span>
@@ -1297,7 +1346,7 @@ export default function NotificationFunctionality() {
                                 :
                                 <div className={!isNotsEqualsNull ? 'redirect-full-notifications-page_unscroll' : 'redirect-full-notifications-page_unscroll_nots-null'}>
                                     <span className='text-redirect-cont'>
-                                        <Link to = '/Notifications-hisory' className='link-redirect'>
+                                        <Link to='/Notifications-hisory' className='link-redirect'>
                                             Show all
                                         </Link>
                                     </span>
