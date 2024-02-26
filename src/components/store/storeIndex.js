@@ -1,6 +1,7 @@
 import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
 import filteredHistoryNotSlice from './slices/filteredHistoryNotSlice';
+import notificationsAgreementSlice from "./slices/notificationsAgreementSlice";
 
 import { 
    persistStore, 
@@ -17,6 +18,7 @@ import storage from 'redux-persist/lib/storage';
 const rootReducer = combineReducers({
    user: userReducer,
    filteredHistoryNot: filteredHistoryNotSlice,
+   notificationsAgreement: notificationsAgreementSlice
 });
 
 const persistConfig = {
