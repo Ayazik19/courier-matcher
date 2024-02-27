@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
-import { setUser, setOperationInformErrors, setUserProfile, setOperationUserNotifications } from "../store/slices/userSlice";
+import { setUser, setOperationInformErrors, setUserProfile, setOperationUserNotifications } from '../store/slices/userSlice.js';
+import { setUserNotificationsSettings } from '../store/slices/notificationsAgreementSlice.js'; 
 import './registrationPage.css';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -86,6 +87,21 @@ export default function RegistrationPage() {
                 const userDocRef = doc(usersCollection, user.email); 
                 await setDoc(userDocRef, newUser);
 
+            const userNotificationsCollection = collection(db, 'usersNotifications');
+
+            const createDocNotificationsHistory = {
+                emailUser: user.email,
+                notifications: true,
+                multipleNotifications: true,
+                notificationsAdmin: true,
+                notificationsSs: true,
+                notificationsCouriers: true
+            };
+
+            const historyNotificationsRef = doc(userNotificationsCollection, user.email);
+            await setDoc(historyNotificationsRef, createDocNotificationsHistory);
+
+
                 dispatch(setUser({
                     email: user.email,
                     id: user.uid,
@@ -94,12 +110,20 @@ export default function RegistrationPage() {
                 }));
                 dispatch(setUserProfile({}));
             dispatch(setOperationInformErrors({}));
+            dispatch(setUserNotificationsSettings({
+                notifications: true,
+                multipleNotifications: true,
+                notificationsAdmin: true,
+                notificationsSs: true,
+                notificationsCouriers: true
+            }));
             dispatch(setOperationUserNotifications({}));
                 setSelectedElement(false);
                 setLoadingData(false);
                 navigate("/");
         }
         catch (err) {
+            console.log(err);
             setLoadingData(false);
             setIsAccountAlreadyRegistered(true);
             setIsErrorAlreadyRegistredAndValidationInputThree(true);
