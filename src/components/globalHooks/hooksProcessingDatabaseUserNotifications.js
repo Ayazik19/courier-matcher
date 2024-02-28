@@ -58,7 +58,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
     const [checkDataChanged, setCheckDataChanged] = useState(false);
 
     //text notification
-    const suppServicTextNotification = 'Thank you for reporting the error on our website. The error you found has been solved, we are awarding you 100 special bonuses!';
+    const suppServicTextNotification = 'The support service has successfully solved the technical problem, you have been awarded bonuses!';
 
     //sender notifications
     const adminSenderNotification = 'Admin';
