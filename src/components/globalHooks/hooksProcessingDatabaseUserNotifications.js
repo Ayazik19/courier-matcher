@@ -12,6 +12,7 @@ import {
     SizeObserverPlugin,
     ClickScrollPlugin
 } from 'overlayscrollbars';
+import { useNotificationSettings } from './useNotificationSettings.js';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -47,12 +48,13 @@ export const useScrollBar = (root, hasScroll) => {
 
 export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) => {
     const dispatch = useDispatch();
+    const {notifications, notificationsSs} = useNotificationSettings();
     const {
         email,
         errorsInformation,
         notificationsUnseen,
         notificationsViewed,
-        notificationsBanned
+        notificationsBanned,
     } = useAuth();
 
     const [checkDataChanged, setCheckDataChanged] = useState(false);
@@ -132,21 +134,20 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
 
                             // operation check banned arr this type notification
                             const isCheckBannedSuppServNots = notificationsBanned.find(elements => elements === suppServicSenderNotification) ? false : true;
-                            if (isCheckBannedSuppServNots) {
+                            if (notificationsSs && isCheckBannedSuppServNots && notifications !== false) {
                                 //dispatching and adding data db in notifications hisotry
                                 const timestamp = new Date();
                                 const timestampString = timestamp.toISOString();
                                 const isBannedNot = false;
                                 dispatch(setOperationUserNotifications({
                                     type: 'ALL_NOTIFICATIONS_HISTORY',
-                                    payload: [
+                                    payload: 
                                         {
                                             dateNotification: timestampString,
                                             textNotification: suppServicTextNotification,
                                             senderNotification: suppServicSenderNotification,
                                             categoryNotification: othersCategory,
                                         }
-                                    ]
                                 }))
                                 const userNotificationRef = doc(db, 'usersNotifications', email);
                                 const userNotificationDocSnapshots = await getDoc(userNotificationRef);
@@ -331,7 +332,7 @@ export const HooksProcessingDatabaseUserNotificationsProvider = ({ children }) =
     useEffect(() => {
         setCalculateCountUnseenNotifications(lengthNotificationsUnseen);
         setCalculateCountViewedNotifications(lengthNotificationsViewed);
-    }, [lengthNotificationsUnseen, lengthNotificationsViewed]);
+    },[lengthNotificationsUnseen, lengthNotificationsViewed]);
 
 
     return (
