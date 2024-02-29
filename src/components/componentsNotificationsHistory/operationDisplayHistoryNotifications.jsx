@@ -69,12 +69,31 @@ export default function OperationDisplayHistoryNotifications() {
 
     const [eventClickTracking, setEventClickTracking] = useState(1);
     const [isShowAttribFilters, setShowAttribFilters] = useState(false);
-    const handleShowContAddFilters = () => {
+    // hover effects to actions, where have been nots
+    const [hoverEffectActSs, setHoverEffectActSs] = useState(false);
+    const [hoverEffectActAdmin, setHoverEffectActAdmin] = useState(false);
+    const [hoverEffectActCouriers, setHoverEffectActCouriers] = useState(false);
+
+    const handleShowContAddFilters = (typeNot) => {
+        if (typeNot !== undefined) {
+            if (typeNot === 'SS Coorchik') {
+                setHoverEffectActSs(true);
+            }
+            else if (typeNot === 'Coorchik') {
+                setHoverEffectActAdmin(true);
+            }
+            else if (typeNot === 'Couriers') {
+                setHoverEffectActCouriers(true);
+            }
+        }
         setShowAttribFilters(true);
         setEventClickTracking(eventClickTracking + 1);
         if (isShowAttribFilters) {
             if (eventClickTracking % 2 == 0) {
                 setShowAttribFilters(false);
+                setHoverEffectActSs(false);
+                setHoverEffectActAdmin(false);
+                setHoverEffectActCouriers(false);
             }
             else {
                 setShowAttribFilters(true);
@@ -102,6 +121,24 @@ export default function OperationDisplayHistoryNotifications() {
         setIsSenderSs(arrActionFilteredNots.find(item => item.nameSenderNot === 'SS Coorchik'))
         setIsSenderCouriers(arrActionFilteredNots.find(item => item.nameSenderNot === 'Couriers'))
     }, [lengthActFilters]);
+    const arrActionHistoryType = ['SS Coorchik', 'Coorchik', 'Couriers'];
+    let dataTypeNotsUserArr = [];
+    for (let i = 0; i < arrActionHistoryType.length; i++) {
+        const dataNameSenderNot = arrActionHistoryType[i];
+        const findFilterTypeNotArr = notificationsHistory.find(items => items.payload.senderNotification === `${dataNameSenderNot}`);
+        if (findFilterTypeNotArr !== undefined) {
+            dataTypeNotsUserArr.push(findFilterTypeNotArr);
+        }
+    }
+    const displayDataTypeNotsUser = dataTypeNotsUserArr.map((typesNotsHided, index) => {
+        const typeNot = typesNotsHided.payload.senderNotification;
+        return (
+            <span key={index} className='type-filter-nots-user open-cont-add-attr' onClick={() => handleShowContAddFilters(typeNot)}>
+                "{typeNot}",
+            </span>
+        );
+    });
+
 
     useEffect(() => {
         adaptivFilterCount(arrActionFilteredNots.length);
@@ -378,14 +415,23 @@ export default function OperationDisplayHistoryNotifications() {
                                 {isShowAttribFilters ?
                                     <div className='cont-add-attribs-senders-nots-filter'>
                                         <div className='attributes-filters'>
-                                            <li className='attr-actions-type-one' onClick={handleAddTypeFilterSs}>
-                                                <span className='text-attributes-filter'>SS Coorchik</span>
+                                            <li
+                                                className={hoverEffectActSs ? 'attr-actions-type-one_type-nots-true' : 'attr-actions-type-one'}
+                                                onClick={handleAddTypeFilterSs}
+                                            >
+                                                <span className={hoverEffectActSs ? 'text-attributes-filter_anim-true' : 'text-attributes-filter'}>SS Coorchik</span>
                                             </li>
-                                            <li className='attr-actions-type-two' onClick={handleAddTypeFilterAdmin}>
-                                                <span className='text-attributes-filter'>Coorchik</span>
+                                            <li
+                                                className={hoverEffectActAdmin ? 'attr-actions-type-two_type-nots-true' : 'attr-actions-type-two'}
+                                                onClick={handleAddTypeFilterAdmin}
+                                            >
+                                                <span className={hoverEffectActAdmin ? 'text-attributes-filter_anim-true' : 'text-attributes-filter'}>Coorchik</span>
                                             </li>
-                                            <li className='attr-actions-type-three' onClick={handleAddTypeFilterCouriers}>
-                                                <span className='text-attributes-filter'>Couriers</span>
+                                            <li
+                                                className={hoverEffectActCouriers ? 'attr-actions-type-three_type-nots-true' : 'attr-actions-type-three'}
+                                                onClick={handleAddTypeFilterCouriers}
+                                            >
+                                                <span className={hoverEffectActCouriers ? 'text-attributes-filter_anim-true' : 'text-attributes-filter'}>Couriers</span>
                                             </li>
                                         </div>
                                     </div> : null}
@@ -401,9 +447,27 @@ export default function OperationDisplayHistoryNotifications() {
                         </div>
                     </div>
                 </div>
+                {arrActionFilteredNots.length > 0 ?
                     <div className='history-nots'>
                         <DisplayPagesNots />
                     </div>
+                    :
+                    <div className='history-nots_false'>
+                        {dataTypeNotsUserArr ?
+                            <div className='items-filters-null'>
+                                <span className='text-one-filters-null_action' onClick={handleShowContAddFilters}>
+                                    Select a type filter{displayDataTypeNotsUser}
+                                </span>
+                                <br />
+                                <span className='text-two-filters-null'>you have notifications</span>
+                            </div>
+                            :
+                            <div className='notifications-null'>
+                                <span className='text-notifications-null'>You don't have any notifications</span>
+                            </div>
+                        }
+                    </div>
+                }
                 {arrActionFilteredNots.length !== 0 ?
                     <div className='footer-cont-pager-items'>
                         {!showPageFiveNot && updDataArrHistoryNot.length > 4 ?
