@@ -1,6 +1,6 @@
 import UserAccSetingsHeaderPage from "../componentsUserAccPage/userAccSetingsHeaderPage";
 import OperationDisplayHistoryNotifications from './operationDisplayHistoryNotifications.jsx';
-import OptNotificationsHistory from './optNotificationsHistory.jsx';
+import ManageNotifications from './manageNotifications.jsx';
 import './notificationsHistoryPage.css';
 
 
@@ -11,11 +11,18 @@ export default function NotificationsHistoryPage(){
                 <UserAccSetingsHeaderPage />
             </div>
             <div className="main-content-notifications">
-                <div className="notifications-display-history">
+                <div className="main-content-display-operations">
+                    <div className="conts-manage-history notifications-display-history-left-cont">
                     <OperationDisplayHistoryNotifications />
                 </div>
-                <div className="notifications-filters-history">
+                    <div className="notifications-manage-right-cont">
+                        <div className="conts-manage-history manage-blocks-nots">
+                            <ManageNotifications />
+                        </div>
+                        <div className="conts-manage-history manage-hidden-nots">
                     
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
