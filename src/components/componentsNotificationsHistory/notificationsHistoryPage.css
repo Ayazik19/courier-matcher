@@ -4,4 +4,25 @@
     margin-left: 17.2%;
     height: 605px;
 }
+.conts-manage-history{
+    border-radius: 8px;
+    background-color: rgb(79, 78, 78);
+}
+.notifications-display-history-left-cont{
+    min-width: 575px;
+}
+.main-content-display-operations{
+    display: grid;
+    grid-template-columns: 1.150fr 0.99fr;
+    grid-template-rows: 1fr;
+    grid-gap: 25px;
+    min-height: 614.4px;
+}
+.notifications-manage-right-cont{
+    display: grid;
+    grid-template-rows: 0.6fr 0.9fr;
+    grid-template-columns: 1fr;
+    grid-gap: 25px;
+}
+
 
