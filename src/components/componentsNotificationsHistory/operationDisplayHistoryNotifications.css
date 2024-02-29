@@ -1,9 +1,3 @@
-.notifications-display-history {
-    width: 59%;
-    height: 100%;
-    border-radius: 8px;
-    background-color: rgb(79, 78, 78);
-}
 
 .header-cont {
     width: 100%;
@@ -45,10 +39,15 @@
     flex-wrap: nowrap;
 }
 
-.display-act-filters_count-one {
+.display-act-filters_count-one_adaptiv-type-small {
     display: flex;
     align-items: center;
-    margin-left: 36%;
+    margin-left: 39.3%;
+    margin-right: 28%;
+}
+.display-act-filters_count-one_adaptiv-type-big{
+    display: block;
+    margin-left: 35.9%;
     margin-right: 28%;
 }
 
@@ -92,12 +91,22 @@
     border: 1px solid rgba(0, 0, 0, 0.565);
 }
 
+.text-attributes-filter_anim-true{
+    font-size: 14px;
+    margin-top: 4px;
+}
+
 .act-filter_sender-ss:hover,
 .act-filter_admin:hover,
-.act-filter_couriers:hover {
+.act-filter_couriers:hover{
     animation-name: tada;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
+}
+.text-attributes-filter_anim-true{
+    animation-name: tada;
+    animation-duration: 1.25s;
+    animation-iteration-count: 1;
 }
 
 .text-act-not {
@@ -191,7 +200,7 @@
     width: 150px;
     height: 83px;
     margin-left: -103px;
-    margin-top: 40px;
+    margin-top: 45px;
     transition: margin-bottom 0.1s ease;
     background-color: white;
     flex-direction: column;
@@ -202,13 +211,40 @@
     margin-top: 4px;
 }
 .attributes-filters{
-    margin-top: 6px;
+    margin-top: 3.5px;
+}
+.items-filters-null,
+.notifications-null{
+    display: block;
+    margin-top: 200px;
+    text-align: center;
+}
+.text-one-filters-null_action,
+.text-two-filters-null,
+.text-notifications-null{
+    color: white;
+    font-size: 18px;
+}
+.open-cont-add-attr:hover{
+    text-decoration: underline;
+    text-decoration-color: orange;
+    cursor: pointer;
 }
 .attributes-filters li{
     text-align: center;
     list-style-type: none;
     height: 25px;
 }
+.attr-actions-type-one_type-nots-true{
+    background-color: rgba(39, 43, 49, .5);
+}
+.attr-actions-type-two_type-nots-true{
+    background-color: rgba(39, 43, 49, .5);
+}
+.attr-actions-type-three_type-nots-true{
+    background-color: rgba(39, 43, 49, .5);
+}
+
 .attr-actions-type-one:hover,
 .attr-actions-type-two:hover,
 .attr-actions-type-three:hover{
@@ -221,6 +257,80 @@
 .attr-actions-type{
     align-items: center;
 }
+.type-filter-nots-user{
+    margin-left: 5px;
+}
+.history-nots{
+    width: 100%;
+    height: 454px;
+    border-bottom: 1px solid rgb(121, 121, 121); 
+}
+.history-nots_false{
+    width: 100%;
+    height: 333px;
+}
+.user-notification_history-cont{
+    height: 90px;
+    width: 100%;
+    border-bottom: 1px solid rgb(121, 121, 121); 
+}
+.user-notification-history_sender{
+    width: 550px;
+    height: 100%;
+    margin-left: 13px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.actions-not_history{
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    margin-top: 0px;
+    margin-left: 530px;
+    opacity: 0;
+}
+.user-notification_history-cont:hover .actions-not_history{
+    opacity: 1;
+}
+.nots-action_history {
+    position: absolute;
+    display: none;
+    margin-left: 437.5px;
+    margin-top: 32.5px; 
+    width: 115px;
+    height: 48px;
+    border-radius: 3px;
+    background-color: white;
+}
+.nots-action_history:hover {
+    display: block; 
+}
+.actions-not_history:hover + .nots-action_history{
+    display: block;
+}
+.text-notification_sender-supp-serv_history{
+    color: white;
+    font-size: 12.5px;
+    margin-top: 10px;
+    width: 97.5%;
+}
+.date-notification_history{
+    color: white;
+    font-size: 12.5px;
+    margin-top: 25px;
+}
+.display-history-notifications:hover{
+    background-color: rgba(39, 43, 49, .5);
+    cursor: pointer;
+}
+.img-action-not_history{
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    margin-left: 4px;
+    margin-top: 12.5px;
+}
+
 .footer-cont-pager-items{
     display: flex;
     flex-wrap: nowrap;
