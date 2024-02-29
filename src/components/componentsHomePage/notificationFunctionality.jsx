@@ -174,7 +174,7 @@ export default function NotificationFunctionality() {
                             isBannedNot: isBannedNot
                         }
 
-                        if (!arrayUserNotifcationsViewedDb) {
+                        if (arrayUserNotifcationsViewedDb) {
                             const fieldName = 'arrayUserNotifcationsViewed';
 
                             const addArrayNotificationsViewedData = [dataObjViewedArrNotificaion];
