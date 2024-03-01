@@ -5,7 +5,9 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { setUser, setOperationUserNotifications, setOperationInformErrors, setUserProfile, setBannedNotfications, setHideNotifications } from '../store/slices/userSlice.js';
+import { setActionFilteredNots } from '../store/slices/filteredHistoryNotSlice.js';
+import { setUser, setOperationInformErrors, setUserProfile, setOperationUserNotifications, setHideNotifications, setBannedNotfications } from '../store/slices/userSlice.js';
+import { setUserNotificationsSettings } from '../store/slices/notificationsAgreementSlice.js'; 
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './signInPage.css';
@@ -132,11 +134,17 @@ export default function SignInUserOnlyPassPage() {
                           }
                         }
                       }
+                }
                 const userNotificationsDocRef = doc(db, 'usersNotifications', user.email);
                 const userNotificationsDocSnapshot = await getDoc(userNotificationsDocRef);
 
                 if (userNotificationsDocSnapshot.exists()) {
                     const notificationsData = userNotificationsDocSnapshot.data();
+                    const notifications = notificationsData.notifications;
+                    const multipleNotifications = notificationsData.multipleNotifications;
+                    const notificationsSs = notificationsData.notificationsSs;
+                    const notificationsAdmin = notificationsData.notificationsAdmin;
+                    const notificationsCouriers = notificationsData.notificationsCouriers;
                     const arrayNotificationsHistory = notificationsData.arrayUserNotifcationsHistory || [];
                     const arrayNotificationsUnseen = notificationsData.arrayUserNotifcationsUnseen || [];
                     const arrayNotificationsViewed = notificationsData.arrayUserNotifcationsViewed || [];
@@ -212,6 +220,13 @@ export default function SignInUserOnlyPassPage() {
                             }))
                         }
             }
+                    dispatch(setUserNotificationsSettings({
+                        notifications: notifications,
+                        multipleNotifications: multipleNotifications,
+                        notificationsAdmin: notificationsAdmin,
+                        notificationsCouriers: notificationsCouriers,
+                        notificationsSs: notificationsSs
+                    }));
                     if (arrayNotificationsBanned !== undefined) {
                         for (let i = 0; i < arrayNotificationsBanned.length; i++) {
                             const elemtnsArrBanned = arrayNotificationsBanned[i];
@@ -224,9 +239,25 @@ export default function SignInUserOnlyPassPage() {
                             dispatch(setHideNotifications(objArrhide));
                         }
                     }
+                    const dataSenderTypesNotsOne ={
+                        id: 1,
+                        nameSenderNot: 'SS Coorchik'
+                    };
+                    const dataSenderTypesNotsTwo ={
+                        id: 2,
+                        nameSenderNot: 'Coorchik'
+                    };
+                    const dataSenderTypesNotsThree ={
+                        id: 3,
+                        nameSenderNot: 'Couriers'
+                    };
+                    dispatch(setActionFilteredNots(dataSenderTypesNotsOne));
+                    dispatch(setActionFilteredNots(dataSenderTypesNotsTwo));
+                    dispatch(setActionFilteredNots(dataSenderTypesNotsThree));
                 }
             }
         }
+        catch (err) {
             setLoadingData(false);
             setIsErrorUserData(true);
             console.log(err);
