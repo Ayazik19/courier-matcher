@@ -13,8 +13,10 @@ import ChangePhoneNumberUserProfileSettings from './changePhoneNumberUserProfile
 import ChangeGenderUserProfileSettings from './changeGenderUserProfileSettings.jsx';
 import ChangeDateBirthUserProfileSettings from './changeDateBirthUserProfileSettings.jsx';
 import ChangenameUserProfileSettings from './changeNameUserProfileSetting.jsx';
+import { removeSettings } from '../store/slices/notificationsAgreementSlice.js';
 import { useHookMouseFunctionalityErrorsContext } from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors.js';
 import './userAccSetingsPage.css';
+import { setRemoveFilterActs } from '../store/slices/filteredHistoryNotSlice.js';
 
 export default function UserAccSetingsPage() {
     const navigate = useNavigate();
@@ -43,8 +45,10 @@ export default function UserAccSetingsPage() {
             type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }))
+        dispatch(setRemoveFilterActs());
         dispatch(setRemoveHideNotificaitons());
         navigate('/Sign-In-password-recovery');
+        dispatch(removeSettings());
     }
     const handleSignInRedirectPage = () => {
         dispatch(removeUser());
@@ -56,8 +60,10 @@ export default function UserAccSetingsPage() {
             type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }))
+        dispatch(setRemoveFilterActs());
         dispatch(setRemoveHideNotificaitons());
         navigate('/SignIn-Registration');
+        dispatch(removeSettings());
     }
 
     useEffect(() => {

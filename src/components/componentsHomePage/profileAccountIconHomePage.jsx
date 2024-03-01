@@ -11,6 +11,8 @@ import CheckAccountPhotoProfileInfoAcc from './CheckAccountPhotoProfileInfoAcc.j
 import "./profileAccountIconHomePage.css";
 import { useHookHeaderIconsEmergenceContext } from '../globalHooks/hookHeaderNavIconsEmergence';
 import { useHookMouseFunctionalityErrorsContext } from '../../mouseFunctionalityErrors/hookMouseFunctionalityErrors';
+import { setRemoveFilterActs } from '../store/slices/filteredHistoryNotSlice.js';
+import { removeSettings } from '../store/slices/notificationsAgreementSlice.js';
 
 export default function ProfileAccountIconHomePage() {
     const { 
@@ -64,8 +66,10 @@ export default function ProfileAccountIconHomePage() {
             type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }));
+        dispatch(setRemoveFilterActs());
         dispatch(setRemoveHideNotificaitons());
         dispatch(setRemoveBannedNotifications());
+        dispatch(removeSettings());
     }
     const hadnleDispatchData = () => {
         dispatch(removeUser());
@@ -77,8 +81,10 @@ export default function ProfileAccountIconHomePage() {
             type: 'REMOVE_ALL_NOTIFICATIONS',
             payload: {}
         }))
+        dispatch(setRemoveFilterActs());
         dispatch(setRemoveHideNotificaitons());
         dispatch(setRemoveBannedNotifications());
+        dispatch(removeSettings());
     }
     const hadbleRediractionChooseCourierPage = () => {
         navigate('/ChooseCourier');
