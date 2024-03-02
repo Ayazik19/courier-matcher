@@ -1,6 +1,7 @@
 import UserAccSetingsHeaderPage from "../componentsUserAccPage/userAccSetingsHeaderPage";
 import OperationDisplayHistoryNotifications from './operationDisplayHistoryNotifications.jsx';
 import ManageNotifications from './manageNotifications.jsx';
+import ManageHiddenNotifications from './manageHiddenNotifications.jsx';
 import './notificationsHistoryPage.css';
 
 
@@ -20,7 +21,7 @@ export default function NotificationsHistoryPage(){
                             <ManageNotifications />
                         </div>
                         <div className="conts-manage-history manage-hidden-nots">
-                    
+                            <ManageHiddenNotifications />
                         </div>
                     </div>
                 </div>
