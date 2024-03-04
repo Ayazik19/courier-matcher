@@ -6,6 +6,7 @@ const initialState = {
     notificationsAdmin: true,
     notificationsSs: true,
     notificationsCouriers: true,
+    hiddenNotifications: 'Always',
 };
 
 const notificationsAgreementSlice = createSlice({
@@ -28,6 +29,9 @@ const notificationsAgreementSlice = createSlice({
             if (action.payload && action.payload.notificationsCouriers) {
                 state.notificationsCouriers = action.payload.notificationsCouriers;
             }
+            if (action.payload && action.payload.hiddenNotifications) {
+                state.hiddenNotifications = action.payload.hiddenNotifications;
+            }
         },
         setUpdNotificationsSsSettings(state, action){
             state.notificationsSs = action.payload;
@@ -44,12 +48,16 @@ const notificationsAgreementSlice = createSlice({
         setUpdMultipleNotificationsSettings(state, action){
             state.multipleNotifications = action.payload;
         },
+        setUpdHideNotificationsSettings(state, action){
+            state.hiddenNotifications = action.payload;
+        },
         removeSettings(state) {
             state.multipleNotifications = null;
             state.notificationsCouriers = null;
             state.notificationsAdmin = null;
             state.notificationsSs = null;
             state.notifications = null;
+            state.hiddenNotifications = null;
         },
     }
 })
@@ -61,6 +69,7 @@ export const {
     setUpdNotificationsAdminSettings,
     setUpdNotificationsSettings,
     setUpdNotificationsSsSettings,
+    setUpdHideNotificationsSettings
 } = notificationsAgreementSlice.actions;
 
 export default notificationsAgreementSlice.reducer;
