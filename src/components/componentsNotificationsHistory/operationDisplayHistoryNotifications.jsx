@@ -35,7 +35,8 @@ export default function OperationDisplayHistoryNotifications() {
 
     const lengthHistory = notificationsHistory.length;
     const countPagesDisplay = lengthHistory / 5;
-    const isDisplay = lengthHistory / 5 > 1;
+    const isDisplay = lengthHistory / 5 > 0;
+
     const roundingCountSlice = Math.ceil(countPagesDisplay);
 
     const removeFilterPayloadArr = [];
@@ -61,7 +62,6 @@ export default function OperationDisplayHistoryNotifications() {
             for (let i = 0; i < roundingCountSlice; i++) {
                 const sliceNots = removeFilterPayloadArr.slice(i * 5, (i + 1) * 5);
                 sliceArrayNots.push(sliceNots);
-                console.log(sliceArrayNots);
             }
         }
         setUpdDataArrHistoryNot(sliceArrayNots);
@@ -69,6 +69,7 @@ export default function OperationDisplayHistoryNotifications() {
 
     const [eventClickTracking, setEventClickTracking] = useState(1);
     const [isShowAttribFilters, setShowAttribFilters] = useState(false);
+
     // hover effects to actions, where have been nots
     const [hoverEffectActSs, setHoverEffectActSs] = useState(false);
     const [hoverEffectActAdmin, setHoverEffectActAdmin] = useState(false);
@@ -121,6 +122,7 @@ export default function OperationDisplayHistoryNotifications() {
         setIsSenderSs(arrActionFilteredNots.find(item => item.nameSenderNot === 'SS Coorchik'))
         setIsSenderCouriers(arrActionFilteredNots.find(item => item.nameSenderNot === 'Couriers'))
     }, [lengthActFilters]);
+
     const arrActionHistoryType = ['SS Coorchik', 'Coorchik', 'Couriers'];
     let dataTypeNotsUserArr = [];
     for (let i = 0; i < arrActionHistoryType.length; i++) {
@@ -138,6 +140,7 @@ export default function OperationDisplayHistoryNotifications() {
             </span>
         );
     });
+
 
 
     useEffect(() => {
@@ -174,7 +177,6 @@ export default function OperationDisplayHistoryNotifications() {
             setSaveData();
         }
     }
-
     const handleAddTypeFilterSs = () => {
         const isFilterSsNull = arrActionFilteredNots.find(items => items.nameSenderNot === 'SS Coorchik') ? true : false;
         if (!isFilterSsNull) {
@@ -353,7 +355,7 @@ export default function OperationDisplayHistoryNotifications() {
     }, [showPageOneNot, showPageTwoNot, showPageThreeNot, showPageFourNot, showPageFiveNot, showPageSixNot, showPageSevenNot, showPageEightNot])
 
     useEffect(() => {
-        if (isDisplay) {
+        if (lengthHistory / 5 > 1) {
             const pagesOne = [];
             const pagesTwo = [];
             const sliceCountPagesDisplay = roundingCountSlice >= 4 && 7 >= roundingCountSlice ? true : false;
@@ -369,7 +371,7 @@ export default function OperationDisplayHistoryNotifications() {
                     );
                 }
             }
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < roundingCountSlice; i++) {
                 const isSelectedPage = getIsSelectedPage(i);
                 pagesOne.push(
                     <div key={i} className={isSelectedPage ? `count-${i + 1} pager-cont_choosen` : `count-${i + 1} pager-cont`} onClick={() => handleShowListPage(i)}>
@@ -453,7 +455,7 @@ export default function OperationDisplayHistoryNotifications() {
                     </div>
                     :
                     <div className='history-nots_false'>
-                        {dataTypeNotsUserArr ?
+                        {dataTypeNotsUserArr && notificationsHistory > 0?
                             <div className='items-filters-null'>
                                 <span className='text-one-filters-null_action' onClick={handleShowContAddFilters}>
                                     Select a type filter{displayDataTypeNotsUser}
@@ -470,7 +472,7 @@ export default function OperationDisplayHistoryNotifications() {
                 }
                 {arrActionFilteredNots.length !== 0 ?
                     <div className='footer-cont-pager-items'>
-                        {!showPageFiveNot && updDataArrHistoryNot.length > 4 ?
+                        {!showPageFiveNot && 1 < updDataArrHistoryNot.length && updDataArrHistoryNot.length <= 4 ?
                             <>
                                 {footerContHistoryNotSliceOne}
                                 <div className='pager-cont-ii list-item_type-next' onClick={handleNextPage}>
