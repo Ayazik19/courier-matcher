@@ -117,6 +117,7 @@ export default function SignInPage() {
                     const notificationsSs = notificationsData.notificationsSs;
                     const notificationsAdmin = notificationsData.notificationsAdmin;
                     const notificationsCouriers = notificationsData.notificationsCouriers;
+                    const hiddenNotifications = notificationsData.hiddenNotifications;
                     const arrayNotificationsHistory = notificationsData.arrayUserNotifcationsHistory || [];
                     const arrayNotificationsUnseen = notificationsData.arrayUserNotifcationsUnseen || [];
                     const arrayNotificationsViewed = notificationsData.arrayUserNotifcationsViewed || [];
@@ -197,7 +198,8 @@ export default function SignInPage() {
                         multipleNotifications: multipleNotifications,
                         notificationsAdmin: notificationsAdmin,
                         notificationsCouriers: notificationsCouriers,
-                        notificationsSs: notificationsSs
+                        notificationsSs: notificationsSs,
+                        hiddenNotifications: hiddenNotifications
                     }));
                     if (arrayNotificationsBanned !== undefined) {
                         for (let i = 0; i < arrayNotificationsBanned.length; i++) {
