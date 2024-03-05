@@ -95,7 +95,7 @@ export default function RegistrationPage() {
                 multipleNotifications: true,
                 notificationsAdmin: true,
                 notificationsSs: true,
-                notificationsCouriers: true
+                hiddenNotifications: 'Always'
             };
 
             const historyNotificationsRef = doc(userNotificationsCollection, user.email);
@@ -115,7 +115,8 @@ export default function RegistrationPage() {
                 multipleNotifications: true,
                 notificationsAdmin: true,
                 notificationsSs: true,
-                notificationsCouriers: true
+                notificationsCouriers: true,
+                hiddenNotifications: 'Always'
             }));
             dispatch(setOperationUserNotifications({}));
                 setSelectedElement(false);
